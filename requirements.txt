@@ -1,0 +1,12 @@
+loguru
+pip
+python-dotenv
+ruff
+tqdm
+typer
+ipython
+tensorflow
+pandas
+numpy
+scikit-learn
+-e .
