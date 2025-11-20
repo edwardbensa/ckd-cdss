@@ -210,3 +210,5 @@ __marimo__/
 .gitkeep
 
 src/_template
+src/dipstick_classifier
+src/dipstick_clf/tests

@@ -1,3 +1,4 @@
+'''Configuration module for project paths and logging setup.'''
 from pathlib import Path
 
 from dotenv import load_dotenv
