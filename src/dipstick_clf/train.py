@@ -11,17 +11,19 @@ IMG_DIR = RAW_DATA_DIR / "dipstick_imgs_simple"
 DATA_CONFIG = IMG_DIR / "dipstick.yaml"
 
 # Model paths
-MODELS_DIR = MODELS_DIR / "dipstick_detection2"
+MODELS_DIR = MODELS_DIR / "dipstick_detection5"
 PRETRAINED_DIR = MODELS_DIR / "pretrained"
 PRETRAINED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Training parameters
-MODEL_ARCH = PRETRAINED_DIR / "yolov8s.pt"   # small YOLOv8 backbone
-EPOCHS = 100
-IMG_SIZE = 1280
-BATCH_SIZE = 16
+MODEL_ARCH = PRETRAINED_DIR / "yolov8m.pt"
+EPOCHS = 200
+IMG_SIZE = 1000
+BATCH_SIZE = 8
 LEARNING_RATE = 0.01
 PATIENCE = 20
+
+torch.cuda.empty_cache()
 
 def train():
     """Train YOLOv8 model for dipstick detection."""
@@ -29,10 +31,10 @@ def train():
 
     # Load model
     model = YOLO(MODEL_ARCH)
-    # Use MPS if available
-    #if torch.backends.mps.is_available():
-    #    device = "mps"
-    #    model.to(device)
+    # Use CUDA if available
+    if torch.cuda.is_available():
+        device = "cuda"
+        model.to(device)
 
     # Train
     results = model.train(
@@ -52,7 +54,7 @@ def train():
         shear=0.0,
         perspective=0.02, # mild perspective warp
         project=str(MODELS_DIR),
-        name="yolov8_dipstick_granular"
+        name="yolov8_dipstick_simple"
     )
 
     logger.success("Training complete.")
