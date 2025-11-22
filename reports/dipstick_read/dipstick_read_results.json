@@ -1,0 +1,129 @@
+[
+    {
+        "image": "IMG_6434_jpg.rf.3e271a68f6d0caf9bbbd9ab7c48daa3d.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 17.15)",
+            "GLUCOSE": "neg (\u0394E: 54.19)",
+            "BILIRUBIN": "neg (\u0394E: 10.94)",
+            "SG": "1.060 (\u0394E: 61.53)",
+            "BLOOD": "non hemolysis+10 (\u0394E: 17.86)",
+            "PH": "6 (\u0394E: 21.43)",
+            "PROTEIN": "trace (\u0394E: 23.06)",
+            "NITRITE": "neg (\u0394E: 11.67)",
+            "LEUKOCYTES": "neg (\u0394E: 16.78)"
+        }
+    },
+    {
+        "image": "IMG_6465_jpg.rf.17c4a8b12459523b414bc34b46211768.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 10.01)",
+            "GLUCOSE": "neg (\u0394E: 48.38)",
+            "BILIRUBIN": "neg (\u0394E: 13.23)",
+            "KETONES": "neg (\u0394E: 8.33)",
+            "SG": "1.060 (\u0394E: 58.26)",
+            "BLOOD": "non hemolysis+10 (\u0394E: 13.89)",
+            "PROTEIN": "trace (\u0394E: 17.14)",
+            "LEUKOCYTES": "neg (\u0394E: 5.45)"
+        }
+    },
+    {
+        "image": "IMG_6458_jpg.rf.bac6427d86d0c62691c6bdfd0fe87de9.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 8.79)",
+            "GLUCOSE": "neg (\u0394E: 39.28)",
+            "BILIRUBIN": "neg (\u0394E: 13.99)",
+            "BLOOD": "+++250 (\u0394E: 12.08)",
+            "PH": "6 (\u0394E: 14.23)",
+            "PROTEIN": "trace (\u0394E: 13.45)",
+            "NITRITE": "neg (\u0394E: 6.99)",
+            "LEUKOCYTES": "neg (\u0394E: 5.68)"
+        }
+    },
+    {
+        "image": "171-05D62A959BF41FA9-image-test-9044ac6a-7033-439d-9746-87bc9b9315eb_jpg.rf.68692ea8df60123e33ff2f59f275179f.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 18.51)",
+            "GLUCOSE": "100(5.5) (\u0394E: 30.54)",
+            "BILIRUBIN": "neg (\u0394E: 7.78)",
+            "KETONES": "neg (\u0394E: 20.48)",
+            "SG": "1.060 (\u0394E: 27.36)",
+            "BLOOD": "non hemolysis+10 (\u0394E: 17.90)",
+            "PH": "6 (\u0394E: 21.52)",
+            "PROTEIN": "neg (\u0394E: 22.25)",
+            "LEUKOCYTES": "neg (\u0394E: 24.51)"
+        }
+    },
+    {
+        "image": "212-850C0F1552D05F6A-image-test-9470e4d2-abf5-4e29-8365-67cad4b7f781_jpg.rf.814a90f28cbb5b57a5ec4a9a168d6faf.jpg",
+        "results": {
+            "GLUCOSE": "neg (\u0394E: 58.10)"
+        }
+    },
+    {
+        "image": "200-30080C3A3BF3B09D-image-test-7c8b4a96-8728-486d-a436-db8f06135b77_jpg.rf.d7c21145022731e2c997276dac6db904.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 12.11)",
+            "GLUCOSE": "neg (\u0394E: 48.38)",
+            "BILIRUBIN": "neg (\u0394E: 13.84)",
+            "KETONES": "neg (\u0394E: 16.65)",
+            "SG": "1.060 (\u0394E: 52.40)",
+            "BLOOD": "non hemolysis+10 (\u0394E: 17.68)",
+            "PROTEIN": "trace (\u0394E: 27.64)",
+            "NITRITE": "neg (\u0394E: 15.96)",
+            "LEUKOCYTES": "neg (\u0394E: 17.90)"
+        }
+    },
+    {
+        "image": "165-58830D65459181A5-image-test-7f0cd9af-5717-4fe4-a60f-09c89d4bfa16_jpg.rf.da664471fc50e95a7f1979f50f742496.jpg",
+        "results": {
+            "UROBILINOGEN": "1(16) (\u0394E: 10.50)",
+            "GLUCOSE": "neg (\u0394E: 22.47)",
+            "BILIRUBIN": "neg (\u0394E: 22.09)",
+            "KETONES": "neg (\u0394E: 11.72)",
+            "SG": "1.060 (\u0394E: 25.68)",
+            "BLOOD": "neg (\u0394E: 15.20)",
+            "PH": "6 (\u0394E: 15.33)",
+            "PROTEIN": "+30(0.3) (\u0394E: 6.06)",
+            "NITRITE": "neg (\u0394E: 5.61)",
+            "LEUKOCYTES": "neg (\u0394E: 12.05)"
+        }
+    },
+    {
+        "image": "194-902767D22A8B9F15-image-test-669f19e3-6806-45bf-9d08-60bceb4fb3d9_jpg.rf.5ea4ed934239f7a171fae350333603f8.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 18.40)",
+            "GLUCOSE": "neg (\u0394E: 52.61)",
+            "KETONES": "neg (\u0394E: 22.03)",
+            "PH": "6 (\u0394E: 22.31)",
+            "PROTEIN": "trace (\u0394E: 29.66)",
+            "NITRITE": "neg (\u0394E: 9.79)",
+            "LEUKOCYTES": "neg (\u0394E: 6.01)"
+        }
+    },
+    {
+        "image": "IMG_6459_jpg.rf.d5ff2bc8239d04ef2f947cdb1fcb7c73.jpg",
+        "results": {
+            "UROBILINOGEN": "8(131) (\u0394E: 9.08)",
+            "GLUCOSE": "1000(55) (\u0394E: 47.22)",
+            "BILIRUBIN": "+++ (\u0394E: 13.31)",
+            "BLOOD": "hemolysis+10 (\u0394E: 12.33)",
+            "PH": "8 (\u0394E: 14.57)",
+            "PROTEIN": "neg (\u0394E: 12.40)",
+            "NITRITE": "neg (\u0394E: 7.24)",
+            "LEUKOCYTES": "neg (\u0394E: 5.54)"
+        }
+    },
+    {
+        "image": "186-704352C6863697BA-image-test-7051c886-c664-4eb0-9d47-f9a625a9cf21_jpg.rf.f90514c9578089e08f454496bc4eca74.jpg",
+        "results": {
+            "UROBILINOGEN": "0.1 (\u0394E: 17.60)",
+            "GLUCOSE": "100(5.5) (\u0394E: 30.69)",
+            "KETONES": "neg (\u0394E: 20.59)",
+            "SG": "1.060 (\u0394E: 20.73)",
+            "BLOOD": "non hemolysis+10 (\u0394E: 15.32)",
+            "PH": "6 (\u0394E: 16.07)",
+            "PROTEIN": "trace (\u0394E: 19.26)",
+            "LEUKOCYTES": "neg (\u0394E: 24.18)"
+        }
+    }
+]

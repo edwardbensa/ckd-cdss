@@ -1,9 +1,12 @@
 """Utility functions for preprocessing dipstick dataset."""
 
+import os
 import json
 import shutil
 from pathlib import Path
 from loguru import logger
+from PIL import Image
+from src.config import DIPSTICK_IMAGES_DIR
 
 # --- RELABELING MAPPINGS AND FUNCTIONS ---
 
@@ -13,9 +16,7 @@ PLAIN_CLASS_MAP = {
     "pad": 0,
     # Reference square classes (10)
     "urobilinogen": 1, "glucose": 2, "bilirubin": 3, "ketones": 4, "SG": 5,
-    "blood": 6, "ph": 7, "protein": 8, "nitrite": 9, "leukocytes": 10,
-    # Utility classes
-    "hand": 11
+    "blood": 6, "ph": 7, "protein": 8, "nitrite": 9, "leukocytes": 10
 }
 
 SIMPLE_CLASS_MAP = {
@@ -25,9 +26,7 @@ SIMPLE_CLASS_MAP = {
     "pad_leukocytes": 9,
     # Reference square classes (10)
     "urobilinogen": 10, "glucose": 11, "bilirubin": 12, "ketones": 13, "SG": 14,
-    "blood": 15, "ph": 16, "protein": 17, "nitrite": 18, "leukocytes": 19,
-    # Utility classes
-    "hand": 20
+    "blood": 15, "ph": 16, "protein": 17, "nitrite": 18, "leukocytes": 19
 }
 
 GRANULAR_CLASS_MAP = {
@@ -45,9 +44,12 @@ GRANULAR_CLASS_MAP = {
     "ph1": 42, "ph2": 43, "ph3": 44, "ph4": 45, "ph5": 46, "ph6": 47,
     "protein1": 48, "protein2": 49, "protein3": 50, "protein4": 51, "protein5": 52, "protein6": 53,
     "nitrite1": 54, "nitrite2": 55, "nitrite3": 56,
-    "leukocytes1": 57, "leukocytes2": 58, "leukocytes3": 59, "leukocytes4": 60,
+    "leukocytes1": 57, "leukocytes2": 58, "leukocytes3": 59, "leukocytes4": 60
+}
+
+ROTATION_CLASS_MAP = {
     # Utility classes
-    "hand": 61
+    "strip": 0, "hand":1
 }
 
 # Helper map for relabeling pads
@@ -78,127 +80,185 @@ def determine_rotation(image, category_map, anns):
     else:
         return 270
 
-def select_anns(category_map, category_name, anns, ann_type):
-    """Select annotations of a given type (pad, reference, or hand)."""
-    if ann_type == "pad":
-        selected_anns = [a for a in anns if a["category_id"] == category_map.get("stripe_color")]
-    elif ann_type == "reference":
-        selected_anns = [a for a in anns if a["category_id"] == category_map.get(category_name)]
-    elif ann_type == "hand":
-        selected_anns = [a for a in anns if a["category_id"] == category_map.get("hand")]
-    else:
-        raise ValueError("ann_type must be 'pad', 'reference', or 'hand'")
-    return selected_anns
+def rotate_anns(image, anns, rotation):
+    """
+    Rotates COCO bounding box annotations (x_min, y_min, w, h) to match a 
+    counterclockwise image rotation applied to correct a clockwise rotation.
+    """
+    if rotation == 0:
+        return anns
 
-def sort_anns(selected_anns, rotation, ann_type):
-    """Sort selected annotations based on image rotation and annotation type."""
-    if ann_type not in ["pad", "reference"]:
-        raise ValueError("ann_type must be 'pad' or 'reference'")
+    W, H = image["width"], image["height"]
+    corrected_anns = []
 
-    pad_sort_rules = {
-        0:  (lambda a: a["bbox"][1], False),   # y_min
-        90: (lambda a: a["bbox"][0], True),    # x_min desc
-        180:(lambda a: a["bbox"][1], True),    # y_min desc
-        270:(lambda a: a["bbox"][0], False)    # x_min
-    }
+    # Update image dimensions for 90/270 rotations
+    if rotation in [90, 270]:
+        image["width"], image["height"] = H, W
 
-    ref_sort_rules = {
-        0:  (lambda a: a["bbox"][0], False),   # x_min
-        90: (lambda a: a["bbox"][1], True),    # y_min desc
-        180:(lambda a: a["bbox"][0], True),    # x_min desc
-        270:(lambda a: a["bbox"][1], False)    # y_min
-    }
+    # Correct bounding boxes
+    for ann in anns:
+        x, y, w, h = ann["bbox"]
 
-    sort_rules = pad_sort_rules if ann_type == "pad" else ref_sort_rules
-    key_fn, reverse_flag = sort_rules[rotation]
+        # Initialize new bbox with original values
+        x_new, y_new, w_new, h_new = x, y, w, h
 
-    sorted_anns = sorted(selected_anns, key=key_fn, reverse=reverse_flag)
-    return sorted_anns
+        if rotation == 90:
+            # 90° Clockwise original means 90° CCW correction is needed.
+            # (x, y) -> (y, W - x - w)
+            x_new = y
+            y_new = W - x - w
+            w_new = h
+            h_new = w
 
-def relabel_anns(sorted_anns, category_name, ann_type, relabel_method):
-    """Relabel sorted annotations using class maps based on relabel method."""
-    if relabel_method not in ["simple", "granular"]:
-        raise ValueError("relabel_method must be 'simple' or 'granular'")
+        elif rotation == 180:
+            # 180° Clockwise original means 180° CCW correction is needed.
+            # (x, y) -> (W - x - w, H - y - h)
+            x_new = W - x - w
+            y_new = H - y - h
+            w_new = w
+            h_new = h
 
-    relabeled_anns = []
-    for i, ann in enumerate(sorted_anns):
-        new_ann = ann.copy()
-        if ann_type == "pad":
-            if i in PAD_INDEX_TO_TEST:
-                new_name = f"pad_{PAD_INDEX_TO_TEST[i]}"
-                new_ann["category_id"] = SIMPLE_CLASS_MAP[new_name]
-        elif ann_type == "reference" and relabel_method == "simple":
-            new_ann["category_id"] = SIMPLE_CLASS_MAP[category_name]
-        elif ann_type == "reference" and relabel_method == "granular":
-            new_name = f"{category_name}{i+1}"
-            new_ann["category_id"] = GRANULAR_CLASS_MAP[new_name]
+        elif rotation == 270:
+            # 270° Clockwise original means 270° CCW correction is needed.
+            # (x, y) -> (H - y - h, x)
+            x_new = H - y - h
+            y_new = x
+            w_new = h
+            h_new = w
+
         else:
-            raise ValueError("ann_type must be 'pad' or 'reference'")
-        relabeled_anns.append(new_ann)
+            logger.error(f"Invalid rotation angle encountered: {rotation}")
+
+        new_ann = ann.copy()
+        new_ann["bbox"] = [x_new, y_new, w_new, h_new]
+        corrected_anns.append(new_ann)
+
+    return corrected_anns
+
+def relabel_pads(category_map, anns, relabel_method):
+    """Select, sort and relabel the dipstick pad annotations."""
+    relabeled_anns = []
+
+    selected_anns = [a.copy() for a in anns if a["category_id"] == category_map.get("stripe_color")]
+    sorted_anns = sorted(selected_anns, key=lambda a: a["bbox"][1])
+
+    for i, ann in enumerate(sorted_anns):
+        if relabel_method == "plain":
+            new_name = "pad"
+            ann["category_id"] = PLAIN_CLASS_MAP[new_name]
+        elif relabel_method == "simple":
+            new_name = f"pad_{PAD_INDEX_TO_TEST[i]}"
+            ann["category_id"] = SIMPLE_CLASS_MAP[new_name]
+        else: # relabel_method == "granular":
+            new_name = f"pad_{PAD_INDEX_TO_TEST[i]}"
+            ann["category_id"] = GRANULAR_CLASS_MAP[new_name]
+        relabeled_anns.append(ann)
 
     return relabeled_anns
 
+def relabel_references(category_map, anns, relabel_method):
+    """Select, sort and relabel the dipstick pad annotations."""
+    tests = list(PAD_INDEX_TO_TEST.values())
+    relabeled_anns = []
+
+    for test in tests:
+        selected_anns = [a.copy() for a in anns if a["category_id"] == category_map.get(test)]
+        sorted_anns = sorted(selected_anns, key=lambda a: a["bbox"][0])
+
+        for i, ann in enumerate(sorted_anns):
+            if relabel_method == "plain":
+                new_name = test
+                ann["category_id"] = PLAIN_CLASS_MAP[new_name]
+            elif relabel_method == "simple":
+                new_name = test
+                ann["category_id"] = SIMPLE_CLASS_MAP[new_name]
+            else: # relabel_method == "granular":
+                new_name = f"{test}{i+1}"
+                ann["category_id"] = GRANULAR_CLASS_MAP[new_name]
+            relabeled_anns.append(ann)
+
+    return relabeled_anns
+
+def relabel_utils(category_map, anns):
+    """Select, sort and relabel the dipstick pad annotations."""
+    utils = list(ROTATION_CLASS_MAP.keys())
+    relabeled_anns = []
+
+    for util in utils:
+        selected_anns = [a.copy() for a in anns if a["category_id"] == category_map.get(util)]
+
+        for ann in selected_anns:
+            ann["category_id"] = ROTATION_CLASS_MAP[util]
+            relabeled_anns.append(ann)
+
+    return relabeled_anns
+
+
 def generate_anns(image, anns, category_map, relabel_method):
     """Generate relabelled annotations for pads and reference squares in an image."""
+
+    # Rotations
     rotation = determine_rotation(image, category_map, anns)
+    rotated_anns = rotate_anns(image, anns, rotation)
     new_anns = []
 
-    # Relabel pads
-    pad_anns = select_anns(category_map, "", anns, "pad")
-    sorted_pads = sort_anns(pad_anns, rotation, "pad")
-    relabelled_pads = relabel_anns(sorted_pads, "", "pad", relabel_method)
-    new_anns.extend(relabelled_pads)
+    if relabel_method != "rotation":
+        # Relabel pads
+        pad_anns = relabel_pads(category_map, rotated_anns, relabel_method)
+        new_anns.extend(pad_anns)
 
-    # Relabel reference squares
-    for test in PAD_INDEX_TO_TEST.values():
-        ref_anns = select_anns(category_map, test, anns, "reference")
-        sorted_refs = sort_anns(ref_anns, rotation, "reference")
-        relabelled_refs = relabel_anns(sorted_refs, test, "reference", relabel_method)
-        new_anns.extend(relabelled_refs)
-
-    # Relabel hand annotation
-    hand_anns = select_anns(category_map, "", anns, "hand")
-    for hand_ann in hand_anns:
-        if relabel_method == "simple":
-            hand_ann["category_id"] = SIMPLE_CLASS_MAP["hand"]
-        else:
-            hand_ann["category_id"] = GRANULAR_CLASS_MAP["hand"]
-        new_anns.append(hand_ann)
+        # Relabel reference squares
+        ref_anns = relabel_references(category_map, rotated_anns, relabel_method)
+        new_anns.extend(ref_anns)
+    else:
+        # Relabel utility classes
+        util_anns = relabel_utils(category_map, anns)
+        new_anns.extend(util_anns)
 
     return new_anns
 
 def update_categories(relabel_method):
     """Generate new categories list based on relabel method."""
-    if relabel_method not in ["simple", "granular"]:
-        raise ValueError("relabel_method must be 'simple' or 'granular'")
-
-    class_map = SIMPLE_CLASS_MAP if relabel_method == "simple" else GRANULAR_CLASS_MAP
+    class_maps = {
+        "plain": PLAIN_CLASS_MAP,
+        "simple": SIMPLE_CLASS_MAP,
+        "granular": GRANULAR_CLASS_MAP,
+        "rotation": ROTATION_CLASS_MAP
+    }
 
     new_categories = []
-    for name, new_id in class_map.items():
-        name = name if relabel_method == "simple" else name[:-1]
-        new_categories.append({
-            "id": new_id,
-            "name": name,
-            "supercategory": "pads" if name.startswith("pad")
-            else "reference" if name in list(PAD_INDEX_TO_TEST.values())
-            else "utility"
-        })
+    for name, new_id in class_maps[relabel_method].items():
+        if relabel_method != "rotation":
+            name = name[:-1] if relabel_method == "granular" else name
+            new_categories.append({
+                "id": new_id,
+                "name": name,
+                "supercategory": "pads" if name.startswith("pad")
+                else "reference"
+                })
+        else:
+            new_categories.append({
+                "id": new_id,
+                "name": name,
+                "supercategory": "utility"
+                })
+
     return new_categories
 
-def relabel_annotations(directory, split: str, relabel_method: str):
-    """Relabel pads and reference squares in COCO annotations for a split
+def modify_annotations(directory, split: str, relabel_method: str):
+    """
+    Rotate and relabel pads and reference squares in COCO annotations for a split
     to match the specified relabel method.
     """
-    if relabel_method not in ["simple", "granular"]:
-        raise ValueError("relabel_method must be 'simple' or 'granular'")
-
     ann_path = directory / split / "labels" / "_annotations.coco.json"
     with open(ann_path, "r", encoding="utf-8") as f:
         coco = json.load(f)
 
     # Build category maps
     categories = coco["categories"]
+    for cat in categories:
+        if cat["name"] == "stripes":
+            cat["name"] = "strip"
     category_map = {c["name"]: c["id"] for c in categories}
 
     # Create new annotations list for images
@@ -208,6 +268,8 @@ def relabel_annotations(directory, split: str, relabel_method: str):
         new_anns = generate_anns(img, anns, category_map, relabel_method=relabel_method)
         new_annotations.extend(new_anns)
         logger.info(f"Processed image id {img['id']} with {len(anns)} annotations.")
+    for i, ann in enumerate(new_annotations):
+        ann["id"] = i
     coco["annotations"] = new_annotations
 
     # Update categories
@@ -216,8 +278,72 @@ def relabel_annotations(directory, split: str, relabel_method: str):
     # Save updated JSON
     with open(ann_path, "w", encoding="utf-8") as f:
         json.dump(coco, f, indent=2)
-    logger.success(f"Processed {split}, saved {ann_path}")
+    logger.success(f"Modified {split} split with {relabel_method} method. Saved to {ann_path}")
 
+def rotate_images(directory, split: str, relabel_method):
+    """
+    Rotate images to 0 degrees if rotation is 90, 180, or 270 clockwise.
+    """
+    if relabel_method == "rotation":
+        logger.info("Relabel method is 'rotation'. No image rotation necessary")
+    else:
+        img_dir = directory / split / "images"
+
+        ann_path = directory / split / "labels" / "_annotations.coco.json"
+        with open(ann_path, "r", encoding="utf-8") as f:
+            coco = json.load(f)
+
+        # Build category maps
+        categories = coco["categories"]
+        category_map = {c["name"]: c["id"] for c in categories}
+
+        # Determine image rotation and rotate images
+        for img_ann in coco["images"]:
+            img_file = img_dir / img_ann["file_name"]
+            img = Image.open(img_file)
+            anns = [a for a in coco["annotations"] if a["image_id"] == img_ann["id"]]
+            rotation = determine_rotation(img_ann, category_map, anns)
+
+            # Map clockwise rotations to counterclockwise corrections
+            rotation_map = {
+                0: None,
+                90: Image.Transpose.ROTATE_90,
+                180: Image.Transpose.ROTATE_180,
+                270: Image.Transpose.ROTATE_270
+            }
+
+            if rotation not in rotation_map:
+                logger.error(f"Invalid rotation value: {rotation}")
+                raise ValueError("Rotation must be one of [0, 90, 180, 270]")
+
+            if rotation != 0:
+                logger.debug(f"Rotated {img_ann["file_name"]} {rotation}° counterclockwise.")
+                img = img.transpose(rotation_map[rotation])
+                img.save(img_file)
+            else:
+                logger.info(f"No rotation needed for {img_ann["file_name"]}.")
+        logger.success("Image rotations complete.")
+
+
+def create_folders(directory, relabel_method):
+    """Makes version of image folder for selected relabelling method."""
+
+    # Refresh DIPSTICK_IMAGES_DIR
+    if os.path.exists(DIPSTICK_IMAGES_DIR):
+        shutil.rmtree(DIPSTICK_IMAGES_DIR)
+    os.mkdir(DIPSTICK_IMAGES_DIR)
+
+    relabel_methods = [relabel_method, "rotation"]
+    new_dirs = []
+
+    # Create dataset copies for rotation and selected relabeling method
+    for method in relabel_methods:
+        output_dir = DIPSTICK_IMAGES_DIR / f"imgs_{method}"
+        new_dir = shutil.copytree(directory, output_dir)
+        new_dirs.append(new_dir)
+        logger.success(f"Image dataset created for {method} relabeling.")
+
+    return relabel_methods, new_dirs
 
 def yolo_folders(directory: Path, split: str):
     """Restructure a split into YOLO format: images/, labels/."""
@@ -231,28 +357,17 @@ def yolo_folders(directory: Path, split: str):
     images_dir.mkdir(exist_ok=True)
     labels_dir.mkdir(exist_ok=True)
 
-    # Move image files into images/
+    # Move annotation and image files into appropriate directories
     for file in split_dir.glob("*.*"):
         if file.name.startswith("_annotations"):
-            continue
+            dest = labels_dir / file.name
+            shutil.move(str(file), str(dest))
+            logger.info(f"Moved annotation to {dest}")
         if file.suffix.lower() in [".jpg", ".jpeg", ".png"]:
             dest = images_dir / file.name
             if not dest.exists():
                 shutil.move(str(file), str(dest))
-                logger.info(f"Moved {file.name} → {dest}")
 
-    # Handle annotation JSONs
-    relabelled_json = split_dir / "_annotations.relabelled.coco.json"
-    old_json = split_dir / "_annotations.coco.json"
-
-    # Prefer relabelled JSON if present
-    src_json = relabelled_json if relabelled_json.exists() else old_json
-    if src_json.exists():
-        new_json = labels_dir / "_annotations.coco.json"
-        shutil.move(str(src_json), str(new_json))
-        logger.info(f"Moved {src_json} → {new_json}")
-    else:
-        logger.warning(f"No annotation JSON found in {split_dir}")
 
 
 def coco_to_yolo(coco_json_path: Path, labels_dir: Path):
@@ -264,7 +379,7 @@ def coco_to_yolo(coco_json_path: Path, labels_dir: Path):
     categories = coco["categories"]
     id_to_index = {c["id"]: i for i, c in enumerate(categories)}
 
-    # Map image_id → image info
+    # Map image_id to image info
     images = {img["id"]: img for img in coco["images"]}
 
     # Clear existing .txt files
@@ -297,7 +412,7 @@ def coco_to_yolo(coco_json_path: Path, labels_dir: Path):
 
         ann_count += 1
 
-    logger.success(f"Converted {ann_count} annotations from {coco_json_path} → YOLO TXT in {labels_dir}")
+    logger.success(f"Converted {ann_count} annotations from {coco_json_path} -> YOLO TXT in {labels_dir}")
 
 def generate_yolo_txt(directory: Path, split: str):
     """Convert a split's COCO JSON to YOLO TXT files."""
@@ -313,10 +428,12 @@ def generate_yolo_yaml(output_dir: Path, relabel_method: str = "simple"):
     Generate a YOLO dataset YAML in output_dir using the chosen relabel_method.
     """
     output_dir = Path(output_dir)
-    if relabel_method not in {"simple", "granular"}:
-        raise ValueError("relabel_method must be 'simple' or 'granular'")
-
-    class_map = SIMPLE_CLASS_MAP if relabel_method == "simple" else GRANULAR_CLASS_MAP
+    class_maps = {
+        "plain": PLAIN_CLASS_MAP,
+        "simple": SIMPLE_CLASS_MAP,
+        "granular": GRANULAR_CLASS_MAP,
+        "rotation": ROTATION_CLASS_MAP
+    }
 
     yaml_name = "dipstick.yaml"
     yaml_path = output_dir / yaml_name
@@ -333,7 +450,7 @@ def generate_yolo_yaml(output_dir: Path, relabel_method: str = "simple"):
         f.write("# Classes\n")
         f.write("names:\n")
 
-        for name, idx in class_map.items():
+        for name, idx in class_maps[relabel_method].items():
             f.write(f"  {idx}: {name}\n")
 
     logger.success(f"Generated YOLO YAML at {yaml_path} ({relabel_method} classes)")
