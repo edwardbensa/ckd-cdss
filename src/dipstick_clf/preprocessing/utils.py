@@ -442,7 +442,6 @@ def generate_yolo_yaml(output_dir: Path, relabel_method: str = "simple"):
         f.write("# YOLOv8 dataset config for dipstick detection\n")
         f.write("\n")
         f.write("# Paths\n")
-        f.write(f"path: {output_dir}\n")
         f.write("train: train/images\n")
         f.write("val: valid/images\n")
         f.write("test: test/images\n")

@@ -1,7 +1,6 @@
 # YOLOv8 dataset config for dipstick detection
 
 # Paths
-path: /Users/Edward/DS/Projects/ckd-cdss/data/raw/dipstick_images/imgs_simple
 train: train/images
 val: valid/images
 test: test/images
