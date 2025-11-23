@@ -32,7 +32,7 @@ PRETRAINED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Training parameters
 MODEL_ARCH = PRETRAINED_DIR / "yolov8m.pt"
-EPOCHS = 100
+EPOCHS = 200
 IMG_SIZE = 800
 BATCH_SIZE = 8
 LEARNING_RATE = 0.01
