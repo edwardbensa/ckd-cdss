@@ -1,0 +1,20 @@
+# YOLOv8 dataset config for dipstick detection
+
+# Paths
+train: train/images
+val: valid/images
+test: test/images
+
+# Classes
+names:
+  0: pad
+  1: urobilinogen
+  2: glucose
+  3: bilirubin
+  4: ketones
+  5: SG
+  6: blood
+  7: ph
+  8: protein
+  9: nitrite
+  10: leukocytes

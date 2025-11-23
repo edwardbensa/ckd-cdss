@@ -7,7 +7,7 @@ from ultralytics import YOLO # type: ignore
 from loguru import logger
 from src.config import DIPSTICK_IMAGES_DIR, MODELS_DIR
 
-RELABEL_METHOD = "simple"
+RELABEL_METHOD = "plain"
 
 # Dataset paths
 IMG_DIR = DIPSTICK_IMAGES_DIR / f"imgs_{RELABEL_METHOD}"

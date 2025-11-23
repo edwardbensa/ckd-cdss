@@ -4,9 +4,9 @@
 import json
 from loguru import logger
 from src.dipstick_clf.read.utils import read_dipstick
-from src.config import RAW_DATA_DIR, REPORTS_DIR
+from src.config import DIPSTICK_IMAGES_DIR, REPORTS_DIR
 
-IMAGES_DIR = RAW_DATA_DIR / "dipstick_imgs_simple/test/images"
+IMAGES_DIR = DIPSTICK_IMAGES_DIR / "imgs_simple/test/images"
 RESULTS_DIR = REPORTS_DIR / "dipstick_read"
 dipstick_results = []
 
