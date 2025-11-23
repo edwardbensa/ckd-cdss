@@ -196,13 +196,13 @@ def relabel_utils(category_map, anns):
 
 def generate_anns(image, anns, category_map, relabel_method):
     """Generate relabelled annotations for pads and reference squares in an image."""
-
-    # Rotations
-    rotation = determine_rotation(image, category_map, anns)
-    rotated_anns = rotate_anns(image, anns, rotation)
     new_anns = []
 
     if relabel_method != "rotation":
+        # Rotations
+        rotation = determine_rotation(image, category_map, anns)
+        rotated_anns = rotate_anns(image, anns, rotation)
+
         # Relabel pads
         pad_anns = relabel_pads(category_map, rotated_anns, relabel_method)
         new_anns.extend(pad_anns)
