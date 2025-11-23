@@ -6,7 +6,7 @@ from ultralytics import YOLO # type: ignore
 from loguru import logger
 from src.config import DIPSTICK_IMAGES_DIR, MODELS_DIR
 
-RELABEL_METHOD = "rotation"
+RELABEL_METHOD = "simple"
 
 # Dataset paths
 IMG_DIR = DIPSTICK_IMAGES_DIR / f"imgs_{RELABEL_METHOD}"
@@ -31,8 +31,8 @@ PRETRAINED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Training parameters
 MODEL_ARCH = PRETRAINED_DIR / "yolov8m.pt"
-EPOCHS = 200
-IMG_SIZE = 1280
+EPOCHS = 100
+IMG_SIZE = 800
 BATCH_SIZE = 8
 LEARNING_RATE = 0.01
 PATIENCE = 20
@@ -73,7 +73,8 @@ def train():
         perspective=0.02,
         device=device, # mild perspective warp
         project=str(MODEL_DIR),
-        name=f"yolov8_dipstick_{RELABEL_METHOD}"
+        name=f"yolov8_dipstick_{RELABEL_METHOD}",
+        exist_ok=True
     )
 
     logger.success("Training complete.")
