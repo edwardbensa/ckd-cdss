@@ -1,6 +1,7 @@
 """YOLOv8 training script for dipstick detection"""
 
 # Import libraries
+import shutil
 import torch
 from ultralytics import YOLO # type: ignore
 from loguru import logger
@@ -36,6 +37,29 @@ IMG_SIZE = 800
 BATCH_SIZE = 8
 LEARNING_RATE = 0.01
 PATIENCE = 20
+
+def cleanup_empty_folders():
+    """Remove folders that only contain an empty pretrained folder."""
+    logger.info("Cleaning up empty model folders...")
+    removed_count = 0
+
+    for entry in DIPSTICK_MODELS_DIR.iterdir():
+        if entry.is_dir() and entry.name.startswith(RELABEL_METHOD):
+            contents = list(entry.iterdir())
+            # Check if folder only has 1 item (the pretrained folder)
+            if len(contents) == 1:
+                pretrained_folder = contents[0]
+                # Check if it's named "pretrained" and is empty
+                if pretrained_folder.name == "pretrained" and pretrained_folder.is_dir():
+                    if len(list(pretrained_folder.iterdir())) == 0:
+                        shutil.rmtree(entry)
+                        logger.info(f"Removed empty folder: {entry.name}")
+                        removed_count += 1
+
+    if removed_count > 0:
+        logger.success(f"Cleaned up {removed_count} empty folder(s).")
+    else:
+        logger.info("No empty folders to clean up.")
 
 def train():
     """Train YOLOv8 model for dipstick detection."""
@@ -73,12 +97,13 @@ def train():
         perspective=0.02,
         device=device, # mild perspective warp
         project=str(MODEL_DIR),
-        name=f"yolov8_dipstick_{RELABEL_METHOD}",
-        exist_ok=True
+        name=f"yolov8_{RELABEL_METHOD}",
     )
 
     logger.success("Training complete.")
     logger.info(f"Results saved to: {results.save_dir}") #type: ignore
+
+    cleanup_empty_folders()
 
 if __name__ == "__main__":
     train()
