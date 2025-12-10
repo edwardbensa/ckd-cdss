@@ -1,0 +1,12 @@
+# YOLOv8 dataset config for dipstick detection
+
+# Paths
+Path: data/processed/dipstick_imgs
+train: images/train
+val: images/valid
+test: images/test
+
+# Classes
+names:
+  0: strip
+  1: hand

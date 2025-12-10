@@ -1,0 +1,71 @@
+# YOLOv8 dataset config for dipstick detection
+
+# Paths
+Path: data/processed/dipstick_imgs
+train: images/train
+val: images/valid
+test: images/test
+
+# Classes
+names:
+  0: pad_urobilinogen
+  1: pad_glucose
+  2: pad_bilirubin
+  3: pad_ketones
+  4: pad_SG
+  5: pad_blood
+  6: pad_ph
+  7: pad_protein
+  8: pad_nitrite
+  9: pad_leukocytes
+  10: urobilinogen1
+  11: urobilinogen2
+  12: urobilinogen3
+  13: urobilinogen4
+  14: urobilinogen5
+  15: glucose1
+  16: glucose2
+  17: glucose3
+  18: glucose4
+  19: glucose5
+  20: bilirubin1
+  21: bilirubin2
+  22: bilirubin3
+  23: bilirubin4
+  24: ketones1
+  25: ketones2
+  26: ketones3
+  27: ketones4
+  28: ketones5
+  29: SG1
+  30: SG2
+  31: SG3
+  32: SG4
+  33: SG5
+  34: SG6
+  35: SG7
+  36: blood1
+  37: blood2
+  38: blood3
+  39: blood4
+  40: blood5
+  41: blood6
+  42: ph1
+  43: ph2
+  44: ph3
+  45: ph4
+  46: ph5
+  47: ph6
+  48: protein1
+  49: protein2
+  50: protein3
+  51: protein4
+  52: protein5
+  53: protein6
+  54: nitrite1
+  55: nitrite2
+  56: nitrite3
+  57: leukocytes1
+  58: leukocytes2
+  59: leukocytes3
+  60: leukocytes4

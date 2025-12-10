@@ -5,8 +5,20 @@ ruff
 tqdm
 typer
 ipython
+ipykernel
 tensorflow
+tensorflow-hub
+keras-cv
 pandas
 numpy
 scikit-learn
+scikit-image
+opencv-python
+seaborn
+imageio
+scipy
+six
+pycocotools
+ultralytics==8.3.228
+optuna
 -e .
