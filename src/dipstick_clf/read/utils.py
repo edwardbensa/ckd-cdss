@@ -7,15 +7,17 @@ from ultralytics import YOLO #type: ignore
 from loguru import logger
 import torch
 import cv2
-from skimage.color.delta_e import deltaE_ciede2000 #type: ignore
+from skimage.color.delta_e import deltaE_ciede2000
 from src.config import MODELS_DIR
+from src.dipstick_clf.preprocessing.utils import rotate_image
 
 # CONFIGURATION
-MODEL_PATH = MODELS_DIR / "dipstick_read/simple_03/weights/best.pt"
+ROTATION_MODEL_PATH = MODELS_DIR / "dipstick_read/rotation_02/weights/best.pt"
+DIPSTICK_MODEL_PATH = MODELS_DIR / "dipstick_read/simple_03/weights/best.pt"
 DEVICE = 'cpu' if not torch.backends.mps.is_available() else 'mps'
 
 # Thresholds
-DELTA_E_THRESHOLD = 25.0  # Mark results as uncertain if ΔE exceeds this
+DELTA_E_THRESHOLD = 25.0  # Mark results as uncertain if delta E exceeds this
 CONFIDENCE_THRESHOLD = 0.7
 
 # Pad index to reference index mapping
@@ -39,7 +41,47 @@ REFERENCE_VALUES = {
 }
 
 # Initialize model
-model = YOLO(MODEL_PATH)
+rotation_model = YOLO(ROTATION_MODEL_PATH)
+dipstick_model = YOLO(DIPSTICK_MODEL_PATH)
+
+def correct_rotation(image_path, model):
+    """
+    Uses a YOLO model to find the 'strip annotation' and determines the
+    rotation correction needed to move it to the left of frame.
+
+    Args:
+        image_path (Path or str): Path to image.
+        model (YOLO): Loaded Ultralytics model.
+    """
+    # Run inference
+    results = model.predict(image_path, iou=0.7, conf=0.5, verbose=False)[0]
+
+    # Filter for strip boxes (class 1)
+    strip_boxes = [box for box in results.boxes if int(box.cls[0]) == 0]
+
+    # If no strip detected, return None
+    if not strip_boxes:
+        logger.error("Strip not detected. Please check image.")
+        return None
+
+    # Get box centre coordinates
+    x_center, y_center = strip_boxes[0].xywh[0][0].item(), strip_boxes[0].xywh[0][1].item()
+
+    # Get image dimensions
+    height, width = results.orig_shape
+
+    dx = x_center - width/2
+    dy = y_center - height/2
+
+    if abs(dx) > abs(dy):
+        # Strip is left or right
+        rotation = 0 if dx < 0 else 180
+    else:
+        # Strip is top or bottom
+        rotation = 90 if dy < 0 else 270
+
+    rotate_image(image_path, rotation)
+
 
 def calculate_delta_e(lab1, lab2, method='ciede2000'):
     """
@@ -109,12 +151,13 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
                 samples.append(roi_bgr[y, x])
 
         # Convert samples to LAB
-        samples_bgr = np.array(samples).reshape(9, 1, 3).astype(np.uint8) #type: ignore
-        samples_lab = cv2.cvtColor(samples_bgr, cv2.COLOR_BGR2LAB).reshape(9, 3) #type: ignore
-        return np.median(samples_lab, axis=0) #type: ignore
+        samples_bgr = np.array(samples, dtype=np.uint8)
+        samples_bgr = samples_bgr.reshape((9, 1, 3))
+        samples_lab = cv2.cvtColor(samples_bgr, cv2.COLOR_BGR2LAB).reshape(9, 3) # pylint: disable=no-member
+        return np.median(samples_lab, axis=0)
 
     # Convert to L*a*b* and calculate mean
-    roi_lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB) #type: ignore
+    roi_lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB) # pylint: disable=no-member
     avg_lab = np.mean(roi_lab, axis=(0, 1))
 
     return avg_lab
@@ -131,16 +174,20 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
     Returns:
         Dictionary of test results with values and confidence metrics
     """
+    # Rotation correction
+    correct_rotation(image_path, rotation_model)
+
+    # Reload image
     logger.info(f"Loading image from {image_path.name}")
-    img_bgr = cv2.imread(str(image_path)) #type: ignore
+    img_bgr = cv2.imread(str(image_path)) # pylint: disable=no-member
 
     if img_bgr is None:
         logger.error("Image failed to load.")
         return {}
 
-    # 1. Run Detection
+    # Run dipstick detection
     logger.info("Running detection inference...")
-    results = model.predict(img_bgr,
+    results = dipstick_model.predict(img_bgr,
                             conf=CONFIDENCE_THRESHOLD,
                             iou=0.5,
                             verbose=False,
@@ -162,12 +209,12 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
 
     final_readings = {}
 
-    # 2. Color Matching Analysis
+    # Color Matching Analysis
     logger.info(f"Starting color matching using {delta_e_method} with {sample_method} sampling...")
 
     for pad_id, ref_id in TEST_MAP.items():
         if pad_id not in all_boxes or ref_id not in all_boxes:
-            pad_name = model.names[pad_id].replace("pad_", "").upper()
+            pad_name = dipstick_model.names[pad_id].replace("pad_", "").upper()
             logger.warning(f"Missing detections for {pad_name}. Skipping.")
             final_readings[pad_name] = "NOT DETECTED"
             continue
@@ -186,7 +233,6 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
         min_delta_e = float('inf')
         second_min_delta_e = float('inf')
         best_match_value = "UNDETECTED"
-        best_match_idx = -1
 
         for i, ref_box in enumerate(ref_boxes):
             ref_lab = sample_color_lab(img_bgr, ref_box['coords'], sample_method)
@@ -200,7 +246,6 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
             if delta_e < min_delta_e:
                 second_min_delta_e = min_delta_e
                 min_delta_e = delta_e
-                best_match_idx = i
                 if i < len(REFERENCE_VALUES.get(ref_id, [])):
                     best_match_value = REFERENCE_VALUES[ref_id][i]
                 else:
@@ -208,8 +253,8 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
             elif delta_e < second_min_delta_e:
                 second_min_delta_e = delta_e
 
-        # 3. Assess confidence and store result
-        pad_name = model.names[pad_id].replace("pad_", "").upper()
+        # Assess confidence and store result
+        pad_name = dipstick_model.names[pad_id].replace("pad_", "").upper()
 
         # Calculate confidence score based on separation between best and second-best
         if second_min_delta_e != float('inf'):
@@ -229,6 +274,6 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
         }
 
         if min_delta_e > DELTA_E_THRESHOLD:
-            logger.warning(f"{pad_name}: High ΔE ({min_delta_e:.2f}), result may be unreliable")
+            logger.warning(f"{pad_name}: High deltaE ({min_delta_e:.2f}), result may be unreliable")
 
     return final_readings
