@@ -70,7 +70,7 @@ def determine_rotation(image, category_map, anns):
 
     x_min, y_min = hand_ann["bbox"][:2] #type: ignore
 
-    # clockwise rotation based on hand position
+    # Clockwise rotation based on hand position
     if x_min > width/2 and y_min > height/2:
         return 0
     elif x_min <= width/2 and y_min > height/2:
@@ -250,7 +250,7 @@ def modify_annotations(directory, split: str, relabel_method: str):
     Rotate and relabel pads and reference squares in COCO annotations for a split
     to match the specified relabel method.
     """
-    ann_path = directory / split / "labels" / "_annotations.coco.json"
+    ann_path = directory / "_annotations.coco.json"
     with open(ann_path, "r", encoding="utf-8") as f:
         coco = json.load(f)
 
@@ -280,94 +280,153 @@ def modify_annotations(directory, split: str, relabel_method: str):
         json.dump(coco, f, indent=2)
     logger.success(f"Modified {split} split with {relabel_method} method. Saved to {ann_path}")
 
-def rotate_images(directory, split: str, relabel_method):
+
+def parse_coco(directory, output):
     """
-    Rotate images to 0 degrees if rotation is 90, 180, or 270 clockwise.
+    Parses COCO JSON file given the file path.
+    Returns the COCO dict, category map, or image id map.
+    
+    :param directory: Location of _annotations.coco.json
+    :param output: coco, image_map, cat_map, anns
     """
-    if relabel_method == "rotation":
-        logger.info("Relabel method is 'rotation'. No image rotation necessary")
-    else:
-        img_dir = directory / split / "images"
+    if output not in ["coco", "image_map", "cat_map", "anns"]:
+        raise ValueError("Output parameter must be 'coco', 'image_map', 'cat_map', or 'anns'.")
 
-        ann_path = directory / split / "labels" / "_annotations.coco.json"
-        with open(ann_path, "r", encoding="utf-8") as f:
-            coco = json.load(f)
+    ann_path = Path(directory) / "_annotations.coco.json"
+    with open(ann_path, "r", encoding="utf-8") as f:
+        coco = json.load(f)
 
-        # Build category maps
-        categories = coco["categories"]
-        category_map = {c["name"]: c["id"] for c in categories}
+    # Build category map
+    categories = coco["categories"]
+    category_map = {c["name"]: c["id"] for c in categories}
 
-        # Determine image rotation and rotate images
-        for img_ann in coco["images"]:
-            img_file = img_dir / img_ann["file_name"]
-            img = Image.open(img_file)
-            anns = [a for a in coco["annotations"] if a["image_id"] == img_ann["id"]]
-            rotation = determine_rotation(img_ann, category_map, anns)
+    # Image annotations
+    images = coco["images"]
+    image_map = {c["file_name"]: c["id"] for c in images}
 
-            # Map clockwise rotations to counterclockwise corrections
-            rotation_map = {
-                0: None,
-                90: Image.Transpose.ROTATE_90,
-                180: Image.Transpose.ROTATE_180,
-                270: Image.Transpose.ROTATE_270
-            }
+    output_dict = {
+        "coco": coco,
+        "cat_map": category_map,
+        "image_map": image_map,
+        "anns": coco["annotations"],
+    }
 
-            if rotation not in rotation_map:
-                logger.error(f"Invalid rotation value: {rotation}")
-                raise ValueError("Rotation must be one of [0, 90, 180, 270]")
+    return output_dict[output]
 
-            if rotation != 0:
-                logger.debug(f"Rotated {img_ann["file_name"]} {rotation}° counterclockwise.")
-                img = img.transpose(rotation_map[rotation])
-                img.save(img_file)
-            else:
-                logger.info(f"No rotation needed for {img_ann["file_name"]}.")
-        logger.success("Image rotations complete.")
+def rotate_image(file_path, rotation=0, naive=False):
+    """
+    Rotate an image to 0 degrees if rotation is 90, 180, or 270 clockwise.
+    Uses the image annotation to determine the rotation of the image.
+    """
+    file_path = Path(file_path)
 
+    # Clockwise rotations to counterclockwise corrections map
+    rotation_map = {
+        90: Image.Transpose.ROTATE_90,
+        180: Image.Transpose.ROTATE_180,
+        270: Image.Transpose.ROTATE_270
+    }
 
-def create_folders(directory, relabel_method):
-    """Makes version of image folder for selected relabelling method."""
+    img = Image.open(file_path)
+    width, height = img.size
 
-    # Refresh DIPSTICK_IMAGES_DIR
-    if os.path.exists(DIPSTICK_IMAGES_DIR):
-        shutil.rmtree(DIPSTICK_IMAGES_DIR)
-    os.mkdir(DIPSTICK_IMAGES_DIR)
+    if naive is True and height > width:
+        rotation = 90
 
-    relabel_methods = [relabel_method, "rotation"]
-    new_dirs = []
-
-    # Create dataset copies for rotation and selected relabeling method
-    for method in relabel_methods:
-        output_dir = DIPSTICK_IMAGES_DIR / f"imgs_{method}"
-        new_dir = shutil.copytree(directory, output_dir)
-        new_dirs.append(new_dir)
-        logger.success(f"Image dataset created for {method} relabeling.")
-
-    return relabel_methods, new_dirs
-
-def yolo_folders(directory: Path, split: str):
-    """Restructure a split into YOLO format: images/, labels/."""
-    split_dir = directory / split
-    if not split_dir.exists():
-        logger.warning(f"Split {split} not found at {split_dir}")
+    if rotation == 0:
+        logger.info(f"No rotation needed for {file_path.name}.")
         return
 
-    images_dir = split_dir / "images"
-    labels_dir = split_dir / "labels"
-    images_dir.mkdir(exist_ok=True)
-    labels_dir.mkdir(exist_ok=True)
+    logger.debug(f"Rotated {file_path.name} {rotation}° counterclockwise.")
+    img = img.transpose(rotation_map[rotation])
+    img.save(file_path)
 
-    # Move annotation and image files into appropriate directories
-    for file in split_dir.glob("*.*"):
-        if file.name.startswith("_annotations"):
-            dest = labels_dir / file.name
-            shutil.move(str(file), str(dest))
-            logger.info(f"Moved annotation to {dest}")
-        if file.suffix.lower() in [".jpg", ".jpeg", ".png"]:
-            dest = images_dir / file.name
-            if not dest.exists():
-                shutil.move(str(file), str(dest))
 
+def rotate_images(directory, naive=False, rotate_test=False):
+    """
+    Rotate images either after determining the rotation using the COCO JSON file or
+    naively rotating images 90° counterclockwise if image height > image width.
+    
+    :param directory: Root directory of the dipstick image data
+    :param naive: False to use image annotations for rotation and True to rotate naively.
+    :param rotate_test: True to rotate test images (Default=False)
+    """
+    splits = ["train", "valid"]
+    if rotate_test is True:
+        splits.append("test")
+
+    for split in splits:
+        images_dir = directory / "images" / split
+        anns_dir = directory / "labels_rotation" / split
+
+        if naive is True:
+            for file_name in os.listdir(images_dir):
+                rotate_image(images_dir / file_name, naive=naive)
+        else:
+            category_map = parse_coco(anns_dir, "cat_map")
+            image_map = parse_coco(anns_dir, "image_map")
+            coco = parse_coco(anns_dir, "coco")
+            for file_name in os.listdir(images_dir):
+                image_id = image_map[file_name]
+                image_details = [i for i in coco["images"] if i["id"] == image_id][0]
+                image_anns = [a for a in coco["annotations"] if a["image_id"] == image_id]
+                rotation = determine_rotation(image_details, category_map, image_anns)
+                rotate_image(images_dir / file_name, rotation=rotation)
+
+        logger.success(f"{split} image rotations complete.")
+
+
+def copy_images(directory, split):
+    """
+    Copies only image files from train, test, and valid folders 
+    to a destination folder while preserving folder structure.
+    """
+    image_extensions = ('.jpg', '.jpeg', '.png', '.bmp', '.gif')
+
+    # Check source split folder
+    src_split = os.path.join(directory, split)
+    if not os.path.exists(src_split):
+        logger.error(f"Error: {split} folder not found in source.")
+
+    # Create destination split folder
+    dst_split = DIPSTICK_IMAGES_DIR / f"images_raw/{split}"
+    dst_split.mkdir(parents=True, exist_ok=True)
+
+    # Copy only image files
+    for file_name in os.listdir(src_split):
+        if file_name.lower().endswith(image_extensions):
+            src_file = os.path.join(src_split, file_name)
+            dst_file = os.path.join(dst_split, file_name)
+            shutil.copy2(src_file, dst_file)
+
+    logger.success(f"Copied images from {src_split} to {dst_split}")
+
+
+def copy_labels(directory, split, relabel_method):
+    """
+    Copies only the annotations.coco.json file from train, test and valid
+    folders to a destination folder while preserving folder structure.
+    """
+    ann_file = "_annotations.coco.json"
+
+    # Check source split folder
+    src_split = os.path.join(directory, split)
+    if not os.path.exists(src_split):
+        logger.error(f"Error: {split} folder not found in source.")
+
+    # Create destination split folder
+    dst_split = DIPSTICK_IMAGES_DIR / f"labels_{relabel_method}/{split}"
+    dst_split.mkdir(parents=True, exist_ok=True)
+
+    # Copy only annotations file
+    for file_name in os.listdir(src_split):
+        if file_name == ann_file:
+            src_file = os.path.join(src_split, file_name)
+            dst_file = os.path.join(dst_split, file_name)
+            shutil.copy2(src_file, dst_file)
+
+    logger.success(f"Copied annotations file from {src_split} to {dst_split}")
+    return dst_split
 
 
 def coco_to_yolo(coco_json_path: Path, labels_dir: Path):
@@ -412,12 +471,12 @@ def coco_to_yolo(coco_json_path: Path, labels_dir: Path):
 
         ann_count += 1
 
-    logger.success(f"Converted {ann_count} annotations from {coco_json_path} -> YOLO TXT in {labels_dir}")
+    logger.success(f"Converted {ann_count} annotations to YOLO TXT in {labels_dir}")
 
-def generate_yolo_txt(directory: Path, split: str):
+def generate_yolo_txt(directory: Path):
     """Convert a split's COCO JSON to YOLO TXT files."""
-    coco_json = directory / split / "labels" / "_annotations.coco.json"
-    labels_dir = directory / split / "labels"
+    coco_json = directory / "_annotations.coco.json"
+    labels_dir = directory
     if not coco_json.exists():
         logger.error(f"COCO JSON not found at {coco_json}")
         return
@@ -427,7 +486,7 @@ def generate_yolo_yaml(output_dir: Path, relabel_method: str = "simple"):
     """
     Generate a YOLO dataset YAML in output_dir using the chosen relabel_method.
     """
-    output_dir = Path(output_dir)
+    output_dir = Path(output_dir).parent.parent
     class_maps = {
         "plain": PLAIN_CLASS_MAP,
         "simple": SIMPLE_CLASS_MAP,
@@ -435,16 +494,17 @@ def generate_yolo_yaml(output_dir: Path, relabel_method: str = "simple"):
         "rotation": ROTATION_CLASS_MAP
     }
 
-    yaml_name = "dipstick.yaml"
+    yaml_name = f"dipstick_{relabel_method}.yaml"
     yaml_path = output_dir / yaml_name
 
     with open(yaml_path, "w", encoding="utf-8") as f:
         f.write("# YOLOv8 dataset config for dipstick detection\n")
         f.write("\n")
         f.write("# Paths\n")
-        f.write("train: train/images\n")
-        f.write("val: valid/images\n")
-        f.write("test: test/images\n")
+        f.write("Path: data/processed/dipstick_imgs\n")
+        f.write("train: images/train\n")
+        f.write("val: images/valid\n")
+        f.write("test: images/test\n")
         f.write("\n")
         f.write("# Classes\n")
         f.write("names:\n")

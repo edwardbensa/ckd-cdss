@@ -7,7 +7,7 @@ from ultralytics import YOLO #type: ignore
 from loguru import logger
 import torch
 import cv2
-from skimage.color import deltaE_ciede2000
+from skimage.color import deltaE_ciede2000 #type: ignore
 from src.config import MODELS_DIR
 
 # CONFIGURATION
@@ -82,11 +82,11 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
     x_max, y_max = min(img.shape[1], x_max), min(img.shape[0], y_max)
 
     roi_bgr = img[y_min:y_max, x_min:x_max]
-    
+
     if roi_bgr.size == 0:
         logger.warning(f"Empty ROI detected for box {box}")
         return None
-    
+
     # Apply sampling strategy
     if sample_method == 'center_weighted':
         # Sample center 60% to avoid edge effects (shadows, reflections)
@@ -94,10 +94,10 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
         margin_h = int(h * 0.2)
         margin_w = int(w * 0.2)
         roi_bgr = roi_bgr[margin_h:h-margin_h, margin_w:w-margin_w]
-        
+
         if roi_bgr.size == 0:
             roi_bgr = img[y_min:y_max, x_min:x_max]  # Fallback to full region
-        
+
     elif sample_method == 'grid':
         # Sample 9 points and use median to reduce outlier influence
         h, w = roi_bgr.shape[:2]
@@ -107,16 +107,16 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
                 y = min(int(h * y_frac), h - 1)
                 x = min(int(w * x_frac), w - 1)
                 samples.append(roi_bgr[y, x])
-        
+
         # Convert samples to LAB
-        samples_bgr = np.array(samples).reshape(9, 1, 3).astype(np.uint8)
-        samples_lab = cv2.cvtColor(samples_bgr, cv2.COLOR_BGR2LAB).reshape(9, 3)
-        return np.median(samples_lab, axis=0)
-    
+        samples_bgr = np.array(samples).reshape(9, 1, 3).astype(np.uint8) #type: ignore
+        samples_lab = cv2.cvtColor(samples_bgr, cv2.COLOR_BGR2LAB).reshape(9, 3) #type: ignore
+        return np.median(samples_lab, axis=0) #type: ignore
+
     # Convert to L*a*b* and calculate mean
-    roi_lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB)
+    roi_lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB) #type: ignore
     avg_lab = np.mean(roi_lab, axis=(0, 1))
-    
+
     return avg_lab
 
 def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_method='ciede2000'):
@@ -132,18 +132,22 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
         Dictionary of test results with values and confidence metrics
     """
     logger.info(f"Loading image from {image_path.name}")
-    img_bgr = cv2.imread(str(image_path))
-    
+    img_bgr = cv2.imread(str(image_path)) #type: ignore
+
     if img_bgr is None:
         logger.error("Image failed to load.")
         return {}
 
     # 1. Run Detection
     logger.info("Running detection inference...")
-    results = model.predict(img_bgr, conf=CONFIDENCE_THRESHOLD, iou=0.5, verbose=False, device=DEVICE)
-    
-    detections = results[0].boxes.cpu().numpy()
-    
+    results = model.predict(img_bgr,
+                            conf=CONFIDENCE_THRESHOLD,
+                            iou=0.5,
+                            verbose=False,
+                            device=DEVICE)
+
+    detections = results[0].boxes.cpu().numpy() #type: ignore
+
     # Organize detections by class
     all_boxes = {}
     for box in detections:
@@ -155,43 +159,43 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
                 'coords': box.xyxy[0],
                 'confidence': float(box.conf[0])
             })
-    
+
     final_readings = {}
-    
+
     # 2. Color Matching Analysis
     logger.info(f"Starting color matching using {delta_e_method} with {sample_method} sampling...")
-    
+
     for pad_id, ref_id in TEST_MAP.items():
         if pad_id not in all_boxes or ref_id not in all_boxes:
             pad_name = model.names[pad_id].replace("pad_", "").upper()
             logger.warning(f"Missing detections for {pad_name}. Skipping.")
             final_readings[pad_name] = "NOT DETECTED"
             continue
-        
+
         # Sample pad color (use highest confidence detection if multiple)
         pad_boxes = sorted(all_boxes[pad_id], key=lambda x: x['confidence'], reverse=True)
         pad_lab = sample_color_lab(img_bgr, pad_boxes[0]['coords'], sample_method)
-        
+
         if pad_lab is None:
             continue
-        
+
         # Sample all reference squares for this test
         ref_boxes = all_boxes[ref_id]
         ref_boxes.sort(key=lambda x: x['coords'][0])  # Sort by x-coordinate (left to right)
-        
+
         min_delta_e = float('inf')
         second_min_delta_e = float('inf')
         best_match_value = "UNDETECTED"
         best_match_idx = -1
-        
+
         for i, ref_box in enumerate(ref_boxes):
             ref_lab = sample_color_lab(img_bgr, ref_box['coords'], sample_method)
             if ref_lab is None:
                 continue
-            
+
             # Calculate color distance
             delta_e = calculate_delta_e(pad_lab, ref_lab, method=delta_e_method)
-            
+
             # Track best and second-best matches
             if delta_e < min_delta_e:
                 second_min_delta_e = min_delta_e
@@ -203,37 +207,28 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
                     best_match_value = f"Index {i} (Unknown)"
             elif delta_e < second_min_delta_e:
                 second_min_delta_e = delta_e
-        
+
         # 3. Assess confidence and store result
         pad_name = model.names[pad_id].replace("pad_", "").upper()
-        
+
         # Calculate confidence score based on separation between best and second-best
         if second_min_delta_e != float('inf'):
             separation = second_min_delta_e - min_delta_e
             confidence = "high" if separation > 5.0 else "medium" if separation > 2.0 else "low"
         else:
             confidence = "only_match"
-        
+
         # Mark uncertain results
         uncertainty_flag = "?" if min_delta_e > DELTA_E_THRESHOLD else ""
-        
+
         final_readings[pad_name] = {
             'value': f"{best_match_value}{uncertainty_flag}",
             'delta_e': round(min_delta_e, 2),
             'confidence': confidence,
             'detection_conf': round(pad_boxes[0]['confidence'], 2)
         }
-        
+
         if min_delta_e > DELTA_E_THRESHOLD:
             logger.warning(f"{pad_name}: High ΔE ({min_delta_e:.2f}), result may be unreliable")
-    
-    # 4. Log results
-    logger.info("\n--- FINAL DIPSTICK READING ---")
-    for test, result in final_readings.items():
-        if isinstance(result, dict):
-            print(f"{test.ljust(15)}: {result['value'].ljust(20)} (ΔE: {result['delta_e']:.2f}, Conf: {result['confidence']})")
-        else:
-            print(f"{test.ljust(15)}: {result}")
-    logger.info("-------------------------------\n")
-    
+
     return final_readings

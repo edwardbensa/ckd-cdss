@@ -211,4 +211,5 @@ __marimo__/
 
 src/_template
 src/dipstick_classifier
-src/dipstick_clf/tests
+src/dipstick_clf/_deprecated
+data/raw/imgs
