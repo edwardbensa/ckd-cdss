@@ -6,7 +6,8 @@ from loguru import logger
 from src.dipstick_clf.read.utils import read_dipstick
 from src.config import DIPSTICK_IMAGES_DIR, REPORTS_DIR
 
-IMAGES_DIR = DIPSTICK_IMAGES_DIR / "imgs_simple/test/images"
+IMAGES_DIR = DIPSTICK_IMAGES_DIR / "images_raw/test"
+IMAGES_DIR = IMAGES_DIR.parents[2] / "images"
 RESULTS_DIR = REPORTS_DIR / "dipstick_read"
 dipstick_results = []
 

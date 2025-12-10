@@ -6,7 +6,7 @@ from src.dipstick_clf.train.utils import prepare_dataset, load_yolo, generate_ru
 from src.config import DIPSTICK_IMAGES_DIR, MODELS_DIR
 
 LABEL_METHOD = "rotation"
-YOLO_MODEL = "yolo11m"
+YOLO_MODEL = "yolo11s"
 
 # Paths
 DATA_DIR = DIPSTICK_IMAGES_DIR

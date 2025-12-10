@@ -7,11 +7,11 @@ from ultralytics import YOLO #type: ignore
 from loguru import logger
 import torch
 import cv2
-from skimage.color import deltaE_ciede2000 #type: ignore
+from skimage.color.delta_e import deltaE_ciede2000 #type: ignore
 from src.config import MODELS_DIR
 
 # CONFIGURATION
-MODEL_PATH = MODELS_DIR / "dipstick_read/simple_01/yolov8_dipstick_simple/weights/best.pt"
+MODEL_PATH = MODELS_DIR / "dipstick_read/simple_03/weights/best.pt"
 DEVICE = 'cpu' if not torch.backends.mps.is_available() else 'mps'
 
 # Thresholds

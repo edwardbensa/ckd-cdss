@@ -1,6 +1,5 @@
 import os
 import shutil
-from PIL import Image
 import torch
 from ultralytics import YOLO #type:ignore
 from loguru import logger
@@ -10,10 +9,11 @@ from src.dipstick_clf.preprocessing.utils import rotate_image
 IMAGES_DIR = DIPSTICK_IMAGES_DIR / "images_raw/test"
 
 # CONFIGURATION
-ROTATION_MODEL_PATH = MODELS_DIR / "dipstick_read/rotation_01/weights/best.pt"
+ROTATION_MODEL_PATH = MODELS_DIR / "dipstick_read/rotation_02/weights/best.pt"
 DEVICE = 'cpu' if not torch.backends.mps.is_available() else 'mps'
+rotation_model = YOLO(ROTATION_MODEL_PATH)
 
-def correct_rotation(image_path):
+def correct_rotation(image_path, model):
     """
     Uses a YOLO model to find the 'hand annotation' and determines the
     rotation correction needed to move it to the bottom-right corner.
@@ -24,8 +24,7 @@ def correct_rotation(image_path):
         conf_threshold (float): Confidence threshold for detection.
     """
     # Run inference
-    model = YOLO(ROTATION_MODEL_PATH)
-    results = model.predict(image_path, iou=0.7, conf=0.5, verbose=False)[0]
+    results = model.predict(image_path, iou=0.7, conf=0.5, verbose=False,  device=DEVICE)[0]
 
     # Filter for hand boxes (class 1)
     hand_boxes = [box for box in results.boxes if int(box.cls[0]) == 1]
@@ -61,7 +60,7 @@ def correct_rotation(image_path):
     print(f"rotation: {rotation}, img height: {height}, img width: {width}")
     print(best_box)
 
-def correct_rotation2(image_path):
+def correct_rotation2(image_path, model):
     """
     Uses a YOLO model to find the 'strip annotation' and determines the
     rotation correction needed to move it to the left of frame.
@@ -75,7 +74,6 @@ def correct_rotation2(image_path):
         int or None: PIL.Image.Transpose constant (ROTATE_90, etc.) or None if 0°.
     """
     # Run inference
-    model = YOLO(ROTATION_MODEL_PATH)
     results = model.predict(image_path, iou=0.7, conf=0.5, verbose=False)[0]
 
     # Filter for strip boxes (class 1)
@@ -86,11 +84,8 @@ def correct_rotation2(image_path):
         logger.error("Strip not detected. Please check image.")
         return None
 
-    # Get strip with highest confidence
-    best_box = max(results.boxes, key=lambda x: x.conf[0])
-
-    # Get box coordinates
-    x_center, y_center, w, h = best_box.xywh[0].tolist()
+    # Get box centre coordinates
+    x_center, y_center = strip_boxes[0].xywh[0][0].item(), strip_boxes[0].xywh[0][1].item()
 
     # Get image dimensions
     height, width = results.orig_shape
@@ -105,10 +100,10 @@ def correct_rotation2(image_path):
         # Strip is top or bottom
         rotation = 90 if dy < 0 else 270
 
-    #rotate_image(image_path, rotation)
+    rotate_image(image_path, rotation)
 
     print(f"rotation: {rotation}, img height: {height}, img width: {width}")
-    print(best_box)
+    #print(strip_boxes)
 
 
 def main():
@@ -121,7 +116,7 @@ def main():
 
     for img_path in output_dir.iterdir():
         logger.info(f"Reading dipstick from image: {img_path}")
-        correct_rotation(img_path)
+        correct_rotation2(img_path, rotation_model)
 
 if __name__ == '__main__':
     main()
