@@ -5,7 +5,7 @@ from loguru import logger
 from src.dipstick_clf.train.utils import prepare_dataset, load_yolo, generate_run_name, cleanup
 from src.config import DIPSTICK_IMAGES_DIR, MODELS_DIR
 
-LABEL_METHOD = "rotation"
+LABEL_METHOD = "granular"
 YOLO_MODEL = "yolo11s"
 
 # Paths
@@ -14,10 +14,10 @@ MODELS_DIR = MODELS_DIR / "dipstick_read"
 PRETRAINED_MODELS_DIR = MODELS_DIR / "_pretrained-models"
 
 # Training parameters
-EPOCHS = 50
-IMG_SIZE = 736
-PATIENCE = 10
-BATCH_SIZE = 8
+EPOCHS = 100
+IMG_SIZE = 800
+PATIENCE = 20
+BATCH_SIZE = 16
 
 
 def train():

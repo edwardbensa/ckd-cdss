@@ -9,7 +9,7 @@ from src.dipstick_clf.preprocessing.utils import rotate_image
 IMAGES_DIR = DIPSTICK_IMAGES_DIR / "images_raw/test"
 
 # CONFIGURATION
-ROTATION_MODEL_PATH = MODELS_DIR / "dipstick_read/rotation_02/weights/best.pt"
+ROTATION_MODEL_PATH = MODELS_DIR / "dipstick_read/rotation_03/weights/best.pt"
 DEVICE = 'cpu' if not torch.backends.mps.is_available() else 'mps'
 rotation_model = YOLO(ROTATION_MODEL_PATH)
 
