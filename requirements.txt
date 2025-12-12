@@ -20,5 +20,7 @@ scipy
 six
 pycocotools
 ultralytics==8.3.228
+weaviate-client
+langchain
 optuna
 -e .
