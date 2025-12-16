@@ -1,0 +1,400 @@
+male,s_ethnicity,age,height_cm,weight_kg,systolic,diastolic,has_htn,has_dm,has_cvd,bp_meds,dm_meds,chol_meds,family_kd,device_used,screening_acr,confirmed_albuminuria,acr,egfr,gfr_stage,acr_stage,ckd_status
+True,Black,76.5,161.0,64.0,118,63,False,False,False,False,False,False,no,Healthy.io,3–30,True,21.0,65.0,G2,A2,CKD
+True,Black,52.8,163.0,78.0,128,69,False,False,False,False,False,False,no,Healthy.io,3–30,True,12.0,82.0,G2,A2,CKD
+True,Black,54.0,168.0,87.0,143,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,43.0,187.0,109.0,156,98,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,53.2,174.0,114.0,120,70,False,False,False,False,False,False,no,Healthy.io,3–30,True,23.0,64.0,G2,A2,CKD
+False,Black,64.8,164.0,110.2,165,82,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,22.0,71.0,G2,A2,CKD
+False,Black,23.5,162.0,64.0,119,67,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,30.8,162.0,63.0,113,67,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,48.3,172.0,95.0,140,76,True,False,False,True,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,66.9,154.0,68.0,148,89,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.6,171.0,73.5,106,70,False,False,False,False,False,False,no,Healthy.io,3–30,True,21.0,59.0,G3a,A2,CKD
+True,Mixed,65.4,159.0,56.8,151,87,True,True,False,True,True,False,unsure,Healthy.io,3–30,True,8.0,79.0,G2,A2,CKD
+False,Black,46.5,165.0,69.0,154,91,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Mixed,63.0,181.0,99.2,165,97,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,21.9,162.6,59.2,101,71,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,56.4,168.8,87.5,126,77,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,42.4,167.0,76.0,145,69,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,63.0,G2,A2,CKD
+False,Black,60.1,159.0,76.0,128,67,False,False,False,False,False,False,yes,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,42.3,163.3,88.6,125,84,False,False,False,False,False,False,no,Healthy.io,>30,True,36.0,68.0,G2,A3,CKD
+False,Black,73.7,157.0,88.2,114,59,True,True,False,True,True,False,yes,Healthy.io,3–30,True,21.0,65.0,G2,A2,CKD
+False,Black,22.3,154.0,64.3,112,84,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,29.0,67.0,G2,A2,CKD
+False,Black,39.9,163.0,77.7,145,76,False,False,False,False,False,False,no,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,43.5,167.0,87.0,134,94,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,South Asian,68.9,153.0,67.0,126,80,True,True,False,True,True,False,no,Healthy.io,3–30,True,17.0,78.0,G2,A2,CKD
+False,Black,49.3,169.0,97.4,158,93,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,48.8,159.0,79.8,135,78,False,False,False,False,False,True,no,Healthy.io,3–30,True,9.0,67.0,G2,A2,CKD
+False,Black,64.3,173.5,73.2,123,81,False,False,False,False,False,False,yes,Healthy.io,3–30,True,8.0,72.0,G2,A2,CKD
+True,Black,42.0,176.0,91.0,113,78,False,False,False,False,False,False,no,Healthy.io,3–30,True,29.0,72.0,G2,A2,CKD
+False,Black,59.4,158.0,87.0,156,76,True,False,False,True,False,False,unsure,Healthy.io,>30,True,39.0,49.0,G3a,A3,CKD
+False,Black,86.9,155.75,89.4,172,109,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,43.3,165.0,89.0,154,96,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,53.7,164.0,76.0,134,67,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,63.6,154.0,64.0,119,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,41.2,170.0,77.5,129,80,False,False,False,False,False,False,no,Healthy.io,3–30,True,28.0,67.0,G2,A2,CKD
+True,Black,54.6,156.4,102.8,112,72,False,True,False,False,True,False,no,Healthy.io,3–30,True,12.0,65.0,G2,A2,CKD
+True,Black,45.4,176.0,99.0,121,88,False,False,False,False,False,False,unsure,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,26.7,159.0,51.0,101,63,False,False,False,False,False,False,no,Healthy.io,3–30,True,25.0,66.0,G2,A2,CKD
+True,Black,62.6,158.0,61.0,110,81,True,False,False,True,False,False,no,Healthy.io,3–30,True,21.0,76.0,G2,A2,CKD
+False,Black,75.6,156.5,118.5,146,83,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,24.8,159.0,88.0,127,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,51.3,160.0,61.0,134,90,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.0,175.0,82.0,122,74,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,12.0,67.0,G2,A2,CKD
+True,Black,55.3,158.0,87.0,138,99,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,52.2,160.0,61.6,134,90,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,83.4,169.0,72.7,127,72,False,True,False,True,True,False,no,Healthy.io,3–30,True,11.0,65.0,G2,A2,CKD
+True,Black,78.2,161.5,78.5,153,89,True,True,False,False,False,False,no,Healthy.io,3–30,True,10.0,67.0,G2,A2,CKD
+False,Black,92.1,151.5,45.5,134,66,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,53.5,180.0,85.2,147,97,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,9.0,68.0,G2,A2,CKD
+False,Black,70.1,158.0,54.0,165,62,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,33.2,158.0,87.0,145,76,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,7.0,53.0,G3a,A2,CKD
+False,Black,50.2,178.0,83.0,151,83,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,62.6,168.0,96.0,121,77,False,False,False,False,False,False,no,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,70.0,164.0,83.4,136,80,False,False,False,False,False,False,no,Healthy.io,3–30,True,9.0,81.0,G2,A2,CKD
+False,Black,43.0,154.0,82.2,130,79,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,43.9,161.0,68.0,128,71,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.3,162.5,69.8,130,73,False,True,False,False,True,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.5,179.0,72.0,116,89,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,58.7,180.0,112.5,121,93,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,55.0,165.0,79.0,145,65,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,62.4,162.0,75.6,138,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,55.6,167.0,84.9,118,57,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Asian,55.2,185.0,92.1,128,71,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,82.3,159.0,65.8,130,80,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,63.1,173.0,98.4,121,75,True,True,False,True,True,False,no,Healthy.io,>30,True,45.0,62.0,G2,A3,CKD
+False,Black,51.5,175.0,107.0,135,81,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,74.0,G2,A2,CKD
+False,Black,52.2,160.0,68.0,132,68,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,65.2,157.6,100.7,155,96,True,False,False,True,False,False,no,Healthy.io,>30,True,43.0,73.0,G2,A3,CKD
+False,Black,40.1,169.6,63.6,143,87,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,48.2,155.0,78.0,130,78,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,71.5,152.0,66.6,123,91,True,True,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.1,174.0,97.0,145,84,True,False,False,True,False,False,no,Healthy.io,3–30,True,8.0,67.0,G2,A2,CKD
+False,Black,55.6,149.0,66.6,131,79,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,51.0,158.0,73.0,132,54,False,False,False,False,False,False,unsure,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,53.3,159.0,65.0,144,65,True,True,False,True,True,False,unsure,Healthy.io,3–30,True,7.0,65.0,G2,A2,CKD
+False,Black,51.8,168.0,88.8,117,84,False,True,False,False,False,False,no,Siemens Clinitek,3–30,True,9.0,86.0,G2,A2,CKD
+False,Black,44.8,159.5,76.7,121,75,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,45.1,184.5,92.3,126,83,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,White,39.4,157.0,71.0,110,85,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,37.8,183.0,83.2,153,91,True,False,False,False,False,False,unsure,Siemens Clinitek,>30,True,43.0,25.0,G4,A3,CKD
+True,White,77.6,175.0,71.8,122,66,False,True,False,False,True,False,unsure,Siemens Clinitek,>30,True,39.0,87.0,G2,A3,CKD
+True,Black,66.0,154.9,67.3,167,90,True,True,False,True,True,False,no,Siemens Clinitek,>30,True,41.0,70.0,G2,A3,CKD
+False,Black,67.9,155.0,72.0,110,70,False,False,False,False,False,False,no,Healthy.io,3–30,True,21.0,62.0,G2,A2,CKD
+True,Black,30.9,170.0,69.0,119,63,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.1,150.0,65.4,113,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,White,34.1,149.0,53.0,108,81,False,False,False,False,False,False,yes,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,61.8,153.0,92.3,148,83,True,False,False,False,False,False,no,Healthy.io,3–30,True,12.0,66.0,G2,A2,CKD
+False,Black,51.2,158.0,70.3,140,80,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.1,168.0,80.7,100,68,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,75.0,G2,A2,CKD
+False,Black,46.1,167.0,89.8,137,108,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,83.6,156.0,84.6,165,91,True,True,False,True,True,True,unsure,Siemens Clinitek,3–30,True,12.0,46.0,G3a,A2,CKD
+True,Black,65.4,162.6,80.0,107,76,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,58.5,161.0,73.0,140,98,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,25.8,160.0,61.6,134,90,True,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,34.1,156.0,74.0,146,89,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,33.4,184.5,95.7,131,78,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Mixed,58.4,171.1,82.4,128,68,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,26.0,64.0,G2,A2,CKD
+False,Black,56.0,164.5,76.8,129,82,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,11.0,57.0,G3a,A2,CKD
+False,White,50.0,159.8,83.9,123,77,False,False,False,False,False,False,yes,Healthy.io,3–30,True,9.0,72.0,G2,A2,CKD
+True,Black,45.2,151.7,81.8,124,76,False,False,False,False,False,False,no,Healthy.io,3–30,True,9.0,72.0,G2,A2,CKD
+True,Black,50.8,164.5,89.9,135,91,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,8.0,79.0,G2,A2,CKD
+False,Black,46.7,152.5,54.6,122,74,False,False,False,False,False,False,no,Healthy.io,3–30,True,6.0,79.0,G2,A2,CKD
+True,Black,52.2,167.4,84.7,132,79,False,False,False,False,False,False,unsure,Healthy.io,>30,True,39.0,61.0,G2,A3,CKD
+True,Black,75.5,155.7,102.9,139,75,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,9.0,64.0,G2,A2,CKD
+True,Black,45.4,157.2,91.9,129,74,True,False,False,True,False,False,unsure,Healthy.io,3–30,True,9.0,76.0,G2,A2,CKD
+False,Black,43.7,177.0,81.5,134,86,False,False,False,False,False,False,no,Healthy.io,3–30,True,10.0,90.0,G1,A2,CKD
+False,Black,56.8,160.5,100.7,166,91,True,False,False,False,False,False,unsure,Healthy.io,3–30,True,10.0,65.0,G2,A2,CKD
+False,Black,53.8,161.6,98.2,207,97,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,46.1,156.2,83.5,118,76,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,37.7,168.6,73.7,122,74,False,True,False,False,True,False,no,Healthy.io,>30,True,34.0,79.0,G2,A3,CKD
+True,White,46.1,159.0,76.0,143,78,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,59.3,151.0,67.0,138,71,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,17.1,173.2,60.2,102,59,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,61.5,161.2,78.4,136,95,True,False,False,True,False,False,unsure,Healthy.io,>30,True,37.0,58.0,G3a,A3,CKD
+True,South Asian,47.3,168.0,93.6,181,115,True,False,False,True,False,False,no,Healthy.io,3–30,True,10.0,82.0,G2,A2,CKD
+False,Mixed,27.0,153.0,74.4,113,62,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,9.0,81.0,G2,A2,CKD
+False,Black,57.9,183.5,101.1,151,94,True,False,False,True,False,False,unsure,Healthy.io,3–30,True,7.0,67.0,G2,A2,CKD
+False,Black,54.7,170.1,99.3,176,125,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,8.0,77.0,G2,A2,CKD
+False,Black,69.4,151.5,70.6,146,91,False,True,False,False,False,False,no,Healthy.io,3–30,True,11.0,85.0,G2,A2,CKD
+False,Black,54.7,158.9,93.4,124,77,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,11.0,62.0,G2,A2,CKD
+False,Black,56.6,172.7,73.9,134,73,True,True,False,True,True,False,unsure,Healthy.io,3–30,True,12.0,76.0,G2,A2,CKD
+False,Black,59.4,152.5,101.9,144,78,False,False,False,False,False,False,no,Healthy.io,3–30,True,9.0,90.0,G1,A2,CKD
+False,Mixed,57.2,156.4,78.6,132,85,True,False,False,True,False,False,no,Healthy.io,3–30,True,8.0,75.0,G2,A2,CKD
+True,Black,69.1,156.0,76.0,160,79,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,71.0,G2,A2,CKD
+True,Black,57.1,162.5,85.3,132,81,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,28.0,81.0,G2,A2,CKD
+False,Black,71.2,178.0,81.01,159,93,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,68.4,150.0,67.0,170,68,True,True,False,True,True,False,unsure,Healthy.io,>30,True,41.0,53.0,G3a,A3,CKD
+True,Mixed,65.2,168.5,125.6,142,76,True,False,False,False,False,False,no,Healthy.io,3–30,True,27.0,55.0,G3a,A2,CKD
+True,Black,56.1,153.4,90.6,140,95,True,False,False,True,False,False,no,Healthy.io,>30,True,38.0,68.0,G2,A3,CKD
+True,Black,21.1,165.0,109.0,183,102,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,54.9,157.0,86.4,129,81,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,75.4,172.2,86.4,131,83,False,False,False,False,False,False,no,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,50.3,149.3,101.1,112,73,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,27.0,51.0,G3a,A2,CKD
+True,Black,55.9,167.0,90.6,156,91,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,12.0,78.0,G2,A2,CKD
+False,Black,53.0,156.5,90.8,137,84,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,11.0,67.0,G2,A2,CKD
+False,Black,61.7,161.0,81.0,142,79,True,True,False,True,True,False,unsure,Healthy.io,3–30,True,9.0,90.0,G1,A2,CKD
+False,Black,63.2,163.0,79.9,147,88,True,False,False,True,False,False,no,Healthy.io,3–30,True,7.0,70.0,G2,A2,CKD
+True,Black,61.2,170.0,81.0,151,95,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,7.0,64.0,G2,A2,CKD
+False,Black,41.2,167.0,81.6,122,77,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,70.0,G2,A2,CKD
+False,Black,44.7,160.0,81.0,160,90,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,29.1,164.9,84.9,125,80,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,67.0,G2,A2,CKD
+False,Black,44.4,185.5,130.0,141,85,True,True,True,True,True,False,yes,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,50.3,162.0,122.3,146,95,True,False,False,True,False,False,unsure,Healthy.io,>30,True,34.0,68.0,G2,A3,CKD
+True,Black,51.0,169.0,94.2,117,94,False,False,False,False,False,False,yes,Healthy.io,>30,True,31.0,75.0,G2,A3,CKD
+True,Black,41.0,162.9,87.5,145,94,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,21.0,73.0,G2,A2,CKD
+False,Black,43.6,169.0,72.0,150,88,True,False,False,False,True,True,no,Siemens Clinitek,3–30,True,10.0,64.0,G2,A2,CKD
+False,Black,28.2,198.0,75.5,138,91,False,False,False,False,False,False,unsure,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,59.4,158.0,64.0,131,80,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,48.3,171.0,70.0,131,79,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,35.0,168.0,72.0,123,88,False,False,False,False,False,False,no,Healthy.io,3–30,True,6.0,60.0,G2,A2,CKD
+False,Black,22.6,175.0,96.0,117,75,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,6.0,60.0,G2,A2,CKD
+True,Black,41.1,179.5,104.0,124,80,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,51.0,158.0,83.2,123,82,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,White,58.0,156.0,99.0,180,112,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,65.0,178.0,80.2,166,99,True,False,False,True,False,False,unsure,Healthy.io,3–30,True,7.0,84.0,G2,A2,CKD
+False,Black,38.1,164.0,71.7,159,107,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,46.4,167.0,92.1,177,77,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,56.4,159.0,78.0,139,78,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,8.0,64.0,G2,A2,CKD
+False,Black,52.6,161.0,67.0,134,78,True,False,False,True,False,False,no,Healthy.io,3–30,True,7.0,89.0,G2,A2,CKD
+False,Black,59.0,171.0,98.0,139,87,False,False,False,False,False,False,no,Healthy.io,3–30,True,8.0,65.0,G2,A2,CKD
+True,Black,54.8,157.5,78.1,154,96,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,9.0,60.0,G2,A2,CKD
+False,Black,53.6,173.1,72.3,177,101,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,89.0,G2,A2,CKD
+False,Black,67.7,169.7,64.9,112,83,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,8.0,78.0,G2,A2,CKD
+False,Black,39.9,154.0,78.0,146,79,True,False,False,True,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,69.0,154.0,65.5,122,75,True,True,False,True,True,True,no,Siemens Clinitek,3–30,True,6.0,68.0,G2,A2,CKD
+False,Mixed,58.0,165.0,80.0,153,96,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,5.0,90.0,G1,A2,CKD
+False,Black,40.0,165.0,103.5,132,68,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,52.3,167.0,88.6,193,108,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,56.7,173.6,81.7,166,94,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,63.0,160.0,93.1,130,74,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,46.2,159.0,102.9,132,89,False,False,False,False,False,False,no,Healthy.io,>30,True,37.0,51.0,G3a,A3,CKD
+False,Black,58.3,160.0,83.0,119,65,False,True,False,False,True,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.9,165.2,97.0,139,80,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,67.0,G2,A2,CKD
+False,Black,41.9,165.5,93.4,156,101,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,64.2,174.0,99.7,168,75,True,True,False,True,True,False,unsure,Healthy.io,3–30,True,12.0,90.0,G1,A2,CKD
+False,Black,46.3,167.6,80.0,125,68,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,47.3,172.0,111.8,172,104,True,False,False,False,False,False,unsure,Healthy.io,3–30,True,11.0,80.0,G2,A2,CKD
+False,White,58.2,157.0,54.0,105,45,False,False,False,False,False,False,no,Healthy.io,3–30,True,8.0,67.0,G2,A2,CKD
+True,Black,56.2,172.5,95.8,106,79,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,7.0,90.0,G1,A2,CKD
+True,Asian,55.3,168.0,81.1,132,80,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,59.7,180.0,81.0,126,82,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.6,172.0,109.9,121,73,False,False,False,False,False,False,no,Healthy.io,3–30,True,5.0,87.0,G2,A2,CKD
+True,Black,63.0,181.0,96.1,136,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.9,182.0,82.0,112,81,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.0,161.0,70.0,124,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,47.5,178.0,79.5,125,78,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,55.9,176.5,85.0,112,87,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,55.0,178.0,94.0,145,78,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,8.0,72.0,G2,A2,CKD
+True,South Asian,35.0,175.0,90.0,136,87,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,60.6,153.0,64.0,131,81,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,South Asian,65.0,160.0,90.6,110,77,False,False,False,False,False,True,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,73.4,171.0,69.0,153,83,True,False,False,True,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.4,185.4,116.0,140,83,True,False,False,True,False,True,unsure,Siemens Clinitek,3–30,True,12.0,80.0,G2,A2,CKD
+False,Black,69.3,168.5,95.3,133,68,True,False,False,True,False,False,yes,Siemens Clinitek,3–30,True,13.0,69.0,G2,A2,CKD
+False,Black,52.9,176.0,89.8,133,91,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,41.2,168.0,85.6,170,100,True,False,False,True,False,False,no,Healthy.io,3–30,True,13.4,67.0,G2,A2,CKD
+False,Black,52.0,161.0,71.0,110,81,False,False,False,False,False,False,no,Healthy.io,3–30,True,17.0,64.0,G2,A2,CKD
+True,Black,45.5,166.0,97.9,145,84,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,32.5,162.0,79.1,162,99,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,True,37.0,75.0,G2,A3,CKD
+False,Black,66.5,184.0,115.0,183,95,True,False,False,True,False,False,no,Healthy.io,3–30,True,21.0,78.0,G2,A2,CKD
+False,Black,64.6,168.0,89.0,149,91,False,False,False,False,False,False,no,Healthy.io,3–30,True,20.0,63.0,G2,A2,CKD
+False,Black,56.4,184.0,105.7,130,89,False,False,False,False,False,False,no,Healthy.io,3–30,True,19.0,68.0,G2,A2,CKD
+True,Black,46.2,173.0,117.2,203,108,False,False,False,False,False,False,no,Healthy.io,>30,True,36.0,67.0,G2,A3,CKD
+True,Asian,48.8,165.0,107.8,111,88,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,12.0,62.0,G2,A2,CKD
+False,Black,48.3,170.2,95.0,134,76,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,6.0,70.0,G2,A2,CKD
+False,Black,55.5,170.7,69.3,106,72,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,57.9,156.0,79.3,153,86,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.4,170.0,84.0,180,106,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,59.6,175.0,88.5,166,101,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,7.0,66.0,G2,A2,CKD
+True,Black,60.1,159.3,62.5,145,103,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,9.0,67.0,G2,A2,CKD
+True,Black,72.8,172.0,94.5,195,109,True,False,False,True,False,False,no,Healthy.io,>30,True,38.0,68.0,G2,A3,CKD
+False,Black,61.1,153.0,78.9,135,91,True,True,False,True,True,False,no,Healthy.io,3–30,True,11.0,52.0,G3a,A2,CKD
+False,Black,54.6,186.0,90.9,145,87,True,False,False,True,False,False,no,Healthy.io,3–30,True,10.0,65.0,G2,A2,CKD
+True,Black,51.5,153.0,78.9,135,81,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,10.0,70.0,G2,A2,CKD
+False,White,63.4,161.0,81.0,139,88,True,True,False,True,True,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.0,167.0,65.0,141,65,False,False,False,False,False,False,no,Healthy.io,>30,True,8.0,72.0,G2,A2,CKD
+False,Black,30.5,178.5,86.0,134,69,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,South Asian,58.1,185.0,101.6,131,61,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,65.0,G2,A2,CKD
+True,Asian,30.1,168.5,89.3,113,79,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,29.9,185.0,79.0,128,73,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,88.0,G2,A2,CKD
+True,Black,57.0,154.0,83.0,128,91,False,True,False,False,True,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,42.3,141.0,65.0,101,89,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,50.0,G3a,A2,CKD
+True,Black,70.3,157.48,85.0,120,84,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,8.0,39.0,G3b,A2,CKD
+False,Black,46.7,148.0,64.6,158,94,True,True,False,True,True,False,no,Siemens Clinitek,3–30,True,13.8,78.0,G2,A2,CKD
+True,Black,62.7,152.5,67.0,167,88,True,True,False,True,True,True,no,Siemens Clinitek,3–30,True,5.0,65.0,G2,A2,CKD
+False,Black,48.3,165.0,49.4,149,93,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,12.0,64.0,G2,A2,CKD
+True,Black,54.3,165.0,77.0,135,95,False,False,False,False,False,False,unsure,Healthy.io,3–30,True,21.0,65.0,G2,A2,CKD
+False,Black,63.0,170.0,75.0,128,78,False,False,False,False,False,False,no,Healthy.io,3–30,True,21.0,84.0,G2,A2,CKD
+False,Black,47.0,157.0,62.5,122,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Mixed,71.3,177.0,95.1,126,64,False,True,False,False,True,True,yes,Healthy.io,>30,True,11.4,63.0,G2,A2,CKD
+True,Black,67.9,155.0,76.2,124,74,False,False,False,False,False,False,no,Healthy.io,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,22.3,175.0,68.1,116,73,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.6,66.0,G2,A2,CKD
+False,Black,55.6,173.2,89.3,157,87,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,12.0,89.0,G2,A2,CKD
+True,Black,60.3,176.0,83.0,128,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,62.0,151.2,66.6,133,77,True,True,False,True,True,True,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.2,161.5,86.6,127,84,False,False,False,False,False,False,no,Healthy.io,3–30,True,15.0,69.0,G2,A2,CKD
+True,Black,20.6,170.5,86.1,120,71,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,75.0,G2,A2,CKD
+True,Black,46.1,169.0,87.5,179,101,True,False,False,True,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,49.0,164.0,78.0,118,71,False,True,False,False,True,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,57.3,159.0,78.0,118,73,False,False,False,False,False,False,no,Healthy.io,>30,True,38.0,68.0,G2,A3,CKD
+False,Black,48.0,169.0,79.0,113,89,False,False,False,False,False,False,no,Healthy.io,3–30,True,23.0,76.0,G2,A2,CKD
+True,Black,67.8,151.0,81.0,130,81,False,True,False,False,True,False,no,Siemens Clinitek,>30,True,35.0,69.0,G2,A3,CKD
+True,Black,61.4,177.5,76.2,153,87,True,True,False,False,False,False,no,Healthy.io,3–30,True,7.0,85.0,G2,A2,CKD
+True,Black,47.3,164.5,105.6,122,81,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,45.0,G3a,A2,CKD
+False,Black,61.0,169.0,68.4,139,82,False,False,False,False,False,False,no,Healthy.io,3–30,True,8.0,76.0,G2,A2,CKD
+True,Black,75.0,156.0,118.7,141,82,False,False,False,False,False,False,no,Healthy.io,>30,True,33.0,81.0,G2,A3,CKD
+False,Black,56.8,164.2,64.3,139,91,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,9.0,78.0,G2,A2,CKD
+False,White,60.8,171.0,90.0,118,71,False,False,False,False,False,False,no,Healthy.io,3–30,True,8.0,75.0,G2,A2,CKD
+False,Black,47.6,161.0,87.3,176,99,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,38.4,166.0,55.3,121,77,False,False,False,False,False,False,no,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,56.2,170.0,100.0,148,88,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,74.0,G2,A2,CKD
+True,Black,65.7,179.5,87.3,116,72,False,True,False,False,True,True,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Mixed,61.1,178.0,86.1,179,102,False,False,False,False,False,False,no,Siemens Clinitek,>30,True,42.0,83.0,G2,A3,CKD
+True,Black,21.1,174.0,65.0,121,62,False,False,False,False,False,False,no,Healthy.io,3–30,True,21.0,77.0,G2,A2,CKD
+True,Black,29.0,168.0,78.0,119,75,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,12.0,52.0,G3a,A2,CKD
+True,Black,60.9,170.0,69.8,143,89,True,True,False,True,True,True,no,Siemens Clinitek,3–30,True,24.0,50.0,G3a,A2,CKD
+True,Black,62.8,154.0,71.0,137,93,True,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,25.0,74.0,G2,A2,CKD
+False,Black,71.8,176.0,88.7,123,73,False,False,False,False,False,False,no,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,84.6,163.5,90.6,121,65,False,True,False,False,True,False,unsure,Siemens Clinitek,3–30,True,11.0,80.0,G2,A2,CKD
+False,Black,71.3,180.4,96.0,147,89,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.8,65.0,G2,A2,CKD
+True,Black,65.9,152.5,79.1,137,78,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,11.0,67.0,G2,A2,CKD
+False,Black,49.0,167.9,94.4,111,79,False,True,False,False,True,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,44.5,161.0,71.4,105,70,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,21.0,81.0,G2,A2,CKD
+True,Black,39.8,164.0,54.5,123,84,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,True,34.0,72.0,G2,A3,CKD
+False,White,71.1,151.1,74.7,166,96,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,51.8,180.9,92.0,190,111,False,False,False,False,False,False,yes,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,31.0,175.5,110.6,121,73,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,22.0,67.0,G2,A2,CKD
+False,Black,31.2,155.0,63.0,118,63,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,57.0,170.0,91.0,135,81,True,False,False,True,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,52.4,155.0,73.0,139,81,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,50.2,153.0,55.0,121,81,False,False,False,False,False,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,44.9,159.0,90.2,135,69,False,True,False,False,True,False,unsure,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,30.7,158.0,63.0,121,81,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.1,170.0,65.0,138,91,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,68.0,G2,A2,CKD
+True,Black,45.0,167.4,91.3,115,69,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,62.2,165.0,89.0,145,89,True,True,False,True,True,False,no,Healthy.io,3–30,True,12.0,68.0,G2,A2,CKD
+False,Black,62.3,164.0,69.8,113,74,False,False,False,False,False,False,no,Healthy.io,3–30,True,9.0,75.0,G2,A2,CKD
+True,Black,51.2,153.0,91.0,167,117,True,False,False,True,False,False,no,Healthy.io,>30,True,36.0,71.0,G2,A3,CKD
+True,Black,29.4,168.0,74.8,118,78,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,47.4,177.0,99.7,155,88,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,68.0,G2,A2,CKD
+False,Black,37.0,158.0,71.0,128,82,False,False,False,False,False,False,no,Healthy.io,3–30,True,7.0,65.0,G2,A2,CKD
+False,Black,53.4,166.4,103.0,150,82,True,True,False,True,True,False,no,Siemens Clinitek,3–30,True,6.0,64.0,G2,A2,CKD
+False,Black,36.4,169.0,95.9,132,80,False,False,False,False,False,False,no,Healthy.io,>30,True,6.0,64.0,G2,A2,CKD
+False,Black,47.7,158.4,74.8,156,105,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,79.0,G2,A2,CKD
+False,Black,37.1,171.5,71.1,125,80,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,55.9,187.0,79.9,147,96,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,5.0,69.0,G2,A2,CKD
+False,Black,75.2,148.0,91.6,137,76,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,49.4,157.0,78.0,134,89,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,56.1,162.5,57.5,138,104,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,5.0,60.0,G2,A2,CKD
+True,Black,59.0,160.5,76.4,144,99,False,False,False,False,False,False,no,Healthy.io,3–30,True,11.0,63.0,G2,A2,CKD
+False,Black,33.3,158.0,86.0,128,73,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,23.0,68.0,G2,A2,CKD
+False,Black,27.1,152.5,64.7,130,80,False,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,54.8,162.0,103.0,160,93,True,False,False,True,False,False,no,Healthy.io,3–30,True,27.0,81.0,G2,A2,CKD
+True,Black,53.8,163.0,87.0,146,87,True,False,False,False,False,False,no,Healthy.io,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,54.3,156.0,93.5,139,91,False,True,False,False,True,False,no,Healthy.io,3–30,True,23.0,63.0,G2,A2,CKD
+True,Black,51.2,180.0,95.0,146,86,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Mixed,54.9,162.0,103.0,160,93,True,False,False,False,False,False,no,Siemens Clinitek,3–30,True,21.0,88.0,G2,A2,CKD
+False,Black,52.5,176.5,101.6,143,94,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,12.0,88.0,G2,A2,CKD
+False,Black,44.0,169.3,84.6,177,110,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,21.0,74.0,G2,A2,CKD
+False,Black,42.2,161.9,83.9,132,82,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,11.0,79.0,G2,A2,CKD
+False,Black,64.1,159.0,97.4,159,92,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,21.0,64.0,G2,A2,CKD
+True,Black,53.4,164.5,74.3,140,92,False,False,False,False,False,False,no,Healthy.io,3–30,True,9.0,64.0,G2,A2,CKD
+True,Black,50.3,162.2,71.0,154,102,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,6.0,68.0,G2,A2,CKD
+False,Black,72.0,165.0,70.4,170,90,True,False,False,True,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,61.4,161.5,89.9,152,86,True,False,False,True,False,False,no,Healthy.io,3–30,True,4.0,90.0,G1,A2,CKD
+False,Black,56.1,154.0,78.2,136,84,True,True,False,True,True,False,no,Healthy.io,3–30,True,8.0,69.0,G2,A2,CKD
+True,Black,53.4,179.0,120.4,143,78,True,True,False,True,True,False,unsure,Siemens Clinitek,3–30,True,14.4,76.0,G2,A2,CKD
+True,Black,37.4,150.0,52.1,157,109,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,8.0,56.0,G3a,A2,CKD
+False,Black,66.2,170.0,96.9,136,85,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,75.6,153.0,65.5,178,76,True,True,False,True,True,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,19.0,169.2,61.3,119,63,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,11.2,64.0,G2,A2,CKD
+True,Black,55.5,182.5,99.0,169,110,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,11.0,89.0,G2,A2,CKD
+False,Black,44.4,169.8,60.0,120,70,True,False,False,True,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,58.5,176.0,110.2,153,85,True,False,False,True,False,True,unsure,Siemens Clinitek,3–30,True,10.0,64.0,G2,A2,CKD
+False,Black,19.9,154.0,78.0,145,89,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,81.4,188.9,85.0,145,87,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,11.0,46.0,G3a,A2,CKD
+False,Black,56.4,164.0,69.8,132,70,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,23.0,76.0,G2,A2,CKD
+True,Black,57.6,161.0,72.0,127,71,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,12.0,64.0,G2,A2,CKD
+False,Black,43.8,156.0,87.0,143,95,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,11.0,73.0,G2,A2,CKD
+True,Black,43.8,168.0,89.0,165,98,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,12.0,62.0,G2,A2,CKD
+False,Black,57.5,161.0,72.3,131,94,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,76.3,156.5,81.0,131,72,True,False,False,True,True,False,no,Siemens Clinitek,3–30,True,8.0,76.0,G2,A2,CKD
+True,Black,50.0,159.4,85.9,142,71,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Mixed,62.9,161.0,78.0,138,81,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,24.0,72.0,G2,A2,CKD
+False,Black,61.2,168.0,80.7,168,88,True,True,False,True,True,True,yes,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.4,173.7,63.5,120,66,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,62.9,162.5,99.9,162,86,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,8.0,60.0,G2,A2,CKD
+True,Black,55.8,178.0,93.2,156,87,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,9.0,78.0,G2,A2,CKD
+False,Mixed,64.0,169.0,99.4,179,92,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,21.0,67.0,G2,A2,CKD
+True,Black,52.1,170.6,114.8,194,109,True,True,False,True,True,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,63.5,160.4,55.9,119,61,False,True,False,False,True,False,yes,Siemens Clinitek,3–30,True,11.0,68.0,G2,A2,CKD
+False,Black,69.7,170.0,72.8,144,96,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,7.0,47.0,G3a,A2,CKD
+True,Black,22.4,184.9,77.5,140,82,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,8.0,78.0,G2,A2,CKD
+True,Black,51.8,177.9,89.4,135,87,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,71.2,178.0,90.0,136,95,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.0,156.0,74.9,126,78,False,True,False,False,True,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,60.9,158.0,57.7,111,83,False,False,False,False,False,True,unsure,Siemens Clinitek,3–30,True,8.0,75.0,G2,A2,CKD
+True,Black,62.0,165.0,65.0,149,94,True,True,False,True,True,False,no,Siemens Clinitek,3–30,True,6.0,62.0,G2,A2,CKD
+True,Black,57.1,151.0,71.6,179,95,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,8.0,75.0,G2,A2,CKD
+False,Black,42.2,172.8,97.4,137,92,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,7.0,90.0,G1,A2,CKD
+False,Black,45.6,165.5,103.5,101,58,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,41.5,157.0,60.9,146,90,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,79.0,G2,A2,CKD
+False,Black,34.8,171.0,91.0,130,93,True,False,False,True,False,False,no,Siemens Clinitek,>30,True,34.0,87.0,G2,A3,CKD
+False,Black,71.0,173.5,80.0,138,71,True,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,89.0,G2,A2,CKD
+False,Black,47.1,162.0,67.0,145,98,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,8.0,84.0,G2,A2,CKD
+False,Black,35.8,168.0,55.0,134,88,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,84.0,G2,A2,CKD
+True,Black,36.6,190.0,105.0,147,97,True,False,False,True,False,False,no,Siemens Clinitek,>30,True,36.0,73.0,G2,A3,CKD
+False,South Asian,36.0,170.0,68.0,109,79,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,47.2,167.0,78.1,135,92,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,True,38.0,86.0,G2,A3,CKD
+True,Black,36.6,170.0,88.5,136,93,True,False,False,True,False,False,no,Siemens Clinitek,>30,True,32.0,87.0,G2,A3,CKD
+False,Asian,80.0,155.0,65.2,191,67,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,True,45.0,74.0,G2,A3,CKD
+True,Black,38.5,194.9,113.0,166,109,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,56.4,160.3,71.0,138,82,True,True,False,True,True,False,unsure,Siemens Clinitek,3–30,True,13.0,75.0,G2,A2,CKD
+True,Black,41.8,165.0,83.2,133,92,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,78.0,G2,A2,CKD
+False,Black,57.0,164.0,73.0,129,84,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,84.0,G2,A2,CKD
+False,White,40.7,166.9,69.1,135,85,False,True,False,False,True,False,no,Siemens Clinitek,>30,True,6.0,78.0,G2,A2,CKD
+False,South Asian,59.0,183.0,67.0,103,74,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,87.0,G2,A2,CKD
+False,Black,40.5,162.4,80.0,102,65,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,42.1,186.3,92.6,137,93,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Mixed,60.4,160.0,96.0,146,89,True,False,False,True,False,False,no,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,60.1,178.5,76.3,136,76,True,False,False,False,True,True,unsure,Siemens Clinitek,3–30,True,9.0,64.0,G2,A2,CKD
+False,Black,54.8,152.5,65.5,116,75,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,51.2,139.0,94.6,114,72,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,63.0,G2,A2,CKD
+False,Black,27.0,155.0,96.0,128,77,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,39.6,151.5,64.6,124,69,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,63.7,165.5,79.7,165,107,False,False,False,False,False,False,yes,Siemens Clinitek,3–30,True,7.0,65.0,G2,A2,CKD
+False,Black,45.4,170.9,73.4,123,69,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,7.0,67.0,G2,A2,CKD
+True,Black,63.0,168.0,80.9,173,93,True,True,False,True,True,True,unsure,Siemens Clinitek,3–30,True,8.0,90.0,G1,A2,CKD
+True,Black,75.8,151.0,65.9,132,78,True,False,False,True,False,False,yes,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Asian,48.2,157.5,67.3,114,88,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,7.0,65.0,G2,A2,CKD
+False,Black,65.9,175.0,80.0,160,86,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,7.0,79.0,G2,A2,CKD
+True,Black,47.2,160.0,83.0,146,96,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,66.7,161.8,75.0,151,76,True,False,False,True,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,48.3,174.5,81.0,138,86,False,False,False,False,False,True,no,Siemens Clinitek,3–30,True,8.0,66.0,G2,A2,CKD
+True,White,26.4,168.5,66.9,133,81,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,29.1,180.0,107.0,156,91,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,25.0,157.0,58.0,108,65,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,5.0,50.0,G3a,A2,CKD
+True,Asian,66.9,168.5,78.0,131,76,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,27.2,179.0,75.1,145,74,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,20.9,169.0,84.7,138,78,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,6.0,52.0,G3a,A2,CKD
+False,Black,35.0,158.0,67.0,127,85,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,71.1,173.0,73.6,177,90,True,False,False,False,True,False,unsure,Siemens Clinitek,3–30,True,8.0,81.0,G2,A2,CKD
+False,Black,56.1,159.5,73.4,144,94,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,68.7,152.0,74.7,144,87,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,12.0,80.0,G2,A2,CKD
+False,Black,60.9,169.0,94.0,139,93,False,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,69.3,159.0,69.0,154,93,True,False,False,True,False,True,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,85.6,162.5,74.6,167,81,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+True,Black,62.8,158.0,74.0,118,78,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,11.0,59.0,G3a,A2,CKD
+False,Black,40.8,176.0,87.0,136,76,True,False,False,True,False,False,no,Siemens Clinitek,3–30,True,10.0,85.0,G2,A2,CKD
+False,Black,49.6,160.0,96.0,165,102,False,False,False,False,False,False,unsure,Siemens Clinitek,3–30,True,8.0,71.0,G2,A2,CKD
+False,Black,66.2,167.0,98.0,134,87,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,22.0,70.0,G2,A2,CKD
+True,Black,75.4,158.0,76.0,129,86,True,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,75.4,167.0,87.0,156,100,False,False,False,False,False,False,unsure,Siemens Clinitek,>30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,54.2,174.0,88.4,145,100,False,False,False,False,False,False,no,Siemens Clinitek,3–30,True,12.0,76.0,G2,A2,CKD
+False,Black,58.4,168.5,75.0,125,74,True,False,False,True,False,False,unsure,Siemens Clinitek,3–30,True,11.0,35.0,G3b,A2,CKD
+True,Black,62.1,187.0,122.7,170,110,False,False,False,False,False,False,no,Siemens Clinitek,>30,True,37.0,86.0,G2,A3,CKD
+False,Black,33.2,165.0,80.6,143,98,True,True,False,True,True,True,no,Siemens Clinitek,3–30,True,11.0,49.0,G3a,A2,CKD
+False,Black,55.2,152.0,90.1,142,93,True,False,False,False,False,False,no,Siemens Clinitek,3–30,False,2.0,90.0,No CKD,No CKD,No CKD
+False,Black,51.6,159.9,83.5,140,86,False,False,False,True,False,False,unsure,Siemens Clinitek,>30,True,39.0,67.0,G2,A3,CKD
+True,Black,56.5,155.8,138.3,134,72,False,True,False,True,True,True,unsure,Siemens Clinitek,>30,True,37.0,51.0,G3a,A3,CKD

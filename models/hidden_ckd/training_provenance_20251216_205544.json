@@ -1,0 +1,31 @@
+{
+    "timestamp": "20251216_205544",
+    "selected_features": [
+        "nom__screening_acr_3\u201330",
+        "nom__s_ethnicity_South Asian",
+        "nom__family_kd_yes",
+        "num__height_cm",
+        "nom__s_ethnicity_White",
+        "bin__male",
+        "num__diastolic",
+        "nom__device_used_Healthy.io",
+        "bin__has_dm",
+        "nom__family_kd_no",
+        "bin__has_htn",
+        "nom__family_kd_unsure"
+    ],
+    "optuna_best_params": {
+        "n_estimators": 769,
+        "max_depth": 4,
+        "learning_rate": 0.048149433339146765,
+        "subsample": 0.7494731763727422,
+        "colsample_bytree": 0.9743806425729142,
+        "min_child_weight": 4.647440565750843,
+        "gamma": 0.6630285678945147,
+        "reg_lambda": 0.19888926736063092,
+        "reg_alpha": 0.013604150537595536,
+        "scale_pos_weight": 8.394328493305842
+    },
+    "optuna_best_score": 0.7206014121976339,
+    "n_training_samples": 336
+}

@@ -6,12 +6,10 @@ tqdm
 typer
 ipython
 ipykernel
-tensorflow
-tensorflow-hub
-keras-cv
 pandas
 numpy
-scikit-learn
+imbalanced-learn==0.12.3
+scikit-learn==1.6.1
 scikit-image
 opencv-python
 seaborn
@@ -23,4 +21,5 @@ ultralytics==8.3.228
 weaviate-client
 langchain
 optuna
+xgboost
 -e .

@@ -16,7 +16,10 @@ RAW_DATA_DIR = DATA_DIR / "raw"
 INTERIM_DATA_DIR = DATA_DIR / "interim"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 EXTERNAL_DATA_DIR = DATA_DIR / "external"
+
 DIPSTICK_IMAGES_DIR = PROCESSED_DATA_DIR / "dipstick_imgs"
+RAW_TABLES_DIR = RAW_DATA_DIR / "tabular_data"
+TABLES_DIR = PROCESSED_DATA_DIR / "tabular_data"
 
 MODELS_DIR = PROJ_ROOT / "models"
 

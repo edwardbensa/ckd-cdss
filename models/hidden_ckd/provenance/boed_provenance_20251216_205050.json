@@ -1,0 +1,188 @@
+{
+    "timestamp": "20251216_205050",
+    "selected_features": [
+        "nom__screening_acr_3\u201330",
+        "nom__s_ethnicity_South Asian",
+        "nom__family_kd_yes",
+        "num__height_cm",
+        "nom__s_ethnicity_White",
+        "bin__male",
+        "num__diastolic",
+        "nom__device_used_Healthy.io",
+        "bin__has_dm",
+        "nom__family_kd_no",
+        "bin__has_htn",
+        "nom__family_kd_unsure"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White"
+            ],
+            "score": 0.549185856030076,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male"
+            ],
+            "score": 0.6285263994019186,
+            "added_feature": "bin__male"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic"
+            ],
+            "score": 0.659558469170115,
+            "added_feature": "num__diastolic"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io"
+            ],
+            "score": 0.7018978645084584,
+            "added_feature": "nom__device_used_Healthy.io"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm"
+            ],
+            "score": 0.7145066162304861,
+            "added_feature": "bin__has_dm"
+        },
+        {
+            "step": 5,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm",
+                "nom__family_kd_no"
+            ],
+            "score": 0.7221247134598598,
+            "added_feature": "nom__family_kd_no"
+        },
+        {
+            "step": 6,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm",
+                "nom__family_kd_no",
+                "bin__has_htn"
+            ],
+            "score": 0.7239358933842949,
+            "added_feature": "bin__has_htn"
+        },
+        {
+            "step": 7,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm",
+                "nom__family_kd_no",
+                "bin__has_htn",
+                "nom__family_kd_unsure"
+            ],
+            "score": 0.7280689758803367,
+            "added_feature": "nom__family_kd_unsure"
+        },
+        {
+            "step": 8,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm",
+                "nom__family_kd_no",
+                "bin__has_htn",
+                "nom__family_kd_unsure",
+                "nom__device_used_Siemens Clinitek"
+            ],
+            "score": 0.7218206308548758,
+            "added_feature": "nom__device_used_Siemens Clinitek"
+        },
+        {
+            "step": 9,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "bin__male",
+                "num__diastolic",
+                "nom__device_used_Healthy.io",
+                "bin__has_dm",
+                "nom__family_kd_no",
+                "bin__has_htn",
+                "nom__family_kd_unsure",
+                "nom__device_used_Siemens Clinitek",
+                "nom__s_ethnicity_Asian"
+            ],
+            "score": 0.727643301422672,
+            "added_feature": "nom__s_ethnicity_Asian"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 5,
+    "n_trials_per_step": 25,
+    "patience": 2
+}
