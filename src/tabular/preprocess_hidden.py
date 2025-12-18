@@ -10,7 +10,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PowerTransformer, OneHotEncoder, OrdinalEncoder
 from sklearn.impute import SimpleImputer
-from imblearn.combine import SMOTEENN
+from imblearn.combine import SMOTETomek
 from imblearn.pipeline import Pipeline as ImbPipeline
 from src.config import TABLES_DIR, INTERIM_DATA_DIR, MODELS_DIR
 
@@ -62,11 +62,11 @@ logger.info(f"Train shape: {X_train_raw.shape}, Test shape: {X_test_raw.shape}")
 # Build ImbLearn pipeline
 resampling_pipeline = ImbPipeline(steps=[
     ("preprocess", preprocessor),
-    ("smote_tomek", SMOTEENN(random_state=42))
+    ("smote_tomek", SMOTETomek(random_state=42))
 ])
 
 # Transform train set
-logger.info("Fitting preprocessing + SMOTETomek on training data...")
+logger.info("Fitting preprocessing + SMOTEENN on training data...")
 X_resampled, y_resampled = resampling_pipeline.fit_resample(X_train_raw, y_train) # type: ignore
 logger.info(f"Class distribution after resampling:\n{y_resampled.value_counts()}")
 
@@ -88,12 +88,12 @@ logger.info("Label mapping complete.")
 
 # Create and save dataframes to CSV
 train_df = pd.DataFrame(X_resampled, columns=feature_names)
-train_df["ckd_status"] = y_resampled
+train_df["confirmed_albuminuria"] = y_resampled.values
 train_df.to_csv(INTERIM_TABLES_DIR / 'hiddenckd_train.csv', index=False)
 
 test_df = pd.DataFrame(X_test, columns=feature_names) # type: ignore
-train_df["ckd_status"] = y_test
+test_df["confirmed_albuminuria"] = y_test.values
 test_df.to_csv(INTERIM_TABLES_DIR / 'hiddenckd_test.csv', index=False)
 
 # Save preprocessing pipeline
-joblib.dump(preprocessor, MODELS_DIR / "hidden_ckd/preprocessor.joblib")
+joblib.dump(preprocessor, MODELS_DIR / "hiddenckd/preprocessor.joblib")

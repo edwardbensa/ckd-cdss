@@ -22,4 +22,5 @@ weaviate-client
 langchain
 optuna
 xgboost
+sdv
 -e .

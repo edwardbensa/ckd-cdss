@@ -1,0 +1,126 @@
+{
+    "timestamp": "20251218_203800",
+    "selected_features": [
+        "bin__cad",
+        "num__hemo",
+        "bin__htn",
+        "num__bp",
+        "bin__appet_poor",
+        "num__sg",
+        "num__age",
+        "num__sc",
+        "num__al"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor"
+            ],
+            "score": 0.9885660927533347,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg"
+            ],
+            "score": 0.9976956435762598,
+            "added_feature": "num__sg"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg",
+                "num__age"
+            ],
+            "score": 0.9995060975609757,
+            "added_feature": "num__age"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg",
+                "num__age",
+                "num__sc"
+            ],
+            "score": 0.9996399535423925,
+            "added_feature": "num__sc"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg",
+                "num__age",
+                "num__sc",
+                "num__al"
+            ],
+            "score": 0.9997560975609756,
+            "added_feature": "num__al"
+        },
+        {
+            "step": 5,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg",
+                "num__age",
+                "num__sc",
+                "num__al",
+                "num__bu"
+            ],
+            "score": 0.9997560975609756,
+            "added_feature": "num__bu"
+        },
+        {
+            "step": 6,
+            "selected_features": [
+                "bin__cad",
+                "num__hemo",
+                "bin__htn",
+                "num__bp",
+                "bin__appet_poor",
+                "num__sg",
+                "num__age",
+                "num__sc",
+                "num__al",
+                "num__bu",
+                "num__su"
+            ],
+            "score": 0.9997560975609756,
+            "added_feature": "num__su"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 5,
+    "n_trials_per_step": 25,
+    "patience": 2,
+    "model_key": "xgb"
+}

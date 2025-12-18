@@ -82,12 +82,13 @@ logger.info("Label mapping complete.")
 
 # Create and save dataframes to CSV
 train_df = pd.DataFrame(X_resampled, columns=feature_names)
-train_df["ckd_status"] = y_resampled
+train_df["ckd_status"] = y_resampled.values
 train_df.to_csv(INTERIM_TABLES_DIR / 'ucickd_train.csv', index=False)
 
-test_df = pd.DataFrame(X_test, columns=feature_names) # type: ignore
-train_df["ckd_status"] = y_test
+test_df = pd.DataFrame(X_test, columns=feature_names)
+test_df["ckd_status"] = y_test.values
 test_df.to_csv(INTERIM_TABLES_DIR / 'ucickd_test.csv', index=False)
 
 # Save preprocessing pipeline
 joblib.dump(preprocessor, MODELS_DIR / "ucimlrepo_ckd/preprocessor.joblib")
+print(test_df["ckd_status"].value_counts())

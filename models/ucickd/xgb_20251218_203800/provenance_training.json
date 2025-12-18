@@ -1,0 +1,28 @@
+{
+    "timestamp": "20251218_203900",
+    "selected_features": [
+        "bin__cad",
+        "num__hemo",
+        "bin__htn",
+        "num__bp",
+        "bin__appet_poor",
+        "num__sg",
+        "num__age",
+        "num__sc",
+        "num__al"
+    ],
+    "optuna_best_params": {
+        "n_estimators": 365,
+        "max_depth": 5,
+        "learning_rate": 0.03869328158529459,
+        "subsample": 0.9826113008043263,
+        "colsample_bytree": 0.5380139817868492,
+        "min_child_weight": 1.0094056374299685,
+        "gamma": 2.8226570461883336,
+        "reg_lambda": 0.7055011313613153,
+        "reg_alpha": 0.04289826471820289,
+        "scale_pos_weight": 9.847202397934808
+    },
+    "optuna_best_score": 0.9998780487804877,
+    "n_training_samples": 400
+}

@@ -1,0 +1,343 @@
+{
+    "timestamp": "20251218_190945",
+    "selected_features": [
+        "nom__screening_acr_3\u201330",
+        "nom__s_ethnicity_South Asian",
+        "nom__family_kd_yes",
+        "num__height_cm",
+        "nom__s_ethnicity_White",
+        "nom__device_used_Healthy.io",
+        "num__age",
+        "num__diastolic",
+        "bin__has_htn",
+        "nom__family_kd_no",
+        "num__systolic",
+        "bin__has_dm",
+        "num__weight_kg",
+        "nom__screening_acr_>30",
+        "nom__family_kd_unsure",
+        "bin__male",
+        "nom__s_ethnicity_Mixed",
+        "bin__has_cvd",
+        "nom__s_ethnicity_Black"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White"
+            ],
+            "score": 0.6360850970091165,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io"
+            ],
+            "score": 0.8310661832560344,
+            "added_feature": "nom__device_used_Healthy.io"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age"
+            ],
+            "score": 0.8899371042507326,
+            "added_feature": "num__age"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic"
+            ],
+            "score": 0.9082210377252349,
+            "added_feature": "num__diastolic"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn"
+            ],
+            "score": 0.9197163562939938,
+            "added_feature": "bin__has_htn"
+        },
+        {
+            "step": 5,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no"
+            ],
+            "score": 0.9296867077565079,
+            "added_feature": "nom__family_kd_no"
+        },
+        {
+            "step": 6,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic"
+            ],
+            "score": 0.9420986987770597,
+            "added_feature": "num__systolic"
+        },
+        {
+            "step": 7,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm"
+            ],
+            "score": 0.9513904105111484,
+            "added_feature": "bin__has_dm"
+        },
+        {
+            "step": 8,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg"
+            ],
+            "score": 0.9546487083737102,
+            "added_feature": "num__weight_kg"
+        },
+        {
+            "step": 9,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30"
+            ],
+            "score": 0.959837340639797,
+            "added_feature": "nom__screening_acr_>30"
+        },
+        {
+            "step": 10,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure"
+            ],
+            "score": 0.9611944148337865,
+            "added_feature": "nom__family_kd_unsure"
+        },
+        {
+            "step": 11,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure",
+                "bin__male"
+            ],
+            "score": 0.9629064746842371,
+            "added_feature": "bin__male"
+        },
+        {
+            "step": 12,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure",
+                "bin__male",
+                "nom__s_ethnicity_Mixed"
+            ],
+            "score": 0.9637108679143565,
+            "added_feature": "nom__s_ethnicity_Mixed"
+        },
+        {
+            "step": 13,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure",
+                "bin__male",
+                "nom__s_ethnicity_Mixed",
+                "bin__has_cvd"
+            ],
+            "score": 0.9646269960612379,
+            "added_feature": "bin__has_cvd"
+        },
+        {
+            "step": 14,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure",
+                "bin__male",
+                "nom__s_ethnicity_Mixed",
+                "bin__has_cvd",
+                "nom__s_ethnicity_Black"
+            ],
+            "score": 0.9651107950019794,
+            "added_feature": "nom__s_ethnicity_Black"
+        },
+        {
+            "step": 15,
+            "selected_features": [
+                "nom__screening_acr_3\u201330",
+                "nom__s_ethnicity_South Asian",
+                "nom__family_kd_yes",
+                "num__height_cm",
+                "nom__s_ethnicity_White",
+                "nom__device_used_Healthy.io",
+                "num__age",
+                "num__diastolic",
+                "bin__has_htn",
+                "nom__family_kd_no",
+                "num__systolic",
+                "bin__has_dm",
+                "num__weight_kg",
+                "nom__screening_acr_>30",
+                "nom__family_kd_unsure",
+                "bin__male",
+                "nom__s_ethnicity_Mixed",
+                "bin__has_cvd",
+                "nom__s_ethnicity_Black",
+                "nom__s_ethnicity_Asian"
+            ],
+            "score": 0.9633176385295495,
+            "added_feature": "nom__s_ethnicity_Asian"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 5,
+    "n_trials_per_step": 25,
+    "patience": 2,
+    "model_key": "bnn"
+}

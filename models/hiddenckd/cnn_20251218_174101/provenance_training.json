@@ -1,0 +1,24 @@
+{
+    "timestamp": "20251218_174101",
+    "selected_features": [
+        "nom__screening_acr_3\u201330",
+        "nom__s_ethnicity_South Asian",
+        "nom__family_kd_yes",
+        "num__height_cm",
+        "nom__s_ethnicity_White",
+        "nom__device_used_Siemens Clinitek",
+        "num__age",
+        "num__weight_kg",
+        "bin__has_dm",
+        "bin__has_htn"
+    ],
+    "optuna_best_params": {
+        "num_filters": 113,
+        "kernel_size": 5,
+        "lr": 0.009814252105547821,
+        "epochs": 47,
+        "batch_size": 86
+    },
+    "optuna_best_score": 0.9191781025472983,
+    "n_training_samples": 1582
+}
