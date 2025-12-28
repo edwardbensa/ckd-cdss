@@ -9,7 +9,6 @@ import numpy as np
 from openai import OpenAI
 from loguru import logger
 from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
 from src.config import COHERE_API_KEY, WEAVIATE_HOST, WEAVIATE_PORT, WEAVIATE_GRPC_PORT
 from src.rag.etl.load import COLLECTION_NAME
 from src.rag.utils.parsers import trim_chunks
