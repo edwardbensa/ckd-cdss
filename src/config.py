@@ -1,6 +1,8 @@
 '''Configuration module for project paths and logging setup.'''
-from pathlib import Path
 
+# Imports
+import os
+from pathlib import Path
 from dotenv import load_dotenv
 from loguru import logger
 
@@ -16,12 +18,26 @@ RAW_DATA_DIR = DATA_DIR / "raw"
 INTERIM_DATA_DIR = DATA_DIR / "interim"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 EXTERNAL_DATA_DIR = DATA_DIR / "external"
+
 DIPSTICK_IMAGES_DIR = PROCESSED_DATA_DIR / "dipstick_imgs"
+RAW_TABLES_DIR = RAW_DATA_DIR / "tabular_data"
+TABLES_DIR = PROCESSED_DATA_DIR / "tabular_data"
 
 MODELS_DIR = PROJ_ROOT / "models"
 
 REPORTS_DIR = PROJ_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
+
+# API keys
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+
+
+# Weaviate
+WEAVIATE_URL = os.getenv("WEAVIATE_URL")
+WEAVIATE_HOST = os.getenv("WEAVIATE_HOST") # type:ignore
+WEAVIATE_PORT = int(os.getenv("WEAVIATE_PORT")) # type:ignore
+WEAVIATE_GRPC_PORT = int(os.getenv("WEAVIATE_GRPC_PORT")) # type:ignore
 
 
 # If tqdm is installed, configure loguru with tqdm.write

@@ -1,0 +1,119 @@
+{
+    "timestamp": "20251225_171337",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__age",
+        "bin__rbc"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe"
+            ],
+            "score": 1.0,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__age"
+            ],
+            "score": 1.0,
+            "added_feature": "num__age"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__age",
+                "bin__rbc"
+            ],
+            "score": 1.0000000000000002,
+            "added_feature": "bin__rbc"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__age",
+                "bin__rbc",
+                "bin__htn"
+            ],
+            "score": 1.0000000000000002,
+            "added_feature": "bin__htn"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__age",
+                "bin__rbc",
+                "bin__htn",
+                "num__bgr"
+            ],
+            "score": 1.0000000000000002,
+            "added_feature": "num__bgr"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 10,
+    "n_trials_per_step": 35,
+    "patience": 2,
+    "model_key": "bnn"
+}

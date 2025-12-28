@@ -1,0 +1,29 @@
+{
+    "mean_uncertainty": 0.006315895821899176,
+    "std_uncertainty": 0.02325347065925598,
+    "median_uncertainty": 3.669975558295846e-05,
+    "max_uncertainty": 0.1413324922323227,
+    "min_uncertainty": 0.0,
+    "metrics_by_uncertainty_threshold": {
+        "uncertainty_0.05": {
+            "accuracy": 1.0,
+            "coverage": 0.9625,
+            "n_samples": 77
+        },
+        "uncertainty_0.1": {
+            "accuracy": 1.0,
+            "coverage": 0.975,
+            "n_samples": 78
+        },
+        "uncertainty_0.15": {
+            "accuracy": 1.0,
+            "coverage": 1.0,
+            "n_samples": 80
+        },
+        "uncertainty_0.2": {
+            "accuracy": 1.0,
+            "coverage": 1.0,
+            "n_samples": 80
+        }
+    }
+}

@@ -1,4 +1,4 @@
-"""Improved dipstick reading utils with better color comparison."""
+"""Dipstick reading utils with color comparison."""
 
 import math
 from pathlib import Path
@@ -154,7 +154,7 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
         samples_bgr = np.array(samples, dtype=np.uint8)
         samples_bgr = samples_bgr.reshape((9, 1, 3))
         samples_lab = cv2.cvtColor(samples_bgr, cv2.COLOR_BGR2LAB).reshape(9, 3) # pylint: disable=no-member
-        return np.median(samples_lab, axis=0)
+        return np.median(samples_lab, axis=0) # type: ignore
 
     # Convert to L*a*b* and calculate mean
     roi_lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB) # pylint: disable=no-member
@@ -254,7 +254,7 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
                 second_min_delta_e = delta_e
 
         # Assess confidence and store result
-        pad_name = dipstick_model.names[pad_id].replace("pad_", "").upper()
+        pad_name = dipstick_model.names[pad_id].replace("pad_", "")
 
         # Calculate confidence score based on separation between best and second-best
         if second_min_delta_e != float('inf'):

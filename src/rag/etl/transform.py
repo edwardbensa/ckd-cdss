@@ -40,7 +40,11 @@ def chunk_guidelines(data):
     chunked_dataset = []
 
     for entry in data:
+        idx = entry.get("rec_id") or entry.get("rationale_id") or entry.get("table_id")
         text = entry.get('text', '')
+        entry['full_text'] = entry['text']
+
+        logger.debug(f"Processing entry {idx} (len={len(text)})")
 
         # If text is short enough, keep as is
         if len(text) < char_limit:
@@ -49,32 +53,38 @@ def chunk_guidelines(data):
 
         # If text is too long, split
         chunks = splitter.split_text(text)
+        logger.info(f"Chunking {idx}: produced {len(chunks)} chunks")
 
         for i, chunk_text in enumerate(chunks):
             # Clean chunk text
             clean_text = chunk_text.strip()
             if len(clean_text) < 20:
+                logger.debug(f"Skipping tiny chunk {idx}_part{i+1} (len={len(clean_text)})")
                 continue
             if noise_pattern.match(clean_text):
+                logger.debug(f"Skipping noise chunk {idx}_part{i+1}: {clean_text[:40]}...")
                 continue
 
             new_entry = copy.deepcopy(entry)
 
             # Update the text
             new_entry['text'] = chunk_text
+            new_entry['full_text'] = text
 
             # Rebuild full_context for embedding, adding (Part X) to distinguish vectors
             base_context = f"{entry['section']} > {entry.get('subsection', 'General')}"
-            new_entry['full_context'] = f"{base_context} (Part {i+1}): {chunk_text}"
+            new_entry['full_context'] = f"{base_context} (Part {i+1}): {text}"
 
             # Update id
-            for id_key in ['rec_id', 'rationale_id']:
+            for id_key in ['rec_id', 'rationale_id', 'table_id']:
                 if id_key in new_entry:
                     new_entry[id_key] = f"{new_entry[id_key]}_part{i+1}"
 
             chunked_dataset.append(new_entry)
 
+    logger.success(f"Chunking complete. Produced {len(chunked_dataset)} entries.")
     return chunked_dataset
+
 
 # Execution
 if __name__ == "__main__":

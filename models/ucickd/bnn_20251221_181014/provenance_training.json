@@ -1,0 +1,24 @@
+{
+    "timestamp": "20251221_181100",
+    "selected_features": [
+        "bin__cad",
+        "num__hemo",
+        "bin__htn",
+        "num__d_bp",
+        "bin__appet_poor",
+        "num__sg",
+        "num__pcv",
+        "num__age",
+        "bin__dm"
+    ],
+    "optuna_best_params": {
+        "hidden_dim_1": 203,
+        "hidden_dim_2": 32,
+        "dropout": 0.2560947027839646,
+        "lr": 0.005605910752509265,
+        "epochs": 98,
+        "batch_size": 48
+    },
+    "optuna_best_score": 1.0,
+    "n_training_samples": 400
+}

@@ -1,0 +1,91 @@
+{
+    "timestamp": "20251218_214226",
+    "selected_features": [
+        "bin__female",
+        "num__acr",
+        "bin__htn",
+        "num__age",
+        "bin__cvd",
+        "num__egfr",
+        "bin__hf",
+        "bin__dm",
+        "num__time"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "bin__female",
+                "num__acr",
+                "bin__htn",
+                "num__age",
+                "bin__cvd"
+            ],
+            "score": 0.9543726108577694,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "bin__female",
+                "num__acr",
+                "bin__htn",
+                "num__age",
+                "bin__cvd",
+                "num__egfr"
+            ],
+            "score": 0.9889211695484772,
+            "added_feature": "num__egfr"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "bin__female",
+                "num__acr",
+                "bin__htn",
+                "num__age",
+                "bin__cvd",
+                "num__egfr",
+                "bin__hf"
+            ],
+            "score": 0.9914724280528571,
+            "added_feature": "bin__hf"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "bin__female",
+                "num__acr",
+                "bin__htn",
+                "num__age",
+                "bin__cvd",
+                "num__egfr",
+                "bin__hf",
+                "bin__dm"
+            ],
+            "score": 0.9926823713415509,
+            "added_feature": "bin__dm"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "bin__female",
+                "num__acr",
+                "bin__htn",
+                "num__age",
+                "bin__cvd",
+                "num__egfr",
+                "bin__hf",
+                "bin__dm",
+                "num__time"
+            ],
+            "score": 0.9943714431489322,
+            "added_feature": "num__time"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 5,
+    "n_trials_per_step": 10,
+    "patience": 2,
+    "model_key": "bnn"
+}

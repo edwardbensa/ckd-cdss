@@ -1,0 +1,23 @@
+{
+    "timestamp": "20251218_224008",
+    "selected_features": [
+        "bin__female",
+        "num__acr",
+        "bin__htn",
+        "num__age",
+        "bin__cvd",
+        "num__egfr",
+        "bin__hf",
+        "bin__dm",
+        "num__time"
+    ],
+    "optuna_best_params": {
+        "hidden_dim": 254,
+        "dropout": 0.20012118802892045,
+        "lr": 0.004697471715164642,
+        "epochs": 46,
+        "batch_size": 62
+    },
+    "optuna_best_score": 0.9980446305695038,
+    "n_training_samples": 54467
+}
