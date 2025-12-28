@@ -2,6 +2,7 @@
 
 # Imports
 import uuid
+import datetime
 import requests
 import streamlit as st
 from src.cdss.utils.db import get_all_patients, get_patient
@@ -59,7 +60,15 @@ if st.button("Ask"):
             st.stop()
 
         endpoint = f"{API_URL}/patient_chat/{session_id}"
-        payload = {"query": user_query, "patient": patient}
+        clean_patient = {}
+        for k, v in patient.items():
+            if isinstance(v, datetime.datetime):
+                clean_patient[k] = v.isoformat()  # Converts to "1987-01-08T00:00:00"
+            elif k == "_id":
+                clean_patient[k] = str(v)
+            else:
+                clean_patient[k] = v
+        payload = {"query": user_query, "patient": clean_patient}
 
     try:
         with st.spinner("Thinking..."):

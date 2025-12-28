@@ -180,8 +180,14 @@ def read_dipstick_image(uploaded):
 
 
 def decode_stream(response):
-    for line in response.iter_lines():
-        if line:
-            # Decode bytes to string
-            decoded = line.decode('utf-8') if isinstance(line, bytes) else line
-            yield decoded
+    """
+    Decodes a streaming response from the FastAPI backend.
+    Ensures that newlines and spaces are preserved for Markdown rendering.
+    """
+    try:
+        for chunk in response.iter_content(chunk_size=None):
+            if chunk:
+                token = chunk.decode("utf-8")
+                yield token
+    except ValueError as e:
+        yield f"\n\n**Stream Error:** {str(e)}"

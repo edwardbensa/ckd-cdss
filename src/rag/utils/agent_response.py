@@ -111,7 +111,7 @@ def synthesise_answer(query, retrieved, chat_history=None, patient_summary=None)
         "When answering:\n"
         "- Synthesise information from recommendations, rationales, and tables.\n"
         "- Provide a clear, concise clinical answer.\n"
-        "- Cite [Recommendation {rec_id}](Source url) "
+        "- Cite ([Recommendation {rec_id}](Source url)) "
         "or [Table {table_id}](Source url) "
         "or [Rationale {rationale_id}](Source url) when relevant.\n"
         "- Include URLs when available.\n"

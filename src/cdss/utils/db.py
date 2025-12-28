@@ -78,3 +78,15 @@ def next_patient_id():
             continue
 
     return max(ids) + 1 if ids else 1
+
+def serialize_mongo(data):
+    """Recursively convert ObjectId and datetime to string."""
+    if isinstance(data, list):
+        return [serialize_mongo(item) for item in data]
+    if isinstance(data, dict):
+        return {k: serialize_mongo(v) for k, v in data.items()}
+    if isinstance(data, datetime):
+        return data.isoformat()
+    if hasattr(data, "__str__") and "ObjectId" in str(type(data)):
+        return str(data)
+    return data

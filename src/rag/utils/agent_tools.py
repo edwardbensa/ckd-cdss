@@ -2,9 +2,11 @@
 
 # Imports
 import os
+import json
 import cohere
 import weaviate
 import numpy as np
+from openai import OpenAI
 from loguru import logger
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -16,6 +18,7 @@ from src.rag.utils.parsers import trim_chunks
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 co = cohere.Client(COHERE_API_KEY)
+client = OpenAI()
 
 
 def build_patient_summary(patient: dict):
@@ -277,94 +280,96 @@ def search_tables(query_text, top_k=10):
 
 
 
-TABLE_INTENT_PHRASES = [
-    "classification",
-    "classify",
-    "risk category",
-    "risk stratification",
-    "gfr category",
-    "acr category",
-    "monitoring frequency",
-    "dose regimen",
-    "dosing table",
-    "staging",
-    "stage of ckd",
-    "risk grid",
-    "risk chart",
-    "assess risk",
-    "table",
-    "chart",
-    "grid"
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "search_recommendations",
+            "description": "Retrieve clinical recommendations from NICE NG203 guidelines.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "The clinical search query."}
+                },
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_rationales",
+            "description": "Retrieve the 'why' and evidence behind recommendations. Use if the user asks for reasons or explanations.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "The clinical search query."}
+                },
+                "required": ["query"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_tables",
+            "description": "Retrieve staging, risk, or monitoring tables. Use for numbers, stages, or frequency of checks.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "The clinical search query."}
+                },
+                "required": ["query"],
+            },
+        },
+    }
 ]
 
-table_intent_vectors = embedder.encode(TABLE_INTENT_PHRASES)
-
-def should_search_tables(query: str, threshold=0.45):
-    """
-    Semantic table-intent detector using MiniLM embeddings.
-    Returns True if query is semantically close to table-related concepts.
-    """
-    q_vec = embedder.encode([query])
-    sims = cosine_similarity(q_vec, table_intent_vectors)[0]
-    max_sim = float(np.max(sims))
-
-    return max_sim >= threshold
-
-
-
-RATIONALE_TRIGGERS = ["why", "explain", "reason", "rationale", "impact"]
-rationale_intent_vectors = embedder.encode(RATIONALE_TRIGGERS)
-
-def should_search_rationales(query: str, threshold=0.5):
-    """
-    Semantic rationale-intent detector using MiniLM embeddings.
-    Returns True if query is semantically close to rationale-related concepts.
-    """
-    q_vec = embedder.encode([query])
-    sims = cosine_similarity(q_vec, rationale_intent_vectors)[0]
-    max_sim = float(np.max(sims))
-
-    return max_sim >= threshold
-
-
-def decide_tools(query: str):
-    """
-    Decide which retrieval tools to call based on the query.
-    Returns a dict like:
-    {
-        "recommendations": True,
-        "rationales": False,
-        "tables": True
-    }
-    """
-    # Always retrieve recommendations
-    use_recs = True
-
-    # Semantic rationale and table intent detection
-    use_rationales = should_search_rationales(query)
-    use_tables = should_search_tables(query)
-
-    return {
-        "recommendations": use_recs,
-        "rationales": use_rationales,
-        "tables": use_tables
-    }
-
 def retrieve_for_agent(query: str):
-    """Retrieve context for agent."""
-    tools = decide_tools(query)
+    """
+    Uses OpenAI Tool Calling to determine which search functions to run,
+    then executes them and returns the results.
+    """
+    
+    # Ask the model which tools to use
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are a clinical coordinator."
+            "Determine which guideline tools are needed to answer the user's query."},
+            {"role": "user", "content": query}
+        ],
+        tools=tools, # type: ignore
+        tool_choice="auto", # Allows the model to pick one, multiple, or none
+    )
+
+    response_message = response.choices[0].message
+    tool_calls = response_message.tool_calls
+
     results = {}
 
-    if tools["recommendations"]:
+    # If the model didn't call any tools, default to recommendations
+    if not tool_calls:
         results["recommendations"] = search_recommendations(query)
+        return results
 
-    if tools["rationales"]:
-        results["rationales"] = search_rationales(query)
+    # Map tool names to actual Python functions
+    available_functions = {
+        "search_recommendations": search_recommendations,
+        "search_rationales": search_rationales,
+        "search_tables": search_tables,
+    }
 
-    if tools["tables"]:
-        tables = search_tables(query)
-        if tables is not None:
-            results["tables"] = tables
+    # Execute the calls
+    for tool_call in tool_calls:
+        function_name = tool_call.function.name # type: ignore
+        function_to_call = available_functions[function_name]
+        function_args = json.loads(tool_call.function.arguments) # type: ignore
+        
+        # Execute and store results
+        results[function_name.replace("search_", "")] = function_to_call(
+            query=function_args.get("query")
+        )
 
     return results
 
