@@ -7,6 +7,7 @@ based on patient data and model predictions.
 from src.rag.utils.agent_tools import retrieve_for_agent, build_patient_summary
 from src.rag.utils.agent_response import synthesise_answer, ChatSession
 from src.rag.utils.parsers import extract_citations
+from src.rag.utils.queries import QUERIES
 
 history = []
 
@@ -55,19 +56,5 @@ def answer_query(query, session: ChatSession, mode="free", patient=None):
     }
 
 
-
-Q1 = "How should CKD patients be monitored for progression?"
-Q2 = "What's the rationale behind the renal ultrasound?"
-Q3 = "How should I assess the risk of adverse outcomes in adults?"
-
-# General CKD management
-T1 = {
-    1: "When should I refer a CKD patient to nephrology?",
-    2: "How often should I check ACR in someone with stable CKD?",
-    3: "What blood pressure target should I aim for in CKD?",
-    4: "How do I manage CKD in someone with diabetes?",
-    5: "What lifestyle advice should I give to someone with CKD?"
-}
-
 new_session = ChatSession()
-print(answer_query(T1[1], new_session))
+print(answer_query(QUERIES[1][1], new_session))

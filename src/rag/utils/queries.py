@@ -89,3 +89,5 @@ T10 = {
     4: "How do I assess and manage anaemia in CKD, including iron therapy?",
     5: "When is renal ultrasound indicated and what's the rationale behind it?"
 }
+
+QUERIES = [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]
