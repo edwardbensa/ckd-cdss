@@ -4,9 +4,30 @@
 import numpy as np
 import pandas as pd
 
+def compute_bmi(height, weight):
+    """Calculate BMI using height and weight."""
+    bmi = weight / (height / 100) ** 2
+    return round(bmi, 1)
+
+def simplify_ethnicity(ethnicity):
+    """Simplify the ethnicity entry."""
+    s_eth = ethnicity.apply(
+        lambda x: "Mixed" if "Mixed" in x else
+        "White" if "White" in x else
+        "Black" if "Black" in x else
+        "Asian" if "Asian" in x else
+        "South Asian" if "Indian" in x or "Pakistani" in x or "Bangladeshi" in x else
+        "Other")
+    return s_eth
+
+def black_ancestry(ethnicity):
+    """Use ethnicity to determine if there is black ancestry."""
+    eth_black = ethnicity.apply(lambda x: True if "Black" in x else False)
+    return eth_black
+
 
 def impute_acr(row, seed=42):
-    """Helper function to impute ACR based on confirmed_albuminuria flag."""
+    """Impute ACR based on confirmed_albuminuria flag."""
     acr = 0
     if row["confirmed_albuminuria"] is False and pd.isna(row["acr"]):
         # Impute based on normal distribution
@@ -21,7 +42,7 @@ def gfr_staging(row):
     """Determine GFR stage based on egfr and acr values."""
     stage = ""
     if row["egfr"] >= 90 and row["acr"] < 3:
-        stage = "No CKD"
+        stage = "notckd"
     elif row["egfr"] >= 90:
         stage = "G1"
     elif 89 >= row["egfr"] >= 60:
@@ -41,7 +62,7 @@ def acr_staging(row):
     """Determine ACR stage based on acr values."""
     stage = ""
     if row["acr"] < 3 and row["egfr"] >= 90:
-        stage = "No CKD"
+        stage = "notckd"
     elif 0 <= row["acr"] < 3:
         stage = "A1"
     elif 30 >= row["acr"] >= 3:
@@ -53,4 +74,4 @@ def acr_staging(row):
 
 def ckd_status(row):
     """Determine CKD status using gfr stage."""
-    return "CKD" if row["gfr_stage"] != "No CKD" else "No CKD"
+    return "ckd" if row["gfr_stage"] != "notckd" else "notckd"

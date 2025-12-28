@@ -6,9 +6,11 @@ from sklearn.impute import KNNImputer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from src.config import RAW_TABLES_DIR, TABLES_DIR
-from src.tabular.utils.dataset_utils import impute_acr, gfr_staging, acr_staging, ckd_status
+from src.tabular.utils.dataset_utils import (
+    compute_bmi, simplify_ethnicity, black_ancestry,
+    impute_acr, gfr_staging, acr_staging, ckd_status)
 
-df1=pd.read_csv(RAW_TABLES_DIR / 'hiddenckd.csv')
+df1 = pd.read_csv(RAW_TABLES_DIR / 'hiddenckd.csv')
 
 # Select relevant columns
 df1 = df1[[
@@ -26,13 +28,14 @@ df1 = df1.rename(columns={
     "date of event": "event_date",
     "height (cm)": "height_cm",
     "weight(kg)": "weight_kg",
-    "mean systolic bp": "systolic",
-    "mean diastolic bp": "diastolic",
+    "ethnicity": "eth", 
+    "mean systolic bp": "s_bp",
+    "mean diastolic bp": "d_bp",
     "medical conditions (summary)": "medical_conditions",
     "pre-existing conditions": "disclosed_conditions",
     "family history of ckd?": "family_kd",
     "current medications?": "current_medications",
-    "which device was used?": "device_used",
+    "which device was used?": "device",
     "true positive or negative": "confirmed_albuminuria",
     "uacr category": "screening_acr",
     "lab uacr": "acr",
@@ -42,14 +45,15 @@ df1 = df1.rename(columns={
 # Replace values
 df1["egfr"] = df1["egfr"].replace({">": "", "<": ""}, regex=True).astype(float)
 df1["screening_acr"] = df1["screening_acr"].replace({" ": ""}, regex=True)
+df1["screening_acr"] = df1["screening_acr"].apply(lambda x: "3-30" if len(x)>3 else x)
 df1["confirmed_albuminuria"] = df1["confirmed_albuminuria"].map({"True positive": True,
                                                                  "False positive": False})
 df1["family_kd"] = df1["family_kd"].replace({"Definitely yes": "yes",
                                              "Definitely not": "no",
                                              "Not sure": "unsure"})
-df1['ethnicity'] = df1['ethnicity'].str.strip().replace(
+df1['eth'] = df1['eth'].str.strip().replace(
     {'Black African' : 'Black African (unspecified)'})
-df1["device_used"] = df1["device_used"].str.strip().replace({
+df1["device"] = df1["device"].str.strip().replace({
     "Siemens device used": "Siemens Clinitek",
 })
 
@@ -64,9 +68,9 @@ df1["dob"] = pd.to_datetime(df1["dob"], dayfirst = True)
 df1["event_date"] = pd.to_datetime(df1["event_date"], dayfirst = True)
 df1["age"] = ((df1["event_date"] - df1["dob"]).dt.days / 365).round(1)  # type: ignore
 
-df1["has_htn"] = df1["comorbidities"].str.contains("HTN", na=False)
-df1["has_dm"] = df1["comorbidities"].str.contains("DM", na=False)
-df1["has_cvd"] = df1["comorbidities"].str.contains("Heart", na=False)
+df1["htn"] = df1["comorbidities"].str.contains("HTN", na=False)
+df1["dm"] = df1["comorbidities"].str.contains("DM", na=False)
+df1["cvd"] = df1["comorbidities"].str.contains("Heart", na=False)
 
 df1["bp_meds"] = df1["current_medications"].str.contains("Blood pressure", na=False)
 df1["dm_meds"] = df1["current_medications"].str.contains("Diabetes", na=False)
@@ -74,18 +78,15 @@ df1["chol_meds"] = df1["current_medications"].str.contains("Cholesterol", na=Fal
 
 df1["male"] = df1["gender"].map({"Male": True, "Female": False})
 
-df1["bmi"] = (df1["weight_kg"] / (df1["height_cm"] / 100) ** 2).round(1)
+df1["bmi"] = compute_bmi(df1["weight_kg"], df1["height_cm"])
 
-df1["s_ethnicity"] = df1["ethnicity"].apply(
-    lambda x: "Mixed" if "Mixed" in x else
-    "White" if "White" in x else
-    "Black" if "Black" in x else
-    "Asian" if "Asian" in x else
-    "South Asian" if "Indian" in x or "Pakistani" in x or "Bangladeshi" in x else
-    "Other")
+df1["s_eth"] = simplify_ethnicity(df1["eth"])
+df1["eth_black"] = black_ancestry(df1["eth"])
 
-# Copy dataframe
+# Copy dataframe and filter undiagnosed
 df2 = df1.copy()
+df2 = df2[df2["egfr"].isna()]
+df2 = df2.reset_index(drop=True)
 
 # Fiilter out rows
 df1 = df1[df1["egfr"].notna()]
@@ -99,7 +100,7 @@ df1["acr"] = df1.apply(impute_acr, axis=1)
 df1_imputed = df1.copy()
 
 # Encode categorical variables
-categorical_cols = ['s_ethnicity', 'family_kd', 'screening_acr']
+categorical_cols = ['s_eth', 'family_kd', 'screening_acr']
 label_encoders = {}
 for col in categorical_cols:
     le = LabelEncoder()
@@ -107,14 +108,14 @@ for col in categorical_cols:
     label_encoders[col] = le
 
 # Convert booleans to int
-bool_cols = ['male', 'has_htn', 'has_dm', 'has_cvd']
+bool_cols = ['male', 'htn', 'dm', 'cvd']
 df1_imputed[bool_cols] = df1_imputed[bool_cols].astype(int)
 
 # Select predictors for imputation
 impute_cols = [
     'acr', 'egfr', 'age', 'height_cm', 'weight_kg',
-    'systolic', 'diastolic', 'male', 'has_htn', 'has_dm', 'has_cvd',
-    's_ethnicity', 'family_kd'
+    's_bp', 'd_bp', 'male', 'htn', 'dm', 'cvd',
+    's_eth', 'family_kd'
 ]
 
 data_for_impute = df1_imputed[impute_cols]
@@ -143,12 +144,18 @@ df1["ckd_status"] = df1.apply(ckd_status, axis=1)
 
 # Final column selection
 df1 = df1[[
-    "male", "s_ethnicity", "age", "height_cm", "weight_kg",
-    "systolic", "diastolic", "has_htn", "has_dm", "has_cvd",
-    "bp_meds", "dm_meds", "chol_meds", "family_kd", "device_used",
+    "male", "eth", "s_eth", "eth_black", "dob", "age", "height_cm", "weight_kg", "bmi",
+    "s_bp", "d_bp", "htn", "dm", "cvd", "bp_meds", "dm_meds", "chol_meds", "family_kd", "device",
     "screening_acr", "confirmed_albuminuria", "acr", "egfr",
     "gfr_stage", "acr_stage", "ckd_status"
 ]]
 
+df2 = df2[[
+    "male", "eth", "s_eth", "eth_black", "dob", "age", "height_cm", "weight_kg", "bmi",
+    "s_bp", "d_bp", "htn", "dm", "cvd", "bp_meds", "dm_meds", "chol_meds",
+    "family_kd", "device", "screening_acr"
+]]
+
 # Save processed dataset
-df1.to_csv(TABLES_DIR / 'hiddenckd_01_processed.csv', index=False)
+df1.to_csv(TABLES_DIR / 'hiddenckd_01.csv', index=False)
+df2.to_csv(TABLES_DIR / 'hiddenckd_02.csv', index=False)

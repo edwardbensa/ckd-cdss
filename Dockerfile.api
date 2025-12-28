@@ -1,0 +1,47 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Set PYTHONPATH so 'src' module can be found
+ENV PYTHONPATH=/app
+
+# Create startup script that waits for Weaviate, runs ingestion, then starts API
+RUN echo '#!/bin/bash\n\
+set -e\n\
+\n\
+echo "Waiting for Weaviate to be ready..."\n\
+max_attempts=30\n\
+attempt=0\n\
+while [ $attempt -lt $max_attempts ]; do\n\
+    if curl -s -f http://weaviate:8080/v1/.well-known/ready > /dev/null 2>&1; then\n\
+        echo "Weaviate is ready!"\n\
+        break\n\
+    fi\n\
+    attempt=$((attempt + 1))\n\
+    echo "Waiting for Weaviate... attempt $attempt/$max_attempts"\n\
+    sleep 2\n\
+done\n\
+\n\
+if [ $attempt -eq $max_attempts ]; then\n\
+    echo "ERROR: Weaviate did not become ready in time"\n\
+    exit 1\n\
+fi\n\
+\n\
+echo "Starting data ingestion..."\n\
+python src/rag/etl/load.py || echo "Warning: Data ingestion failed or data already exists"\n\
+\n\
+echo "Starting FastAPI server..."\n\
+exec uvicorn src.rag.endpoints:app --host 0.0.0.0 --port 8000' > /app/start.sh && \
+chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]

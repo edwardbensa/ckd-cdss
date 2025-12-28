@@ -1,0 +1,89 @@
+{
+    "timestamp": "20251221_231607",
+    "selected_features": [
+        "nom__family_kd_unsure",
+        "num__diastolic",
+        "bin__has_htn",
+        "num__age",
+        "nom__family_kd_no",
+        "bin__has_dm",
+        "nom__family_kd_yes"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "nom__family_kd_unsure",
+                "num__diastolic",
+                "bin__has_htn",
+                "num__age",
+                "nom__family_kd_no"
+            ],
+            "score": 0.6878471088678577,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "nom__family_kd_unsure",
+                "num__diastolic",
+                "bin__has_htn",
+                "num__age",
+                "nom__family_kd_no",
+                "bin__has_dm"
+            ],
+            "score": 0.6992898689971412,
+            "added_feature": "bin__has_dm"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "nom__family_kd_unsure",
+                "num__diastolic",
+                "bin__has_htn",
+                "num__age",
+                "nom__family_kd_no",
+                "bin__has_dm",
+                "nom__family_kd_yes"
+            ],
+            "score": 0.7045215515796039,
+            "added_feature": "nom__family_kd_yes"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "nom__family_kd_unsure",
+                "num__diastolic",
+                "bin__has_htn",
+                "num__age",
+                "nom__family_kd_no",
+                "bin__has_dm",
+                "nom__family_kd_yes",
+                "bin__has_cvd"
+            ],
+            "score": 0.6951152167966835,
+            "added_feature": "bin__has_cvd"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "nom__family_kd_unsure",
+                "num__diastolic",
+                "bin__has_htn",
+                "num__age",
+                "nom__family_kd_no",
+                "bin__has_dm",
+                "nom__family_kd_yes",
+                "bin__has_cvd",
+                "num__systolic"
+            ],
+            "score": 0.6927013056077154,
+            "added_feature": "num__systolic"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 5,
+    "n_trials_per_step": 25,
+    "patience": 2,
+    "model_key": "deep_bnn"
+}

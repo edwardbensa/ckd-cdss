@@ -1,4 +1,4 @@
-"""Improved dipstick reading utils with better color comparison."""
+"""Dipstick reading utils with color comparison."""
 
 import math
 from pathlib import Path
@@ -254,7 +254,7 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
                 second_min_delta_e = delta_e
 
         # Assess confidence and store result
-        pad_name = dipstick_model.names[pad_id].replace("pad_", "").upper()
+        pad_name = dipstick_model.names[pad_id].replace("pad_", "")
 
         # Calculate confidence score based on separation between best and second-best
         if second_min_delta_e != float('inf'):

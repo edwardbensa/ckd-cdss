@@ -1,0 +1,30 @@
+{
+    "timestamp": "20251225_193223",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__al",
+        "num__age",
+        "num__bu",
+        "bin__rbc"
+    ],
+    "optuna_best_params": {
+        "hidden_dim_1": 237,
+        "hidden_dim_2": 31,
+        "dropout": 0.22924360836719615,
+        "lr": 0.00029386473923853667,
+        "epochs": 48,
+        "batch_size": 35
+    },
+    "optuna_best_score": 0.9998163954999001,
+    "n_training_samples": 1491
+}

@@ -23,4 +23,12 @@ langchain
 optuna
 xgboost
 sdv
--e .
+shap
+langchain-text-splitters
+sentence-transformers
+markdownify
+beautifulsoup4
+openai
+cohere
+fastapi
+uvicorn

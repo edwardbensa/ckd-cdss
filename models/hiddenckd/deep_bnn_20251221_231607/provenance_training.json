@@ -1,0 +1,23 @@
+{
+    "timestamp": "20251221_232212",
+    "selected_features": [
+        "nom__family_kd_unsure",
+        "num__diastolic",
+        "bin__has_htn",
+        "num__age",
+        "nom__family_kd_no",
+        "bin__has_dm",
+        "nom__family_kd_yes"
+    ],
+    "optuna_best_params": {
+        "n_models": 9,
+        "hidden_dim_1": 157,
+        "hidden_dim_2": 102,
+        "dropout": 0.23119963340033162,
+        "lr": 0.0007342639496480849,
+        "epochs": 46,
+        "batch_size": 56
+    },
+    "optuna_best_score": 0.7023711062045248,
+    "n_training_samples": 319
+}

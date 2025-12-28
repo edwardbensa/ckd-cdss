@@ -6,12 +6,12 @@ from src.tabular.utils.test_utils import evaluate_model
 
 train_specs = {
     "model_key": "bnn",
-    "dataset_name": "kfre",
-    "train_file": "kfre_train",
-    "target": "esrd",
+    "dataset_name": "ucickd",
+    "train_file": "ucickd_train",
+    "target": "ckd_status",
     "max_features": 20,
-    "n_initial_features": 5,
-    "n_trials_per_step": 10,
+    "n_initial_features": 10,
+    "n_trials_per_step": 35,
     "patience": 2,
     "n_trials_final": 75,
 }

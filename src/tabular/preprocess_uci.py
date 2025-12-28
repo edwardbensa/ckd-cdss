@@ -22,14 +22,14 @@ logger.info(f"Loaded dataset with shape: {df.shape}")
 
 
 # Define preprocessing
-num_features = ["age", "bp", "sg", "al", "su", "bgr", "bu",
+num_features = ["age", "d_bp", "sg", "al", "su", "bgr", "bu",
                 "sc", "sod", "pot", "hemo", "pcv", "wbcc", "rbcc"]
 num_transformer = Pipeline([
     ("power_transform", RobustScaler())
 ])
 
 bin_features = ["htn", "dm", "cad", "pe", "ane",
-                "rbc_ab", "pc_ab", "pcc_pr", "ba_pr", "appet_poor"]
+                "rbc", "pc", "pcc", "ba", "appet_poor"]
 bin_categories = [[False, True] for _ in bin_features]
 bin_transformer = Pipeline([
     ("ord_enc", OrdinalEncoder(categories=bin_categories))
@@ -90,5 +90,5 @@ test_df["ckd_status"] = y_test.values
 test_df.to_csv(INTERIM_TABLES_DIR / 'ucickd_test.csv', index=False)
 
 # Save preprocessing pipeline
-joblib.dump(preprocessor, MODELS_DIR / "ucimlrepo_ckd/preprocessor.joblib")
+joblib.dump(preprocessor, MODELS_DIR / "ucickd/preprocessor.joblib")
 print(test_df["ckd_status"].value_counts())
