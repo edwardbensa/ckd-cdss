@@ -107,16 +107,16 @@ def check_data_exists(client):
     """Check if data already exists in the collection."""
     if not client.collections.exists(COLLECTION_NAME):
         return False
-    
+
     collection = client.collections.get(COLLECTION_NAME)
     result = collection.aggregate.over_all(total_count=True)
     count = result.total_count
-    
+
     logger.info(f"Found {count} existing objects in {COLLECTION_NAME}")
     return count > 0
 
 if __name__ == "__main__":
-    # Connect to Weaviate - use environment variables in Docker
+    # Connect to Weaviate
     weaviate_client = weaviate.connect_to_custom(
         http_host=WEAVIATE_HOST, #type: ignore
         http_port=WEAVIATE_PORT,
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
         # Setup DB
         created = create_collection(weaviate_client)
-        
+
         if created:
             # Ingest recommendations
             logger.info(f"Loading recommendations from {chunked_rec_path}")
@@ -151,7 +151,7 @@ if __name__ == "__main__":
             logger.info(f"Loading rationales from {chunked_rat_path}")
             rats_data = load_json(chunked_rat_path)
             ingest_data(weaviate_client, rats_data)
-            
+
             logger.success("Data ingestion complete!")
         else:
             logger.info("Collection already exists. Skipping data ingestion.")

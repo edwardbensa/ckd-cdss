@@ -19,8 +19,7 @@ rat_json_path = GUIDELINES_DIR / "nice_ng203_rationale-and-impact.json"
 
 def make_splitter(chunk_size=500):
     """
-    Creates a splitter optimized for MiniLM (approx 256 tokens).
-    Since 1 token ~= 4 chars, 600-700 chars is a safe conservative limit.
+    Creates splitter optimised for MiniLM (256 tokens)
     """
     return RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,

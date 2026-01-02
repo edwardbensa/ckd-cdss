@@ -1,8 +1,9 @@
 """Modular training and testing script for tabular data."""
 
 # Imports
-from src.tabular.utils.train_utils import train_pipeline
-from src.tabular.utils.test_utils import evaluate_model
+#from src.tabular.utils.train_optuna.train import train_pipeline
+from src.tabular.utils.train_boed.train import train_pipeline
+from src.tabular.utils.test.test import evaluate_model
 
 train_specs = {
     "model_key": "bnn",
@@ -11,7 +12,7 @@ train_specs = {
     "target": "ckd_status",
     "max_features": 20,
     "n_initial_features": 10,
-    "n_trials_per_step": 35,
+    "n_trials_per_step": 25,
     "patience": 2,
     "n_trials_final": 75,
 }

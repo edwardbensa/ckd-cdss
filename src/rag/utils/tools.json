@@ -1,0 +1,53 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "search_recommendations",
+      "description": "Retrieve clinical recommendations from NICE NG203 guidelines.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The clinical search query."
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_rationales",
+      "description": "Retrieve the 'why' and evidence behind recommendations. Use if the user asks for reasons or explanations.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The clinical search query."
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_tables",
+      "description": "Retrieve staging, risk, or monitoring tables. Use for numbers, stages, or frequency of checks.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The clinical search query."
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  }
+]

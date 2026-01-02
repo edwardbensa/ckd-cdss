@@ -10,105 +10,109 @@ from src.cdss.utils.misc import decode_stream
 
 API_URL = "http://localhost:8000"
 
+st.set_page_config(page_title="CKD Clinical Assistant", layout="wide")
 st.title("Clinical Guidance Chat (NICE NG203)")
 
-# Create or load session ID
+# Initialise session state
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 
-session_id = st.session_state.session_id
+if "messages" not in st.session_state:
+    st.session_state.messages = []  # Store visual chat history
 
-# Mode selection
-mode = st.radio(
-    "Conversation Mode",
-    ["Free conversation", "Patient-focused"],
-    horizontal=True
-)
+# Sidebar: mode and patient selection
+with st.sidebar:
+    st.header("Settings")
+    mode = st.radio(
+        "Conversation Mode",
+        ["Free conversation", "Patient-focused"],
+        index=0
+    )
 
-patient = None
+    patient = None
+    if mode == "Patient-focused":
+        patients = get_all_patients()
+        patient_ids = [p["patient_id"] for p in patients]
+        selected_id = st.selectbox("Select Patient", [""] + patient_ids)
 
-# Patient Selection
-if mode == "Patient-focused":
-    patients = get_all_patients()
-    patient_ids = [p["patient_id"] for p in patients]
+        if selected_id:
+            patient = get_patient(selected_id)
+            st.success(f"Patient {selected_id} selected.")
+            with st.expander("View Patient Summary"):
+                st.json({k: v for k, v in patient.items() if k != "_id"}) # type: ignore
 
-    selected_id = st.selectbox("Select Patient", [""] + patient_ids)
+    if st.button("Clear Chat History"):
+        st.session_state.messages = []
+        st.session_state.session_id = str(uuid.uuid4())
+        st.rerun()
 
-    if selected_id:
-        patient = get_patient(selected_id)
+# Display Chat History
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+        if "citations" in message:
+            with st.expander("Citations"):
+                for c in message["citations"]:
+                    st.markdown(f"- [{c['id']}]({c['url']}) — {c['section']} ({c['type']})")
 
-        with st.expander("Patient Summary", expanded=True):
-            st.json({k: v for k, v in patient.items() if k != "_id"}) # type: ignore
+# Chat Input & Response Logic
+if prompt := st.chat_input("Ask a clinical question..."):
 
+    # Display User Message
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-# Chat Input
-user_query = st.text_area("Ask a clinical question:")
-
-if st.button("Ask"):
-    if not user_query.strip():
-        st.warning("Please enter a question.")
-        st.stop()
-
-    # Streaming Response
+    # Prepare Payload
     if mode == "Free conversation":
-        endpoint = f"{API_URL}/chat/{session_id}"
-        payload = {"query": user_query}
-
-    else:  # Patient-focused
-        if patient is None:
-            st.warning("Please select a patient first.")
+        endpoint = f"{API_URL}/chat/{st.session_state.session_id}"
+        payload = {"query": prompt}
+    else:
+        if not patient:
+            st.error("Please select a patient in the sidebar first.")
             st.stop()
 
-        endpoint = f"{API_URL}/patient_chat/{session_id}"
-        clean_patient = {}
-        for k, v in patient.items():
-            if isinstance(v, datetime.datetime):
-                clean_patient[k] = v.isoformat()  # Converts to "1987-01-08T00:00:00"
-            elif k == "_id":
-                clean_patient[k] = str(v)
-            else:
-                clean_patient[k] = v
-        payload = {"query": user_query, "patient": clean_patient}
+        endpoint = f"{API_URL}/patient_chat/{st.session_state.session_id}"
+        # Clean patient data for JSON serialization
+        clean_patient = {
+            k: (v.isoformat() if isinstance(v, datetime.datetime)
+                else (str(v) if k == "_id" else v))
+            for k, v in patient.items()
+        }
+        payload = {"query": prompt, "patient": clean_patient}
 
-    try:
-        with st.spinner("Thinking..."):
-            response = requests.post(endpoint, json=payload, stream=True, timeout=30)
+    # Generate Assistant Response
+    with st.chat_message("assistant"):
+        try:
+            # Container for streaming text
+            response_placeholder = st.empty()
+            full_response = ""
 
-            # Check for HTTP errors
-            if response.status_code != 200:
-                st.error(f"API Error: {response.status_code}")
-                st.code(response.text)
-                st.stop()
+            with st.spinner("Searching guidelines..."):
+                response = requests.post(endpoint, json=payload, stream=True, timeout=30)
+                if response.status_code != 200:
+                    st.error(f"API Error: {response.status_code}")
+                    st.stop()
 
-            st.markdown("### Recommendation")
+                # Stream response into the placeholder
+                full_response = st.write_stream(decode_stream(response))
 
-            answer = st.write_stream(decode_stream(response))
+            # Fetch Citations (Post-response)
+            citations = []
+            citations_resp = requests.post(f"{API_URL}/citations", json={"query": prompt}, timeout=30)
+            if citations_resp.status_code == 200:
+                citations = citations_resp.json().get("citations", [])
+                if citations:
+                    with st.expander("Citations"):
+                        for c in citations:
+                            st.markdown(f"- [{c['id']}]({c['url']}) — {c['section']} ({c['type']})")
 
-        # Fetch Citations
-        citations_response = requests.post(
-            f"{API_URL}/citations",
-            json={"query": user_query},
-            timeout=30
-        )
+            # Save Assistant Message to History
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "content": full_response,
+                "citations": citations
+            })
 
-        if citations_response.status_code == 200:
-            citations_data = citations_response.json()
-            citations = citations_data.get("citations", [])
-
-            if citations:
-                st.markdown("### Citations")
-                for c in citations:
-                    st.markdown(
-                        f"- [{c['id']}]({c['url']}) — {c['section']} ({c['type']})"
-                    )
-        else:
-            st.warning(f"Could not fetch citations: {citations_response.status_code}")
-
-    except requests.exceptions.ConnectionError:
-        st.error("Could not connect to API. Make sure RAG API is running at http://localhost:8000")
-    except requests.exceptions.Timeout:
-        st.error("Request timed out. The query may be taking too long to process.")
-    except requests.exceptions.JSONDecodeError as e:
-        st.error(f"Invalid JSON response from API: {e}")
-    except (ValueError, TypeError) as e:
-        st.error(f"An unexpected error occurred: {e}")
+        except (TimeoutError, TypeError, ValueError) as e:
+            st.error(f"An unexpected error occurred: {e}")

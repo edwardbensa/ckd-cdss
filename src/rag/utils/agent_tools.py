@@ -173,16 +173,16 @@ def search_by_type(query_text, obj_type, top_k=10, hybrid=True, cutoff=0.05):
 
 
 
-def search_recommendations(query_text, top_k=10):
+def search_recommendations(query, top_k=10):
     """
     Retrieve top-k recommendations most relevant to the query.
     """
-    recs = search_by_type(query_text, obj_type="recommendation", top_k=top_k)
+    recs = search_by_type(query, obj_type="recommendation", top_k=top_k)
     recs = trim_chunks(recs, obj_type="recommendation")
 
     # Build markdown
     md_lines = []
-    md_lines.append(f"## Top {len(recs)} Recommendations for: **{query_text}**\n")
+    md_lines.append(f"## Top {len(recs)} Recommendations for: **{query}**\n")
 
     for i, rec in enumerate(recs, start=1):
         rec_id = rec.get("rec_id")
@@ -208,14 +208,14 @@ def search_recommendations(query_text, top_k=10):
         }
 
 
-def search_rationales(query_text, top_k=10):
+def search_rationales(query, top_k=10):
     """
     Retrieve top-k rationale sections most relevant to the query.
     """
-    rats = search_by_type(query_text, obj_type="rationale", top_k=top_k)
+    rats = search_by_type(query, obj_type="rationale", top_k=top_k)
 
     md_lines = []
-    md_lines.append(f"## Top {len(rats)} Rationales for: **{query_text}**\n")
+    md_lines.append(f"## Top {len(rats)} Rationales for: **{query}**\n")
 
     for i, rat in enumerate(rats, start=1):
         rat_id = rat.get("rationale_id")
@@ -241,18 +241,18 @@ def search_rationales(query_text, top_k=10):
         }
 
 
-def search_tables(query_text, top_k=10):
+def search_tables(query, top_k=10):
     """
     Retrieve top-k tables most relevant to the query.
     """
-    tables = search_by_type(query_text, obj_type="table", top_k=top_k)
+    tables = search_by_type(query, obj_type="table", top_k=top_k)
     tables = trim_chunks(tables, obj_type="table")
     logger.info(f"Found {len(tables)} relevant tables.")
     if len(tables) == 0:
         return None
 
     md_lines = []
-    md_lines.append(f"## Top {len(tables)} Tables for: **{query_text}**\n")
+    md_lines.append(f"## Top {len(tables)} Tables for: **{query}**\n")
 
     for i, tbl in enumerate(tables, start=1):
         table_id = tbl.get("table_id")
@@ -278,6 +278,8 @@ def search_tables(query_text, top_k=10):
         }
 
 
+with open("src/rag/utils/tools.json", "r", encoding="utf-8") as f:
+    tools = json.load(f)
 
 tools = [
     {
@@ -329,7 +331,7 @@ def retrieve_for_agent(query: str):
     Uses OpenAI Tool Calling to determine which search functions to run,
     then executes them and returns the results.
     """
-    
+
     # Ask the model which tools to use
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -339,7 +341,7 @@ def retrieve_for_agent(query: str):
             {"role": "user", "content": query}
         ],
         tools=tools, # type: ignore
-        tool_choice="auto", # Allows the model to pick one, multiple, or none
+        tool_choice="auto",
     )
 
     response_message = response.choices[0].message
@@ -364,8 +366,6 @@ def retrieve_for_agent(query: str):
         function_name = tool_call.function.name # type: ignore
         function_to_call = available_functions[function_name]
         function_args = json.loads(tool_call.function.arguments) # type: ignore
-        
-        # Execute and store results
         results[function_name.replace("search_", "")] = function_to_call(
             query=function_args.get("query")
         )
