@@ -1,0 +1,32 @@
+{
+    "timestamp": "20260102_161619",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__al",
+        "num__bgr",
+        "bin__htn"
+    ],
+    "botorch_best_params": {
+        "n_models": 9,
+        "dropout": 0.5707059955394407,
+        "lr": 0.0019396806804067653,
+        "epochs": 68,
+        "batch_size": 71,
+        "hidden_dims": [
+            133,
+            72
+        ]
+    },
+    "botorch_best_score": 0.9997655122655124,
+    "n_training_samples": 1491
+}

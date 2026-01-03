@@ -35,7 +35,7 @@ acr_transformer = Pipeline([
     ("ordinal", OrdinalEncoder(categories=acr_categories))
 ])
 
-bin_features = ["male", "htn", "dm", "cvd"]
+bin_features = ["male", "htn", "dm"]
 bin_categories = [[False, True] for _ in bin_features]
 bin_transformer = Pipeline([
     ("bin_enc", OrdinalEncoder(categories=bin_categories))
@@ -50,10 +50,26 @@ preprocessor = ColumnTransformer(
     ]
 )
 
+def remove_outliers_iqr(numeric_cols, multiplier=1.5):
+    """Remove outliers from numeric columns using the iqr rule."""
+    clean_df = df.copy()
+    for col in numeric_cols:
+        q1 = clean_df[col].quantile(0.25)
+        q3 = clean_df[col].quantile(0.75)
+        iqr = q3 - q1
+        lower = q1 - multiplier * iqr
+        upper = q3 + multiplier * iqr
+        clean_df = clean_df[(clean_df[col] >= lower) & (clean_df[col] <= upper)]
+    return clean_df
+
+# Outlier removal
+logger.info("Removing outliers using iqr method...")
+df_clean = remove_outliers_iqr(num_features)
+logger.info(f"Shape after outlier removal: {df_clean.shape}")
 
 # Split raw data
-X = df[num_features + nom_features + acr_features + bin_features]
-y = df["ckd_status"]
+X = df_clean[num_features + nom_features + acr_features + bin_features]
+y = df_clean["ckd_status"]
 
 X_train_raw, X_test_raw, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42

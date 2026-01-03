@@ -1,0 +1,26 @@
+{
+    "timestamp": "20260102_090332",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__hemo",
+        "num__al",
+        "bin__appet_poor",
+        "num__age"
+    ],
+    "botorch_best_params": {
+        "C": 2.0983027299866133,
+        "penalty": "l2"
+    },
+    "botorch_best_score": 0.9995402920833956,
+    "n_training_samples": 1491
+}

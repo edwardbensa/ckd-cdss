@@ -2,13 +2,13 @@
 
 # Imports
 #from src.tabular.utils.train_optuna.train import train_pipeline
-from src.tabular.utils.train_boed.train import train_pipeline
+from src.tabular.utils.train_botorch.train import train_pipeline
 from src.tabular.utils.test.test import evaluate_model
 
 train_specs = {
     "model_key": "bnn",
-    "dataset_name": "ucickd",
-    "train_file": "ucickd_train",
+    "dataset_name": "hiddenckd",
+    "train_file": "hiddenckd_train",
     "target": "ckd_status",
     "max_features": 20,
     "n_initial_features": 10,
@@ -24,6 +24,7 @@ test_specs = {
     "model_dir": model_dir,
     "test_file": train_specs["train_file"][:-5] + "test",
     "target": train_specs["target"],
+    "compute_shap": True
 }
 
 evaluate_model(test_specs)

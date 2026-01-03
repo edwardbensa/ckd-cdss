@@ -1,0 +1,27 @@
+{
+    "timestamp": "20260102_071003",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__pot",
+        "num__age",
+        "bin__htn",
+        "num__al",
+        "num__bgr",
+        "bin__appet_poor"
+    ],
+    "botorch_best_params": {
+        "n_estimators": 36
+    },
+    "botorch_best_score": 0.9994775998173564,
+    "n_training_samples": 1491
+}

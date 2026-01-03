@@ -1,0 +1,218 @@
+{
+    "timestamp": "20260102_063027",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__hemo",
+        "bin__htn",
+        "num__age",
+        "num__al",
+        "num__pot"
+    ],
+    "history": [
+        {
+            "step": 0,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe"
+            ],
+            "score": 0.9974105386668775,
+            "added_feature": null
+        },
+        {
+            "step": 1,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc"
+            ],
+            "score": 0.9990316212691974,
+            "added_feature": "num__rbcc"
+        },
+        {
+            "step": 2,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo"
+            ],
+            "score": 0.9993242187156994,
+            "added_feature": "num__hemo"
+        },
+        {
+            "step": 3,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn"
+            ],
+            "score": 0.9994232348111659,
+            "added_feature": "bin__htn"
+        },
+        {
+            "step": 4,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn",
+                "num__age"
+            ],
+            "score": 0.9994412723292033,
+            "added_feature": "num__age"
+        },
+        {
+            "step": 5,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn",
+                "num__age",
+                "num__al"
+            ],
+            "score": 0.9994592476489028,
+            "added_feature": "num__al"
+        },
+        {
+            "step": 6,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn",
+                "num__age",
+                "num__al",
+                "num__pot"
+            ],
+            "score": 0.9994864905209733,
+            "added_feature": "num__pot"
+        },
+        {
+            "step": 7,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn",
+                "num__age",
+                "num__al",
+                "num__pot",
+                "num__bu"
+            ],
+            "score": 0.999450228889884,
+            "added_feature": "num__bu"
+        },
+        {
+            "step": 8,
+            "selected_features": [
+                "bin__pc",
+                "num__wbcc",
+                "num__d_bp",
+                "num__pcv",
+                "num__sc",
+                "num__sod",
+                "bin__dm",
+                "num__sg",
+                "num__su",
+                "bin__pe",
+                "num__rbcc",
+                "num__hemo",
+                "bin__htn",
+                "num__age",
+                "num__al",
+                "num__pot",
+                "num__bu",
+                "num__bgr"
+            ],
+            "score": 0.9994592476489028,
+            "added_feature": "num__bgr"
+        }
+    ],
+    "max_features": 20,
+    "n_initial_features": 10,
+    "n_trials_per_step": 25,
+    "batch_size": 4,
+    "patience": 2,
+    "model_key": "xgb"
+}

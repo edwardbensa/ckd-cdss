@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PowerTransformer, OneHotEncoder, OrdinalEncoder
 from sklearn.impute import SimpleImputer
-from imblearn.under_sampling import RepeatedEditedNearestNeighbours
+from imblearn.combine import SMOTEENN
 from imblearn.pipeline import Pipeline as ImbPipeline
 from sdv.single_table import TVAESynthesizer
 from sdv.metadata import SingleTableMetadata
@@ -55,10 +55,26 @@ preprocessor = ColumnTransformer(
     ]
 )
 
+def remove_outliers_iqr(numeric_cols, multiplier=1.5):
+    """Remove outliers from numeric columns using the iqr rule."""
+    clean_df = df.copy()
+    for col in numeric_cols:
+        q1 = clean_df[col].quantile(0.25)
+        q3 = clean_df[col].quantile(0.75)
+        iqr = q3 - q1
+        lower = q1 - multiplier * iqr
+        upper = q3 + multiplier * iqr
+        clean_df = clean_df[(clean_df[col] >= lower) & (clean_df[col] <= upper)]
+    return clean_df
+
+# Outlier removal
+logger.info("Removing outliers using iqr method...")
+df_clean = remove_outliers_iqr(num_features)
+logger.info(f"Shape after outlier removal: {df_clean.shape}")
 
 # Split raw data
-X = df[num_features + nom_features + acr_features + bin_features]
-y = df["ckd_status"]
+X = df_clean[num_features + nom_features + acr_features + bin_features]
+y = df_clean["ckd_status"]
 
 X_train_raw, X_test_raw, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
@@ -70,9 +86,7 @@ X_train_raw, X_test_raw, y_train, y_test = train_test_split(
 )
 logger.info(f"Train shape: {X_train_raw.shape}, Test shape: {X_test_raw.shape}")
 
-# -------------------------------
 # SDV augmentation step
-# -------------------------------
 logger.info("Training TVAESynthesizer on training data...")
 train_df = X_train_raw.copy()
 train_df["ckd_status"] = y_train.values
@@ -93,17 +107,15 @@ augmented_df = pd.concat([train_df, synthetic_df], ignore_index=True)
 X_train_aug = augmented_df[num_features + nom_features + acr_features + bin_features]
 y_train_aug = augmented_df["ckd_status"]
 
-# -------------------------------
 # Build ImbLearn pipeline
-# -------------------------------
 resampling_pipeline = ImbPipeline(steps=[
     ("preprocess", preprocessor),
-    ("smote_tomek", RepeatedEditedNearestNeighbours())
+    ("smote_enn", SMOTEENN(random_state=42))
 ])
 
 # Transform augmented train set
 logger.info("Fitting preprocessing + SMOTEENN on augmented training data...")
-X_resampled, y_resampled = resampling_pipeline.fit_resample(X_train_aug, y_train_aug)  # type: ignore
+X_resampled, y_resampled= resampling_pipeline.fit_resample(X_train_aug, y_train_aug)  # type: ignore
 logger.info(f"Class distribution after resampling:\n{y_resampled.value_counts()}")
 
 # Transform test set

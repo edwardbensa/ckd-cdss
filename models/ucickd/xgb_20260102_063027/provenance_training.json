@@ -1,0 +1,35 @@
+{
+    "timestamp": "20260102_063032",
+    "selected_features": [
+        "bin__pc",
+        "num__wbcc",
+        "num__d_bp",
+        "num__pcv",
+        "num__sc",
+        "num__sod",
+        "bin__dm",
+        "num__sg",
+        "num__su",
+        "bin__pe",
+        "num__rbcc",
+        "num__hemo",
+        "bin__htn",
+        "num__age",
+        "num__al",
+        "num__pot"
+    ],
+    "botorch_best_params": {
+        "n_estimators": 873,
+        "max_depth": 7,
+        "learning_rate": 0.08571264749134512,
+        "subsample": 0.8790438700426869,
+        "colsample_bytree": 0.6772629840649342,
+        "min_child_weight": 9.736282219554129,
+        "gamma": 8.931211213221976,
+        "reg_lambda": 1.298775203222132,
+        "reg_alpha": 0.006005578269385878,
+        "scale_pos_weight": 4.933849535406825
+    },
+    "botorch_best_score": 0.9994864905209733,
+    "n_training_samples": 1491
+}
