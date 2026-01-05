@@ -179,6 +179,7 @@ def search_recommendations(query, top_k=10):
     """
     recs = search_by_type(query, obj_type="recommendation", top_k=top_k)
     recs = trim_chunks(recs, obj_type="recommendation")
+    logger.info(f"Found {len(recs)} relevant recommendations.")
 
     # Build markdown
     md_lines = []
@@ -214,6 +215,7 @@ def search_rationales(query, top_k=10):
     """
     rats = search_by_type(query, obj_type="rationale", top_k=top_k)
 
+    logger.info(f"Found {len(rats)} relevant rationale chunks.")
     md_lines = []
     md_lines.append(f"## Top {len(rats)} Rationales for: **{query}**\n")
 
@@ -337,7 +339,9 @@ def retrieve_for_agent(query: str):
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are a clinical coordinator."
-            "Determine which guideline tools are needed to answer the user's query."},
+            "Determine which guideline tools are needed to answer the user's query."
+            "When calling tools, always pass the user's full query verbatim as the 'query' argument."
+            "Do not summarise or rephrase the user's input under any circumstances."},
             {"role": "user", "content": query}
         ],
         tools=tools, # type: ignore
@@ -348,6 +352,7 @@ def retrieve_for_agent(query: str):
     tool_calls = response_message.tool_calls
 
     results = {}
+    called_functions = set()
 
     # If the model didn't call any tools, default to recommendations
     if not tool_calls:
@@ -364,11 +369,14 @@ def retrieve_for_agent(query: str):
     # Execute the calls
     for tool_call in tool_calls:
         function_name = tool_call.function.name # type: ignore
+        called_functions.add(function_name)
         function_to_call = available_functions[function_name]
         function_args = json.loads(tool_call.function.arguments) # type: ignore
         results[function_name.replace("search_", "")] = function_to_call(
             query=function_args.get("query")
         )
+    if "search_recommendations" not in called_functions:
+        results["recommendations"] = search_recommendations(query)
 
     return results
 

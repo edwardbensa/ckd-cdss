@@ -7,7 +7,7 @@ based on patient data and model predictions.
 from src.rag.utils.agent_tools import retrieve_for_agent, build_patient_summary
 from src.rag.utils.agent_response import synthesise_answer, ChatSession
 from src.rag.utils.parsers import extract_citations
-from src.rag.utils.queries import QUERIES
+from src.rag.utils.queries1 import QUERIES
 
 history = []
 

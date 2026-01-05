@@ -4,7 +4,11 @@ import json
 from pathlib import Path
 import streamlit as st
 import pandas as pd
+import numpy as np
 import joblib
+import shap
+from src.cdss.config import MODEL_FOLDER_PATH, TEST_DATA
+
 
 @st.cache_resource
 def load_diagnostic_model(model_folder_path):
@@ -15,15 +19,31 @@ def load_diagnostic_model(model_folder_path):
     preprocessor_path = Path(model_folder_path).parent / "preprocessor.joblib"
 
     # Load model, provenance and preprocessor
-    model = joblib.load(model_path)
-    preprocessor = joblib.load(preprocessor_path)
+    bnn_model = joblib.load(model_path)
+    bnn_preprocessor = joblib.load(preprocessor_path)
     with open(prov_path, "r", encoding="utf-8") as f:
-        provenance = json.load(f)
+        bnn_provenance = json.load(f)
 
-    return model, preprocessor, provenance
+    return bnn_model, bnn_preprocessor, bnn_provenance
+
+# Load model and store in session state
+try:
+    model, preprocessor, provenance = load_diagnostic_model(MODEL_FOLDER_PATH)
+    selected_features = provenance["selected_features"]
+
+    # Store in session state
+    st.session_state["model"] = model
+    st.session_state["preprocessor"] = preprocessor
+    st.session_state["provenance"] = provenance
+
+except (FileNotFoundError, KeyError, ValueError) as e:
+    st.error(f"Error loading model: {e}")
+    st.info("Please ensure the model path is correct in config.py")
+    st.stop()
 
 
 def as_scalar(x):
+    """Convert to scalar"""
     if x is None:
         return 0
     if hasattr(x, "detach"):
@@ -33,18 +53,8 @@ def as_scalar(x):
     return float(x)
 
 
-def predict_single(model, preprocessor, provenance, patient_data):
-    """
-    Make prediction for a single patient with preprocessor.
-    
-    Args:
-        model: Trained BNN model
-        preprocessor: Feature preprocessor (can be None)
-        patient_data: Dict with patient features
-    
-    Returns:
-        dict with probability, uncertainty, and other metrics
-    """
+def predict_single(patient_data):
+    """Make prediction for a single patient with preprocessor."""
     patient_df = pd.DataFrame([patient_data])
 
     # Transform and get feature names
@@ -55,7 +65,6 @@ def predict_single(model, preprocessor, provenance, patient_data):
         X_transformed = X_transformed.toarray()
 
     X_df = pd.DataFrame(X_transformed, columns=feature_names)
-    selected_features = provenance["selected_features"]
     X_test = X_df[selected_features].values
 
     # Ensure 2D array
@@ -80,23 +89,97 @@ def predict_single(model, preprocessor, provenance, patient_data):
     }
 
 
-def predict_batch(model, preprocessor, provenance, patients_data):
-    """
-    Make predictions for multiple patients.
-    
-    Args:
-        model: Trained BNN model
-        preprocessor: Feature preprocessor (can be None)
-        patients_data: List of dicts with patient features
-    
-    Returns:
-        list of prediction dicts
-    """
+def predict_batch(patients_data):
+    """Make predictions for multiple patients."""
     results = []
 
     for patient_data in patients_data:
-        pred_result = predict_single(model, preprocessor, provenance, patient_data)
+        pred_result = predict_single(patient_data)
         pred_result['patient_id'] = patient_data.get('patient_id', 'Unknown')
         results.append(pred_result)
 
     return results
+
+
+# SHAP
+@st.cache_data
+def get_background(test_data_path):
+    """Get background data for SHAP from test set."""
+    df = pd.read_csv(test_data_path)
+    X_background = df[selected_features].values
+
+    # Sample if too large (for performance)
+    if len(X_background) > 100:
+        indices = np.random.choice(len(X_background), 100, replace=False)
+        X_background = X_background[indices]
+
+    return X_background
+
+
+@st.cache_resource
+def get_explainer(test_data_path):
+    """Create and cache the SHAP explainer."""
+    background = get_background(test_data_path)
+    explainer = shap.KernelExplainer(lambda x: model.predict_proba(x)[:, 1], background)
+
+    return explainer
+
+
+def plot_css():
+    """Adaptive CSS for light and dark mode."""
+    adaptive_css = """
+    <style>
+        body {
+            background-color: white !important;
+            padding: 5px;
+        }
+        text {
+            fill: #333 !important;
+        }
+        .tick text {
+            fill: #333 !important;
+        }
+        svg {
+            background-color: white !important;
+        }
+        .label {
+            color: #333 !important;
+        }
+    </style>
+    """
+    return adaptive_css
+
+
+def shap_force_plot(patient_data):
+    """Generate interactive SHAP force plot (HTML) for a single patient."""
+    explainer = get_explainer(TEST_DATA)
+
+    # Process specific patient
+    patient_df = pd.DataFrame([patient_data])
+    X_transformed = preprocessor.transform(patient_df)
+    feature_names = preprocessor.get_feature_names_out()
+
+    if hasattr(X_transformed, "toarray"):
+        X_transformed = X_transformed.toarray()
+
+    X_df = pd.DataFrame(X_transformed, columns=feature_names)
+    X_patient = X_df[selected_features].values
+
+    if X_patient.ndim == 1:
+        X_patient = X_patient.reshape(1, -1)
+
+    # Compute patient SHAP values 
+    shap_values = explainer.shap_values(X_patient, nsamples=100)
+
+    # Generate force plot for this patient
+    shap.initjs()
+    force_plot = shap.force_plot(
+        explainer.expected_value,
+        shap_values[0],
+        X_patient[0],
+        feature_names=selected_features
+    )
+
+    shap_html = f"<head>{shap.getjs()}{plot_css()}</head><body>{force_plot.html()}</body>"
+
+    return shap_html

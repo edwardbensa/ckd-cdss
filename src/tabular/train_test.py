@@ -6,7 +6,7 @@ from src.tabular.utils.train_botorch.train import train_pipeline
 from src.tabular.utils.test.test import evaluate_model
 
 train_specs = {
-    "model_key": "bnn",
+    "model_key": "nb",
     "dataset_name": "hiddenckd",
     "train_file": "hiddenckd_train",
     "target": "ckd_status",
@@ -24,7 +24,7 @@ test_specs = {
     "model_dir": model_dir,
     "test_file": train_specs["train_file"][:-5] + "test",
     "target": train_specs["target"],
-    "compute_shap": True
+    "compute_shap": False
 }
 
 evaluate_model(test_specs)

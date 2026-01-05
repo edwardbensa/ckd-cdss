@@ -7,20 +7,17 @@ from datetime import datetime
 import streamlit as st
 import pandas as pd
 from src.cdss.utils.db import get_all_patients, get_patient, update_patient
-from src.cdss.utils.models import load_diagnostic_model, predict_single
+from src.cdss.utils.models import predict_single, preprocessor, provenance
 from src.cdss.utils.recommendations import generate_recommendations
 from src.cdss.utils.data import FIELD_REGISTRY, render_field
 from src.cdss.utils.misc import display_results, run_batch_predictions
-from src.cdss.config import MODEL_FOLDER_PATH
 
 st.title("CKD Diagnostic Prediction")
 st.markdown("---")
 
 # Load model
 try:
-    model, preprocessor, provenance = load_diagnostic_model(MODEL_FOLDER_PATH)
     selected_features = provenance["selected_features"]
-
     DISPLAY_FIELDS = [feat.split("__", 1)[1] for feat in selected_features]
 
     st.sidebar.success("Model loaded successfully!")
@@ -43,7 +40,7 @@ mode = st.radio("Select Testing Mode:", ["Single Patient", "Batch Testing"], hor
 if mode == "Single Patient":
     st.subheader("Single Patient Diagnostic Prediction")
 
-    input_method = st.radio("Input Method:", ["Load from Database", "Manual Entry"], horizontal=True)
+    input_method = st.radio("Input Method:",["Load from Database", "Manual Entry"], horizontal=True)
 
     # Load from database
     if input_method == "Load from Database":
@@ -81,7 +78,7 @@ if mode == "Single Patient":
             # Run Prediction Button
             if st.button("Run Diagnostic Prediction", type="primary", icon=":material/play_arrow:"):
                 with st.spinner("Running diagnostic analysis..."):
-                    result = predict_single(model, preprocessor, provenance, patient_data)
+                    result = predict_single(patient_data)
 
                 # Store results in session_state
                 st.session_state["last_prediction"] = {
@@ -141,7 +138,7 @@ if mode == "Single Patient":
 
             if test_submitted:
                 with st.spinner("Running diagnostic analysis..."):
-                    result = predict_single(model, preprocessor, provenance, values)
+                    result = predict_single(values)
 
                 st.session_state["last_prediction"] = {
                     "probability": result["probability"],
@@ -187,7 +184,7 @@ else:
             st.dataframe(df_preview.loc[:, preview_cols], use_container_width=True)
 
         if st.button("Run Batch Diagnostics", type="primary", use_container_width=True):
-            run_batch_predictions(pending_patients, model, preprocessor, provenance, DISPLAY_FIELDS)
+            run_batch_predictions(pending_patients, DISPLAY_FIELDS)
 
     # Define range of patient IDs
     elif batch_mode == "Test ID Range":
@@ -227,7 +224,7 @@ else:
                 st.dataframe(df_preview.loc[:, preview_cols], use_container_width=True)
 
             if st.button("Run Diagnostics for Selected Range", type="primary", use_container_width=True):
-                run_batch_predictions(selected_patients, model, preprocessor, provenance, DISPLAY_FIELDS)
+                run_batch_predictions(selected_patients, DISPLAY_FIELDS)
         else:
             st.info("No patients found in this ID range.")
 
@@ -244,4 +241,4 @@ else:
 
             if st.button("Test Uploaded Patients", type="primary", use_container_width=True):
                 patients_data = df.to_dict("records")
-                run_batch_predictions(patients_data, model, preprocessor, provenance, DISPLAY_FIELDS)
+                run_batch_predictions(patients_data, DISPLAY_FIELDS)

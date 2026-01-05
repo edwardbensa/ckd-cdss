@@ -17,7 +17,7 @@ DIPSTICK_MODEL_PATH = MODELS_DIR / "dipstick_read/simple_03/weights/best.pt"
 DEVICE = 'cpu' if not torch.backends.mps.is_available() else 'mps'
 
 # Thresholds
-DELTA_E_THRESHOLD = 25.0  # Mark results as uncertain if delta E exceeds this
+DELTA_E_THRESHOLD = 25.0  # Results uncertain if delta E exceeds this
 CONFIDENCE_THRESHOLD = 0.7
 
 # Pad index to reference index mapping
@@ -48,10 +48,6 @@ def correct_rotation(image_path, model):
     """
     Uses a YOLO model to find the 'strip annotation' and determines the
     rotation correction needed to move it to the left of frame.
-
-    Args:
-        image_path (Path or str): Path to image.
-        model (YOLO): Loaded Ultralytics model.
     """
     # Run inference
     results = model.predict(image_path, iou=0.7, conf=0.5, verbose=False)[0]
@@ -65,13 +61,13 @@ def correct_rotation(image_path, model):
         return None
 
     # Get box centre coordinates
-    x_center, y_center = strip_boxes[0].xywh[0][0].item(), strip_boxes[0].xywh[0][1].item()
+    x_centre, y_centre = strip_boxes[0].xywh[0][0].item(), strip_boxes[0].xywh[0][1].item()
 
     # Get image dimensions
     height, width = results.orig_shape
 
-    dx = x_center - width/2
-    dy = y_center - height/2
+    dx = x_centre - width/2
+    dy = y_centre - height/2
 
     if abs(dx) > abs(dy):
         # Strip is left or right
@@ -104,7 +100,7 @@ def calculate_delta_e(lab1, lab2, method='ciede2000'):
         db = lab1[2] - lab2[2]
         return math.sqrt(dL**2 + da**2 + db**2)
 
-def sample_color_lab(img, box, sample_method='center_weighted'):
+def sample_color_lab(img, box, sample_method='centre_weighted'):
     """
     Samples color from a bounding box region with improved accuracy.
     
@@ -112,12 +108,9 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
         img: BGR image (OpenCV format)
         box: [x_min, y_min, x_max, y_max]
         sample_method: 
-            - 'center_weighted': Sample center 60% of region (default)
-            - 'grid': 9-point grid sampling with median
-            - 'full': Average entire region
-    
-    Returns:
-        Average L*a*b* color tuple or None if invalid
+            'centre_weighted': Sample centre 60% of region (default)
+            'grid': 9-point grid sampling with median
+            'full': Average entire region
     """
     x_min, y_min, x_max, y_max = map(int, box)
     x_min, y_min = max(0, x_min), max(0, y_min)
@@ -129,9 +122,9 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
         logger.warning(f"Empty ROI detected for box {box}")
         return None
 
-    # Apply sampling strategy
-    if sample_method == 'center_weighted':
-        # Sample center 60% to avoid edge effects (shadows, reflections)
+    # Apply sampling strat
+    if sample_method == 'centre_weighted':
+        # Sample centre 60% to avoid edge effects (shadows, reflections)
         h, w = roi_bgr.shape[:2]
         margin_h = int(h * 0.2)
         margin_w = int(w * 0.2)
@@ -162,13 +155,13 @@ def sample_color_lab(img, box, sample_method='center_weighted'):
 
     return avg_lab
 
-def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_method='ciede2000'):
+def read_dipstick(image_path: Path, sample_method='centre_weighted', delta_e_method='ciede2000'):
     """
     Performs inference and color comparison to determine dipstick results.
     
     Args:
         image_path: Path to dipstick image
-        sample_method: Color sampling strategy ('center_weighted', 'grid', 'full')
+        sample_method: Color sampling strategy ('centre_weighted', 'grid', 'full')
         delta_e_method: Color distance metric ('ciede2000' or 'cie76')
     
     Returns:
@@ -199,7 +192,7 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
     all_boxes = {}
     for box in detections:
         class_id = int(box.cls[0])
-        if 0 <= class_id <= 19:  # Only pads (0-9) and references (10-19)
+        if 0 <= class_id <= 19:
             if class_id not in all_boxes:
                 all_boxes[class_id] = []
             all_boxes[class_id].append({
@@ -226,9 +219,9 @@ def read_dipstick(image_path: Path, sample_method='center_weighted', delta_e_met
         if pad_lab is None:
             continue
 
-        # Sample all reference squares for this test
+        # Sample all reference squares
         ref_boxes = all_boxes[ref_id]
-        ref_boxes.sort(key=lambda x: x['coords'][0])  # Sort by x-coordinate (left to right)
+        ref_boxes.sort(key=lambda x: x['coords'][0])
 
         min_delta_e = float('inf')
         second_min_delta_e = float('inf')

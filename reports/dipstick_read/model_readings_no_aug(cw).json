@@ -1,0 +1,652 @@
+[
+    {
+        "image": "t1.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 2.07,
+                "confidence": "medium",
+                "detection_conf": 0.92
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 9.7,
+                "confidence": "medium",
+                "detection_conf": 0.95
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.51,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 5.35,
+                "confidence": "high",
+                "detection_conf": 0.96
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 9.45,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 3.98,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 6.0,
+                "confidence": "medium",
+                "detection_conf": 0.86
+            },
+            "protein": {
+                "value": "+30(0.3)",
+                "delta_e": 2.6,
+                "confidence": "low",
+                "detection_conf": 0.93
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 1.53,
+                "confidence": "high",
+                "detection_conf": 0.82
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 6.07,
+                "confidence": "medium",
+                "detection_conf": 0.87
+            }
+        }
+    },
+    {
+        "image": "t2.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 5.64,
+                "confidence": "medium",
+                "detection_conf": 0.95
+            },
+            "glucose": {
+                "value": "100(5.5)",
+                "delta_e": 11.6,
+                "confidence": "low",
+                "detection_conf": 0.94
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 3.53,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 6.75,
+                "confidence": "medium",
+                "detection_conf": 0.96
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 10.21,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 6.26,
+                "confidence": "low",
+                "detection_conf": 0.92
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 8.14,
+                "confidence": "low",
+                "detection_conf": 0.91
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 7.25,
+                "confidence": "low",
+                "detection_conf": 0.93
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 6.25,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 8.41,
+                "confidence": "medium",
+                "detection_conf": 0.95
+            }
+        }
+    },
+    {
+        "image": "t3.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 6.11,
+                "confidence": "medium",
+                "detection_conf": 0.92
+            },
+            "glucose": {
+                "value": "100(5.5)",
+                "delta_e": 14.31,
+                "confidence": "low",
+                "detection_conf": 0.89
+            },
+            "bilirubin": {
+                "value": "+++",
+                "delta_e": 11.74,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 7.13,
+                "confidence": "medium",
+                "detection_conf": 0.95
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 9.83,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 7.6,
+                "confidence": "low",
+                "detection_conf": 0.93
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 9.65,
+                "confidence": "low",
+                "detection_conf": 0.85
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 8.94,
+                "confidence": "low",
+                "detection_conf": 0.94
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 6.91,
+                "confidence": "high",
+                "detection_conf": 0.88
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 9.6,
+                "confidence": "medium",
+                "detection_conf": 0.93
+            }
+        }
+    },
+    {
+        "image": "t10.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 4.13,
+                "confidence": "medium",
+                "detection_conf": 0.89
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 18.01,
+                "confidence": "medium",
+                "detection_conf": 0.94
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.5,
+                "confidence": "high",
+                "detection_conf": 0.89
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 3.47,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 24.5,
+                "confidence": "high",
+                "detection_conf": 0.96
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 5.0,
+                "confidence": "low",
+                "detection_conf": 0.92
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 5.38,
+                "confidence": "high",
+                "detection_conf": 0.95
+            },
+            "protein": {
+                "value": "trace",
+                "delta_e": 4.83,
+                "confidence": "low",
+                "detection_conf": 0.92
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 1.89,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 3.05,
+                "confidence": "high",
+                "detection_conf": 0.92
+            }
+        }
+    },
+    {
+        "image": "t7.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 4.86,
+                "confidence": "medium",
+                "detection_conf": 0.93
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 19.4,
+                "confidence": "medium",
+                "detection_conf": 0.91
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.58,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 4.07,
+                "confidence": "high",
+                "detection_conf": 0.96
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 20.77,
+                "confidence": "high",
+                "detection_conf": 0.94
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 4.75,
+                "confidence": "medium",
+                "detection_conf": 0.94
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 5.14,
+                "confidence": "high",
+                "detection_conf": 0.87
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 4.62,
+                "confidence": "low",
+                "detection_conf": 0.9
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 3.58,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 4.86,
+                "confidence": "high",
+                "detection_conf": 0.93
+            }
+        }
+    },
+    {
+        "image": "t6.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 2.42,
+                "confidence": "medium",
+                "detection_conf": 0.73
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 22.77,
+                "confidence": "low",
+                "detection_conf": 0.94
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 5.19,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 4.25,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 22.82,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "blood": {
+                "value": "non hemolysis+10",
+                "delta_e": 9.28,
+                "confidence": "medium",
+                "detection_conf": 0.77
+            },
+            "ph": {
+                "value": "5",
+                "delta_e": 9.34,
+                "confidence": "low",
+                "detection_conf": 0.87
+            },
+            "protein": {
+                "value": "trace",
+                "delta_e": 10.64,
+                "confidence": "low",
+                "detection_conf": 0.91
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 4.37,
+                "confidence": "high",
+                "detection_conf": 0.82
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 5.53,
+                "confidence": "high",
+                "detection_conf": 0.83
+            }
+        }
+    },
+    {
+        "image": "t4.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 5.79,
+                "confidence": "medium",
+                "detection_conf": 0.88
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 18.94,
+                "confidence": "low",
+                "detection_conf": 0.84
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 5.51,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 6.37,
+                "confidence": "high",
+                "detection_conf": 0.89
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 20.37,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 7.36,
+                "confidence": "low",
+                "detection_conf": 0.94
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 8.23,
+                "confidence": "high",
+                "detection_conf": 0.81
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 9.54,
+                "confidence": "low",
+                "detection_conf": 0.84
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 3.28,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 2.03,
+                "confidence": "high",
+                "detection_conf": 0.95
+            }
+        }
+    },
+    {
+        "image": "t5.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 2.81,
+                "confidence": "medium",
+                "detection_conf": 0.88
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 15.23,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.54,
+                "confidence": "medium",
+                "detection_conf": 0.91
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 4.36,
+                "confidence": "high",
+                "detection_conf": 0.91
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 15.47,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 3.82,
+                "confidence": "medium",
+                "detection_conf": 0.9
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 5.34,
+                "confidence": "high",
+                "detection_conf": 0.83
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 4.66,
+                "confidence": "low",
+                "detection_conf": 0.92
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 3.96,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 4.85,
+                "confidence": "high",
+                "detection_conf": 0.95
+            }
+        }
+    },
+    {
+        "image": "t8.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 3.28,
+                "confidence": "medium",
+                "detection_conf": 0.89
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 16.88,
+                "confidence": "medium",
+                "detection_conf": 0.94
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.61,
+                "confidence": "high",
+                "detection_conf": 0.92
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 3.94,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 24.12,
+                "confidence": "high",
+                "detection_conf": 0.85
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 4.54,
+                "confidence": "medium",
+                "detection_conf": 0.96
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 4.99,
+                "confidence": "high",
+                "detection_conf": 0.88
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 4.51,
+                "confidence": "low",
+                "detection_conf": 0.9
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 2.41,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 3.09,
+                "confidence": "high",
+                "detection_conf": 0.91
+            }
+        }
+    },
+    {
+        "image": "t9.jpg",
+        "results": {
+            "urobilinogen": {
+                "value": "0.1",
+                "delta_e": 3.61,
+                "confidence": "medium",
+                "detection_conf": 0.9
+            },
+            "glucose": {
+                "value": "neg",
+                "delta_e": 17.64,
+                "confidence": "medium",
+                "detection_conf": 0.9
+            },
+            "bilirubin": {
+                "value": "neg",
+                "delta_e": 4.59,
+                "confidence": "high",
+                "detection_conf": 0.95
+            },
+            "ketones": {
+                "value": "neg",
+                "delta_e": 4.0,
+                "confidence": "high",
+                "detection_conf": 0.9
+            },
+            "SG": {
+                "value": "1.060",
+                "delta_e": 23.76,
+                "confidence": "high",
+                "detection_conf": 0.86
+            },
+            "blood": {
+                "value": "neg",
+                "delta_e": 4.43,
+                "confidence": "low",
+                "detection_conf": 0.9
+            },
+            "ph": {
+                "value": "6",
+                "delta_e": 4.78,
+                "confidence": "high",
+                "detection_conf": 0.89
+            },
+            "protein": {
+                "value": "neg",
+                "delta_e": 4.55,
+                "confidence": "low",
+                "detection_conf": 0.93
+            },
+            "nitrite": {
+                "value": "neg",
+                "delta_e": 2.21,
+                "confidence": "high",
+                "detection_conf": 0.93
+            },
+            "leukocytes": {
+                "value": "neg",
+                "delta_e": 2.86,
+                "confidence": "high",
+                "detection_conf": 0.92
+            }
+        }
+    }
+]

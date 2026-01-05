@@ -95,7 +95,7 @@ def build_context(retrieved: dict, patient_summary=None):
 
     if patient_summary:
         context["patient_summary"] = patient_summary
-        
+
     for key, value in retrieved.items():
         # Check if value is a dict and has the markdown key
         if value and isinstance(value, dict) and "markdown" in value:

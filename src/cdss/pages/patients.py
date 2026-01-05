@@ -3,6 +3,7 @@ Patient CRUD operations page
 """
 
 from datetime import datetime
+import streamlit.components.v1 as components
 import streamlit as st
 import pandas as pd
 from src.cdss.utils.misc import read_dipstick_image
@@ -14,6 +15,13 @@ from src.cdss.utils.data import (
     FIELD_REGISTRY, render_field, compute_derived_fields,
     validate_dates, group_fields_by_section
 )
+from src.cdss.utils.models import shap_force_plot
+
+# Ensure model loaded
+if not all(k in st.session_state for k in ["model", "preprocessor", "provenance"]):
+    st.warning("Model not loaded. Please visit the Predictions page first.")
+    st.stop()
+
 
 
 st.title("Patient Management")
@@ -129,6 +137,33 @@ with tab2:
                 st.caption("Click the image to enlarge it.")
         else:
             st.info("No dipstick images found for any patients.")
+
+
+        diagnosed_patients = [p for p in patients if "predicted_diagnosis" in p]
+
+        st.markdown("### Model Explanation (SHAP Force Plot)")
+
+        if diagnosed_patients:
+            shap_selected = st.selectbox(
+                "Select a diagnosed patient to view their SHAP explanation:",
+                [""] + [p["patient_id"] for p in diagnosed_patients],
+                key="shap_patient_select"
+            )
+
+            if shap_selected:
+                patient = next(p for p in diagnosed_patients if p["patient_id"] == shap_selected)
+
+                st.info(f"Generating SHAP explanation for patient {shap_selected}...")
+
+                # Remove MongoDB internal fields
+                patient_clean = {k: v for k, v in patient.items() if k not in ["_id"]}
+
+                # SHAP force plot
+                shap_html = shap_force_plot(patient_clean)
+                components.html(shap_html, height=150)
+        else:
+            st.info("No diagnosed patients available for SHAP explanations.")
+
 
 
 # Update

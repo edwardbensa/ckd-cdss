@@ -1,4 +1,5 @@
 """CDSS configuration settings"""
+from src.config import INTERIM_DATA_DIR
 
 # MongoDB settings
 MONGODB_URI = "mongodb://localhost:27017/"
@@ -7,6 +8,7 @@ COLLECTION_NAME = "patients"
 
 # Model settings
 MODEL_FOLDER_PATH = "models/ucickd/bnn_20251225_192634"
+TEST_DATA = INTERIM_DATA_DIR / "tabular_data/ucickd_test.csv"
 
 # Feature mapping from database fields to model features
 FEATURE_MAP = {

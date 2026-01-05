@@ -17,7 +17,7 @@ def compute_shap(model, X_test, is_bnn=False):
     logger.info("Computing SHAP values for model interpretability...")
 
     try:
-        # For BNN/neural models, use Kernel or Sampling explainer
+        # For BNN/neural models
         if is_bnn:
             # Use a subset for background (faster computation)
             background = shap.sample(X_test, min(100, len(X_test)))
@@ -27,7 +27,7 @@ def compute_shap(model, X_test, is_bnn=False):
             )
             shap_values = explainer.shap_values(X_test, nsamples=100)
         else:
-            # Try TreeExplainer for tree-based models
+            # TreeExplainer for tree-based models
             try:
                 explainer = shap.TreeExplainer(model)
                 shap_values = explainer.shap_values(X_test)

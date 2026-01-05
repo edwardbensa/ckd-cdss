@@ -41,19 +41,19 @@ def impute_acr(row, seed=42):
 def gfr_staging(row):
     """Determine GFR stage based on egfr and acr values."""
     stage = ""
-    if row["egfr"] >= 90 and row["acr"] < 3:
+    if round(row["egfr"]) >= 90 and round(row["acr"]) < 3:
         stage = "notckd"
-    elif row["egfr"] >= 90:
+    elif round(row["egfr"]) >= 90:
         stage = "G1"
-    elif 89 >= row["egfr"] >= 60:
+    elif 89 >= round(row["egfr"]) >= 60:
         stage = "G2"
-    elif 59 >= row["egfr"] >= 45:
+    elif 59 >= round(row["egfr"]) >= 45:
         stage = "G3a"
-    elif 44 >= row["egfr"] >= 30:
+    elif 44 >= round(row["egfr"]) >= 30:
         stage = "G3b"
-    elif 29 >= row["egfr"] >= 15:
+    elif 29 >= round(row["egfr"]) >= 15:
         stage = "G4"
-    elif row["egfr"] < 15:
+    elif round(row["egfr"]) < 15:
         stage = "G5"
 
     return stage
@@ -61,13 +61,13 @@ def gfr_staging(row):
 def acr_staging(row):
     """Determine ACR stage based on acr values."""
     stage = ""
-    if row["acr"] < 3 and row["egfr"] >= 90:
+    if round(row["acr"]) < 3 and round(row["egfr"]) >= 90:
         stage = "notckd"
-    elif 0 <= row["acr"] < 3:
+    elif 0 <= round(row["acr"]) < 3:
         stage = "A1"
-    elif 30 >= row["acr"] >= 3:
+    elif 30 >= round(row["acr"]) >= 3:
         stage = "A2"
-    elif row["acr"] > 30:
+    elif round(row["acr"]) > 30:
         stage = "A3"
 
     return stage

@@ -54,7 +54,7 @@ def has_required_features(patient, required_features):
     )
 
 
-def run_batch_predictions(patients, model, preprocessor, provenance, fields):
+def run_batch_predictions(patients, fields):
     # Filter out incomplete records
     valid_patients = [
         p for p in patients
@@ -84,7 +84,7 @@ def run_batch_predictions(patients, model, preprocessor, provenance, fields):
         pid = patient.get("patient_id", f"ID_{i}")
         status_text.text(f"Testing patient {pid}... ({i+1}/{len(valid_patients)})")
 
-        result = predict_single(model, preprocessor, provenance, patient)
+        result = predict_single(patient)
         probability = result["probability"]
         uncertainty = result["uncertainty"]
         recommendations = generate_recommendations(probability, uncertainty)
